@@ -41,3 +41,18 @@ python manage.py makemigrations # model.py에 변경사항이 있는 경우에�
 python manage.py migrate # model.py에 변경사항이 있는 경우에만
 python manage.py runserver
 ```
+
+## Google maps api
+
+```bash
+from urllib.parse import quote
+from urllib.request import Request, urlopen
+import ssl
+import json
+
+kor_url = quote('서울특별시 서초구 서초2동 서초대로74길 14')
+API_key = "API_key"
+
+url = 'https://maps.googleapis.com/maps/api/geocode/json?address='+ kor_url +'&key=' + API_key + '&language=ko&region=KR'
+req = Request(url, headers={ 'X-Mashape-Key': API_key })
+```
