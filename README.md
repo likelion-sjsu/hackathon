@@ -45,6 +45,7 @@ python manage.py runserver
 ## Google maps api
 
 ```bash
+pip install googlemaps
 from urllib.parse import quote
 from urllib.request import Request, urlopen
 import ssl
