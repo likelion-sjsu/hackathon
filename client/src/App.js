@@ -1,8 +1,14 @@
+import React from "react";
 import { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "./Routes/Home";
 import TabBar from "./components/TabBar";
 import Header from "./components/Header";
+import SelectMode from "Routes/SelectMode";
+import SelectCategory from "Routes/SelectCategory";
+import Result from "Routes/Result";
+import Food from "Routes/Food";
+import Activity from "Routes/Activity";
 
 function App() {
   return (
@@ -13,6 +19,11 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/mode" element={<SelectMode />} />
+          <Route path="/category" element={<SelectCategory />} />
+          <Route path="/category/food" element={<Food />} />
+          <Route path="/category/activity" element={<Activity />} />
+          <Route path="/result" element={<Result />} />
         </Routes>
         <TabBar />
       </BrowserRouter>
