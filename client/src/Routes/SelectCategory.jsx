@@ -1,5 +1,6 @@
+import { SERVER_URL } from "api";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.main`
@@ -18,7 +19,7 @@ const CenterBox = styled.div`
   gap: 20px;
 `;
 
-const CategoryBtn = styled(Link)`
+const CategoryBtn = styled.button`
   text-decoration: underline;
   color: blue;
   cursor: pointer;
@@ -26,16 +27,43 @@ const CategoryBtn = styled(Link)`
 
 export default function SelectCategory() {
   const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
+  const navigate = useNavigate();
 
-  console.log(roomInfo);
+  const onclick = async (category) => {
+    console.log(category);
+
+    if (roomInfo.role === "individual") {
+      navigate(`${category}`);
+    } else {
+      const formData = new FormData();
+      formData.append("category", category);
+      const res = await fetch(`${SERVER_URL}/room/`, {
+        method: "POST",
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (res.ok) {
+        localStorage.setItem(
+          "roomInfo",
+          JSON.stringify({
+            role: "leader",
+            code: data.code,
+            category: category,
+          })
+        );
+        navigate(`${category}`);
+      }
+    }
+  };
 
   return (
     <Container>
       <Link to={"/mode"}>뒤로가기</Link>
       <CenterBox>
-        <CategoryBtn to={"./food"}>음식</CategoryBtn>
-        <CategoryBtn to={"./activity"}>액티비티</CategoryBtn>
-        <CategoryBtn to={"./travel"}>여행</CategoryBtn>
+        <CategoryBtn onClick={() => onclick("food")}>음식</CategoryBtn>
+        <CategoryBtn onClick={() => onclick("activity")}>액티비티</CategoryBtn>
+        <CategoryBtn onClick={() => onclick("travel")}>여행</CategoryBtn>
       </CenterBox>
     </Container>
   );

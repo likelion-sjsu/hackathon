@@ -62,12 +62,6 @@ export default function SelectMode() {
   };
 
   const onClickCreateRoom = () => {
-    const code = "1234";
-    // 서버에서 방만들고 코드 받기
-    localStorage.setItem(
-      "roomInfo",
-      JSON.stringify({ role: "leader", code: code })
-    );
     navigate("/category");
   };
 
