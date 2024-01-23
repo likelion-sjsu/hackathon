@@ -7,22 +7,19 @@ import Header from "./components/Header";
 import SelectMode from "Routes/SelectMode";
 import SelectCategory from "Routes/SelectCategory";
 import Result from "Routes/Result";
-import Food from "Routes/Food";
-import Activity from "Routes/Activity";
+import Questions from "Routes/Questions";
 
 function App() {
   return (
     <>
       <GlobalStyle />
-
       <BrowserRouter>
         <Header />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/mode" element={<SelectMode />} />
           <Route path="/category" element={<SelectCategory />} />
-          <Route path="/category/food" element={<Food />} />
-          <Route path="/category/activity" element={<Activity />} />
+          <Route path="/category/:category" element={<Questions />} />
           <Route path="/result" element={<Result />} />
         </Routes>
         <TabBar />

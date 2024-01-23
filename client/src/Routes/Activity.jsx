@@ -1,3 +1,4 @@
+import React from "react";
 export default function Activity() {
-  return null;
+  return <div>Activity</div>;
 }
