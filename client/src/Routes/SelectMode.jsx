@@ -57,9 +57,6 @@ export default function SelectMode() {
 
     console.log(res.status, data);
     if (res.ok) {
-      // 방의 카테고리 정보를 가져와서
-      // 1. 방이 없으면 에러메세지
-      // 2. 성공하면
       localStorage.setItem(
         "roomInfo",
         JSON.stringify({ role: "member", code: data.code })
@@ -70,11 +67,11 @@ export default function SelectMode() {
     } else {
       alert("뭐야 이건");
     }
-
     resetField("code");
   };
 
   const onClickCreateRoom = () => {
+    localStorage.setItem("roomInfo", JSON.stringify({ role: "leader" }));
     navigate("/category");
   };
 
