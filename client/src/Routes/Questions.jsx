@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Food from "./Food";
 import Activity from "./Activity";
 import Travel from "./Travel";
-import { codeAtom } from "atoms";
+import { roundAtom } from "atoms";
 import { useRecoilValue } from "recoil";
 
 const Container = styled.main`
@@ -19,9 +19,9 @@ const Container = styled.main`
 export default function Questions() {
   const { category } = useParams();
   const navigate = useNavigate();
-  const code = useRecoilValue(codeAtom);
+  const round = useRecoilValue(roundAtom);
 
-  console.log(code);
+  console.log(round);
 
   return (
     <Container>

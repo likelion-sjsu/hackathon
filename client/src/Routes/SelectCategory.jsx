@@ -1,4 +1,4 @@
-import { codeAtom } from "atoms";
+import { roundAtom } from "atoms";
 import React from "react";
 import { Link } from "react-router-dom";
 import { useRecoilValue } from "recoil";
@@ -27,9 +27,9 @@ const CategoryBtn = styled(Link)`
 `;
 
 export default function SelectCategory() {
-  const code = useRecoilValue(codeAtom);
+  const round = useRecoilValue(roundAtom);
 
-  console.log(code);
+  console.log(round);
 
   return (
     <Container>

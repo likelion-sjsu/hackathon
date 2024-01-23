@@ -1,6 +1,9 @@
 import { atom } from "recoil";
 
-export const codeAtom = atom({
+export const roundAtom = atom({
   key: "code",
-  default: "no-code",
+  default: {
+    role: "individual",
+    code: "no-code",
+  },
 });

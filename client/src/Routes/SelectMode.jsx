@@ -1,4 +1,4 @@
-import { codeAtom } from "atoms";
+import { roundAtom } from "atoms";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -49,24 +49,28 @@ export default function SelectMode() {
     resetField,
     formState: { errors },
   } = useForm();
-  const setCode = useSetRecoilState(codeAtom);
+  const setRound = useSetRecoilState(roundAtom);
 
-  const onClicklEnterRoom = ({ digit }) => {
-    resetField("digit");
+  const onClicklEnterRoom = ({ code }) => {
+    resetField("code");
     // 방의 카테고리 정보를 가져와서
-    // 해당 페이지로 리디렉트 해주고 스테이트로 방코드 넘기기
-    // navigate('/food', state: {digit: xxxx})
+    // 성공하면
+    setRound({ role: "", code: code });
+    // navigate('/food', state: {code: xxxx})
     navigate("/category/food");
   };
 
   const onClickCreateRoom = () => {
     const code = "1234";
     // 서버에서 방만들고 코드 받기
-    setCode(code);
+    setRound({ role: "creater", code: code });
     navigate("/category");
   };
 
-  useEffect(() => setCode("no-code"), [setCode]);
+  useEffect(
+    () => setRound({ role: "individual", code: "no-code" }),
+    [setRound]
+  );
 
   return (
     <Container>
@@ -76,14 +80,14 @@ export default function SelectMode() {
         <div>방 입장하기</div>
         <Form onSubmit={handleSubmit(onClicklEnterRoom)}>
           <input
-            {...register("digit", {
+            {...register("code", {
               minLength: { value: 4, message: "4자리 숫자를 입력해주세요." },
               maxLength: { value: 4, message: "4자리 숫자를 입력해주세요." },
             })}
             type="number"
             placeholder="4자리 숫자 입력하세요"
           />
-          {errors.digit && (
+          {errors.code && (
             <ErrorMsg>{errors.digit.message.toString()}</ErrorMsg>
           )}
           <input type="submit" />
