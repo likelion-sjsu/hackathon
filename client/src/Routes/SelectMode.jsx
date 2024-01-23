@@ -1,3 +1,4 @@
+import { SERVER_URL } from "api";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
@@ -48,16 +49,28 @@ export default function SelectMode() {
     formState: { errors },
   } = useForm();
 
-  const onClicklEnterRoom = ({ code }) => {
+  const onClicklEnterRoom = async ({ code }) => {
     resetField("code");
-    // 방의 카테고리 정보를 가져와서
-    // 1. 방이 없으면 에러메세지
-    // 2. 성공하면
-    localStorage.setItem(
-      "roomInfo",
-      JSON.stringify({ role: "member", code: code })
-    );
-    navigate("/category/food");
+
+    const res = await fetch(`${SERVER_URL}/room/${code}`);
+    const data = await res.json();
+
+    console.log(res.status, data);
+    if (res.ok) {
+      // 방의 카테고리 정보를 가져와서
+      // 1. 방이 없으면 에러메세지
+      // 2. 성공하면
+      localStorage.setItem(
+        "roomInfo",
+        JSON.stringify({ role: "member", code: data.code })
+      );
+      navigate("/category/food");
+    } else if (res.status === 404) {
+      alert("그런 방이 없어");
+    } else {
+      alert("뭐야 이건");
+    }
+
     resetField("code");
   };
 
@@ -89,9 +102,7 @@ export default function SelectMode() {
             type="number"
             placeholder="4자리 숫자 입력하세요"
           />
-          {errors.code && (
-            <ErrorMsg>{errors.digit.message.toString()}</ErrorMsg>
-          )}
+          {errors.code && <ErrorMsg>{errors.code.message.toString()}</ErrorMsg>}
           <input type="submit" />
         </Form>
       </CenterBox>
