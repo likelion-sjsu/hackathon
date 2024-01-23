@@ -14,14 +14,21 @@ class RoomListAPI(APIView):
         return Response(serializer.data)
     
     def post(self, request):
+        category = request.data['category']
         instance = Room()
         code= instance.generate_short_identifier()
-
-        # Add the generated room_id to the request data
-        request.data['code'] = code
+        
+        data = {
+            'code': code,
+            'category': category
+        }
+        
+        print(category)
+        if category not in ['food', 'activity', 'travel']:
+            return Response({'detail': "category not allowed"}, status=status.HTTP_404_NOT_FOUND)
 
         # Deserialize the request data using RoomSerializer
-        room_serializer = RoomSerializer(data=request.data)
+        room_serializer = RoomSerializer(data=data)
 
         # Check if the serialized data is valid
         if room_serializer.is_valid():
@@ -36,9 +43,9 @@ class RoomListAPI(APIView):
 
 
 class RoomAPI(APIView):
-    def get(self, request, room_id):
+    def get(self, request, code):
         try:
-            room = Room.objects.get(room_id=room_id)
+            room = Room.objects.get(code=code)
             serializer = RoomSerializer(room)
             return Response(serializer.data)
         except: 

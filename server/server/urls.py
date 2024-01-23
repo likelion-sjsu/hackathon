@@ -21,5 +21,5 @@ from room.views import RoomAPI, RoomListAPI
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('room/', RoomListAPI.as_view()),
-    path('room/<uuid:room_id>/', RoomAPI.as_view()),
+    path('room/<int:code>', RoomAPI.as_view()),
 ]
