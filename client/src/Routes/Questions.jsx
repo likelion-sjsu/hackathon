@@ -4,8 +4,6 @@ import styled from "styled-components";
 import Food from "./Food";
 import Activity from "./Activity";
 import Travel from "./Travel";
-import { roundAtom } from "atoms";
-import { useRecoilValue } from "recoil";
 
 const Container = styled.main`
   display: flex;
@@ -19,18 +17,19 @@ const Container = styled.main`
 export default function Questions() {
   const { category } = useParams();
   const navigate = useNavigate();
-  const round = useRecoilValue(roundAtom);
+  const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
 
-  console.log(round);
+  console.log(roomInfo);
 
   return (
     <Container>
+      {roomInfo.role === "leader" && <div>코드는 {roomInfo.code}야</div>}
       <div>
         <button onClick={() => navigate(-1)}>뒤로가기</button>
         <h1>질문 받는다</h1>
       </div>
       {category === "food" ? (
-        <Food />
+        <Food roomInfo={roomInfo} />
       ) : category === "activity" ? (
         <Activity />
       ) : category === "travel" ? (

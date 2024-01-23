@@ -8,6 +8,7 @@ import SelectMode from "Routes/SelectMode";
 import SelectCategory from "Routes/SelectCategory";
 import Result from "Routes/Result";
 import Questions from "Routes/Questions";
+import StandBy from "Routes/StandBy";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/category" element={<SelectCategory />} />
           <Route path="/category/:category" element={<Questions />} />
           <Route path="/result" element={<Result />} />
+          <Route path="/standby" element={<StandBy />} />
         </Routes>
         <TabBar />
       </BrowserRouter>

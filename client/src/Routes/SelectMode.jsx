@@ -1,8 +1,6 @@
-import { roundAtom } from "atoms";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
-import { useSetRecoilState } from "recoil";
 import styled from "styled-components";
 
 const Container = styled.main`
@@ -49,27 +47,37 @@ export default function SelectMode() {
     resetField,
     formState: { errors },
   } = useForm();
-  const setRound = useSetRecoilState(roundAtom);
 
   const onClicklEnterRoom = ({ code }) => {
     resetField("code");
     // 방의 카테고리 정보를 가져와서
-    // 성공하면
-    setRound({ role: "", code: code });
-    // navigate('/food', state: {code: xxxx})
+    // 1. 방이 없으면 에러메세지
+    // 2. 성공하면
+    localStorage.setItem(
+      "roomInfo",
+      JSON.stringify({ role: "member", code: code })
+    );
     navigate("/category/food");
+    resetField("code");
   };
 
   const onClickCreateRoom = () => {
     const code = "1234";
     // 서버에서 방만들고 코드 받기
-    setRound({ role: "creater", code: code });
+    localStorage.setItem(
+      "roomInfo",
+      JSON.stringify({ role: "leader", code: code })
+    );
     navigate("/category");
   };
 
   useEffect(
-    () => setRound({ role: "individual", code: "no-code" }),
-    [setRound]
+    () =>
+      localStorage.setItem(
+        "roomInfo",
+        JSON.stringify({ role: "individual", code: "no-code" })
+      ),
+    []
   );
 
   return (

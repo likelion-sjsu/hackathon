@@ -1,7 +1,5 @@
-import { roundAtom } from "atoms";
 import React from "react";
 import { Link } from "react-router-dom";
-import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 
 const Container = styled.main`
@@ -27,9 +25,9 @@ const CategoryBtn = styled(Link)`
 `;
 
 export default function SelectCategory() {
-  const round = useRecoilValue(roundAtom);
+  const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
 
-  console.log(round);
+  console.log(roomInfo);
 
   return (
     <Container>

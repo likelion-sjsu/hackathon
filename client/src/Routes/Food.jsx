@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
 import styled from "styled-components";
 
 const Form = styled.form`
@@ -17,7 +19,8 @@ const ErrorMsg = styled.p`
   color: red;
 `;
 
-export default function Food() {
+export default function Food({ roomInfo }) {
+  const navigate = useNavigate();
   const {
     handleSubmit,
     register,
@@ -25,8 +28,19 @@ export default function Food() {
     formState: { errors },
   } = useForm();
 
+  // 재사용 가능함
   const onSubmit = (data) => {
     console.log(data);
+    if (roomInfo.role === "leader" || roomInfo.role === "member") {
+      // 내 결과 서버로 보내고
+      // 결과 기다리는 페이지로 가기
+      navigate("/standby");
+    } else if (roomInfo.role === "individual") {
+      // 바로 결과 받아오기
+      navigate("/result");
+    } else {
+      alert("넌 뭐야");
+    }
     resetField("spiciness");
   };
 
