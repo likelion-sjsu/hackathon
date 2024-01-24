@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import image from "../assets/illust.png";
 
 const Container = styled.main`
   display: grid;
@@ -14,26 +15,36 @@ const CenterBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 20px;
 `;
 
-const Welcome = styled.div``;
-
-const Desciption = styled.div``;
+const Desciption = styled.div`
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 130px;
+`;
 
 const StartBtn = styled(Link)`
-  text-decoration: underline;
-  color: blue;
+  padding: 15px 130px;
+  background-color: ${(props) => props.theme.brandColor};
+  font-size: ${(props) => props.theme.fontBtn.fontSize};
+  font-weight: ${(props) => props.theme.fontBtn.fontWeight};
+  border-radius: 16px;
+  color: white;
+  transition: 0.2s all;
   cursor: pointer;
+
+  &:hover {
+    background-color: #6a45a8;
+  }
 `;
 
 export default function Home() {
   return (
     <Container>
       <CenterBox>
-        <Welcome>환영</Welcome>
-        <Desciption>설명문구</Desciption>
-        <StartBtn to={"/mode"}>시작하기 버튼</StartBtn>
+        <img src={image} alt="." style={{ marginBottom: "40px" }} />
+        <Desciption>Let me help you decide!</Desciption>
+        <StartBtn to={"/mode"}>Get Started</StartBtn>
       </CenterBox>
     </Container>
   );
