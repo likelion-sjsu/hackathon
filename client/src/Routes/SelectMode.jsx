@@ -1,7 +1,7 @@
 import { SERVER_URL } from "api";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Solo from "../assets/solo.png";
 import Leader from "../assets/leader.png";
@@ -57,7 +57,7 @@ const Box = styled.div`
   width: 360px;
   height: 140px;
   margin-bottom: 24px;
-  border: 1px solid ${(props) => props.theme.brandColor};
+  border: 1px solid;
   border-radius: 16px;
 
   svg {
@@ -137,6 +137,7 @@ const ErrorMsg = styled.p`
 
 export default function SelectMode() {
   const navigate = useNavigate();
+  const theme = useTheme();
   const [code, onChange] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const digits = useDigitInput({
@@ -147,13 +148,13 @@ export default function SelectMode() {
   });
 
   const joinRoom = async () => {
-    // 입력값이 4자리 숫자인지 확인
     if (!/^\d{4}$/.test(code)) {
       setErrorMsg("Please enter 4 digits.");
       onChange("");
       return;
     }
 
+    setErrorMsg("");
     const res = await fetch(`${SERVER_URL}/room/${code}`);
     const data = await res.json();
 
@@ -206,7 +207,10 @@ export default function SelectMode() {
       <CenterBox>
         <Title>Choose Category</Title>
 
-        <Box onClick={() => navigate("/category")}>
+        <Box
+          style={{ borderColor: theme.brandColor }}
+          onClick={() => navigate("/category")}
+        >
           <Image>
             <img src={Solo} alt="" />
           </Image>
@@ -217,7 +221,10 @@ export default function SelectMode() {
           <ChevronRightIcon />
         </Box>
 
-        <Box onClick={onClickCreateRoom}>
+        <Box
+          style={{ borderColor: theme.groupCreate }}
+          onClick={onClickCreateRoom}
+        >
           <Image>
             <img src={Leader} alt="" />
           </Image>
@@ -228,7 +235,7 @@ export default function SelectMode() {
           <ChevronRightIcon />
         </Box>
 
-        <Box>
+        <Box style={{ borderColor: theme.groupJoin }}>
           <Image>
             <img src={Member} alt="" />
           </Image>
