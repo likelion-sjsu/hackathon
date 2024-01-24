@@ -6,7 +6,8 @@ import random
 class Room(models.Model):
     code = models.CharField(max_length=22, unique=True)
     category = models.CharField(max_length=10, default="food")
-    result = models.CharField(max_length=10000, default="")
+    result = models.JSONField(default=list)
+    answered_count = models.IntegerField(default=0)
     end = models.BooleanField(default=False)
 
     @staticmethod
