@@ -82,7 +82,7 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Nunito Sans', 'Noto Sans KR', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: #fff;
   color: #020202
 }
