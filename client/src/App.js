@@ -9,6 +9,7 @@ import SelectCategory from "Routes/SelectCategory";
 import Result from "Routes/Result";
 import Questions from "Routes/Questions";
 import StandBy from "Routes/StandBy";
+import JoinGroup from "Routes/JoinGroup";
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/mode" element={<SelectMode />} />
+          <Route path="/join" element={<JoinGroup />} />
           <Route path="/category" element={<SelectCategory />} />
           <Route path="/category/:category" element={<Questions />} />
           <Route path="/result" element={<Result />} />
