@@ -90,7 +90,9 @@ export default function SelectCategory(props) {
       navigate(`${category}`);
     } else {
       const formData = new FormData();
+      const roomSize = JSON.parse(localStorage.getItem("roomInfo")).size;
       formData.append("category", category);
+      formData.append("max_count", roomSize);
       const res = await fetch(`${SERVER_URL}/room/`, {
         method: "POST",
         body: formData,
