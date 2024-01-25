@@ -195,7 +195,7 @@ export default function Questions() {
     /* Case 1. ROOM */
     if (roomInfo.role === "leader" || roomInfo.role === "member") {
       // 방 데이터에 추가만 하기
-      const res = await fetch(`${SERVER_URL}/recommend/food/${roomInfo.code}`, {
+      const res = await fetch(`${SERVER_URL}/recommend/${roomInfo.code}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(answer),
