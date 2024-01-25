@@ -21,7 +21,13 @@ const theme = {
     fontSize: "24px",
     fontWeight: "700",
   },
+  fontBigTitle: {
+    fontSize: "34px",
+    fontWeight: "700",
+  },
   mainFont: "#333333",
+  secondaryFont: "#A6A6A6",
+  white: "#FFFFFF",
   brandColor: "#836AAD",
   soloBackground: "#E1CDF4",
   food: "#FF9090",
