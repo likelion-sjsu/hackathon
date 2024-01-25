@@ -5,6 +5,8 @@ from .models import Room
 from rest_framework.views import APIView
 from .serializers import RoomSerializer
 import shortuuid
+from openai import OpenAI
+from decouple import config
 
 # Create your views here.
 class RoomListAPI(APIView):
@@ -49,13 +51,11 @@ class RoomAPI(APIView):
             serializer = RoomSerializer(room)
             return Response(serializer.data)
         except: 
-            return Response({"message": "team not found"},status=status.HTTP_404_NOT_FOUND)       
+            return Response({"message": "room not found"},status=status.HTTP_404_NOT_FOUND)       
         
-    def put(self, request, room_id):
-        room_id = shortuuid.uuid()
-
-        # Add the generated room_id to the request data
-        request.data['room_id'] = room_id
+    def put(self, request, code):
+        # Add the generated code to the request data
+        request.data['code'] = code
 
         # Deserialize the request data using RoomSerializer
         room_serializer = RoomSerializer(data=request.data)
@@ -71,12 +71,39 @@ class RoomAPI(APIView):
         # If the serialized data is not valid, return error response
         return Response(room_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def delete(self, request, room_id):
+    def delete(self, request, code):
         try:
-            query = Room.objects.get(room_id=room_id)
+            query = Room.objects.get(code=code)
         except Room.DoesNotExist:
             return Response({'error' : {'message' : "team not found!"}}, status = status.HTTP_404_NOT_FOUND)
         
-        result = Room.objects.get(room_id=room_id)
+        result = Room.objects.get(code=code)
         result.delete()
         return Response({"message": "successfully deleted!"}, status=204)
+
+class RecommendAPI(APIView):
+    def post(self, request, category, code):
+        try:
+            room = Room.objects.get(code=code,)
+            serializer = RoomSerializer(room)
+            print(serializer.data)
+            category = serializer.data.get("category")
+            print(category)
+            if category == 'food':
+                fields = ['cuisine', 'soup', 'spiciness', 'temperature', 'type']
+                data = {field: request.data.get(field) for field in fields}
+                content = f"Recommend me one of {data['temperature']}, {data['spiciness']}% spicy, {data['soup']}, {data['cuisine']} food including {data['type']}. respond just the words of food."
+                # Create a chat completion
+                api_key = config('OPENAI_API_KEY')
+                client = OpenAI(api_key=api_key)
+                chat_completion = client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", "content": content}]
+                )
+                result = chat_completion.choices[0].message.content    
+                return Response({"result": result})
+            else:
+                return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
+          
+        except Room.DoesNotExist:
+            return Response({'error' : {'message' : "room not found!"}}, status = status.HTTP_404_NOT_FOUND)

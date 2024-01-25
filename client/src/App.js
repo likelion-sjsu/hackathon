@@ -82,13 +82,23 @@ table {
   box-sizing: border-box;
 }
 body {
-  font-family: 'Nunito Sans', 'Noto Sans KR', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   background-color: #fff;
-  color: #020202
+  color: ${(props) => props.theme.mainFont};
+  overflow: hidden;
 }
 a {
   text-decoration:none;
   color: inherit;
+}
+h1 {
+  font-size: ${(props) => props.theme.fontTitle.fontSize};
+  font-weight: ${(props) => props.theme.fontTitle.fontWeight};
+  margin: 0px;
+}
+p {
+  font-size: ${(props) => props.theme.fontBody.fontSize};
+  font-weight: ${(props) => props.theme.fontBody.fontWeight}
 }
 `;
 
