@@ -11,6 +11,7 @@ import Questions from "Routes/Questions";
 import StandBy from "Routes/StandBy";
 import JoinGroup from "Routes/JoinGroup";
 import CreateGroup from "Routes/CreateGroup";
+import GroupCreated from "Routes/GroupCreated";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="/mode" element={<SelectMode />} />
           <Route path="/join" element={<JoinGroup />} />
           <Route path="/create" element={<CreateGroup />} />
+          <Route path="/created" element={<GroupCreated />} />
           <Route path="/category" element={<SelectCategory />} />
           <Route path="/category/:category" element={<Questions />} />
           <Route path="/result" element={<Result />} />

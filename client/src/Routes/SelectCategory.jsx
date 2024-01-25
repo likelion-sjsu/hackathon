@@ -110,7 +110,7 @@ export default function SelectCategory(props) {
             category: category,
           })
         );
-        navigate(`${category}`);
+        navigate("/created", { state: { category } });
       } else {
         alert("There is something wrong in server.");
         console.log(res);
