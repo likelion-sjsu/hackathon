@@ -16,10 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from room.views import RoomAPI, RoomListAPI
+from room.views import RoomAPI, RoomListAPI, RecommendAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('room/', RoomListAPI.as_view()),
     path('room/<int:code>', RoomAPI.as_view()),
+    path('recommend/<str:category>/<int:code>', RecommendAPI.as_view()),
 ]
