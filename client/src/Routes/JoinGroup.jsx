@@ -1,10 +1,10 @@
 import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { SERVER_URL } from "api";
+import Logo from "components/Logo";
 import React, { useEffect, useRef, useState } from "react";
 import useDigitInput from "react-digit-input";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
 
 const Container = styled.main`
   display: flex;
@@ -158,7 +158,7 @@ export default function JoinGroup() {
         <Link to={"/mode"}>
           <ChevronLeftIcon />
         </Link>
-        <img src={Logo} alt="logo" />
+        <Logo />
       </Header>
       <Title>Join a Group</Title>
       <SubTitle>Enter the 4-digit code</SubTitle>

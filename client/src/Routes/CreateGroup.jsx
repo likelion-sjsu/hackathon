@@ -3,10 +3,10 @@ import {
   MinusIcon,
   PlusIcon,
 } from "@heroicons/react/24/outline";
+import Logo from "components/Logo";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import Logo from "../assets/logo.svg";
 
 const Container = styled.main`
   display: flex;
@@ -103,7 +103,7 @@ export default function CreateGroup() {
         <Link to={"/mode"}>
           <ChevronLeftIcon />
         </Link>
-        <img src={Logo} alt="logo" />
+        <Logo />
       </Header>
       <Subtitle>Create a Group</Subtitle>
       <Title>How many people are in your group?</Title>

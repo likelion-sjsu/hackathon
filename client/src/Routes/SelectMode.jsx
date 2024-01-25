@@ -5,7 +5,7 @@ import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
 import Solo from "../assets/solo.png";
 import Leader from "../assets/leader.png";
 import Member from "../assets/member.png";
-import Logo from "../assets/logo.svg";
+import Logo from "components/Logo";
 
 const Container = styled.main`
   display: grid;
@@ -92,7 +92,7 @@ export default function SelectMode() {
         <Link to={"/"}>
           <ChevronLeftIcon />
         </Link>
-        <img src={Logo} alt="logo" />
+        <Logo />
       </Header>
 
       <CenterBox>

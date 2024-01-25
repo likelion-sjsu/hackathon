@@ -6,6 +6,7 @@ import styled, { useTheme } from "styled-components";
 import FoodIcon from "../assets/food.png";
 import TravelIcon from "../assets/travel.png";
 import HangoutIcon from "../assets/hangout.png";
+import Logo from "components/Logo";
 
 const Container = styled.main`
   display: grid;
@@ -123,7 +124,7 @@ export default function SelectCategory(props) {
         <Link to={"/mode"}>
           <ChevronLeftIcon />
         </Link>
-        <h1>Logo</h1>
+        <Logo />
       </Header>
       <CenterBox>
         <Title>Categories</Title>

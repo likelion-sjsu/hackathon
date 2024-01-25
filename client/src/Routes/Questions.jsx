@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { questions } from "questions";
 import { SERVER_URL } from "api";
 import { Controller, useForm } from "react-hook-form";
+import Logo from "components/Logo";
 
 const Container = styled.main`
   width: 100vw;
@@ -224,7 +225,7 @@ export default function Questions() {
   return (
     <Container>
       <Header>
-        <h1>Logo</h1>
+        <Logo />
       </Header>
       <Title>{questionData[page] ? "Questions" : "One more question!"}</Title>
       {questionData[page] ? (
