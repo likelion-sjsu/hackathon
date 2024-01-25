@@ -106,6 +106,12 @@ p {
   font-size: ${(props) => props.theme.fontBody.fontSize};
   font-weight: ${(props) => props.theme.fontBody.fontWeight}
 }
+button{
+  cursor: pointer;
+  background-color: transparent;
+  outline: none;
+  border: none;
+}
 `;
 
 export default App;

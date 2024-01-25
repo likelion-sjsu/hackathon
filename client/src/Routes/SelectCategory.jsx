@@ -59,6 +59,8 @@ const Box = styled.div`
   margin-bottom: 24px;
   border: 1px solid;
   border-radius: 16px;
+  box-shadow: 1px 2px 5px lightgray;
+  cursor: pointer;
 
   svg {
     position: absolute;
