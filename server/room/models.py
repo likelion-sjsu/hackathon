@@ -4,9 +4,10 @@ import random
 
 # Create your models here.
 class Room(models.Model):
-    result = models.JSONField(default=list)
+    results = models.JSONField(default=list)
     code = models.CharField(max_length=22, unique=True)
     category = models.CharField(max_length=10, default="food")
+    max_count = models.IntegerField(default =1, null=True)
     answered_count = models.IntegerField(default=0)
     end = models.BooleanField(default=False)
 
