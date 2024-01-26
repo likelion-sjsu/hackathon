@@ -4,120 +4,29 @@ import styled from "styled-components";
 import { questions } from "questions";
 import { SERVER_URL } from "api";
 import { Controller, useForm } from "react-hook-form";
+import OptionBox from "components/OptionsBox";
+import Pages from "components/Pages";
 
 const Container = styled.main`
-  display: grid;
-  place-content: center;
   width: 100vw;
   height: calc(100vh - 36px);
 `;
 
-const CenterBox = styled.div`
+const FlexBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
+  align-items: center;
+  width: 360px;
+  margin: 0 auto;
+  padding-top: 100px;
 `;
 
-const Title = styled.div`
-  margin-bottom: 32px;
-  font-size: 24px;
-  font-weight: 600;
-`;
-
-const Card = styled.div`
-  position: relative;
-  left: 16px;
-  width: 331px;
-  height: 468px;
-  background-color: #fff1f1;
-  border: 1px solid #ff9090;
-  border-radius: 24px;
-  padding: 80px 24px 0 24px;
-  box-shadow: 3px 3px 4px rgba(172, 172, 172, 0.2);
-  h1 {
-    font-size: ${(props) => props.theme.fontBigTitle.fontSize};
-    font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
-    line-height: 50px;
-    margin-bottom: 30px;
-  }
-`;
-
-const Page = styled.p`
-  position: absolute;
-  top: 24px;
-  right: 24px;
-`;
-
-const BtnGroup = styled.div`
+const OptionsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-  width: 280px;
-  height: 280px;
-`;
-
-const BigBtn = styled.div`
-  display: grid;
-  place-content: center;
-  width: 100px;
-  height: 100px;
-  background-color: white;
-  border: 1px solid #ff9090;
-  border-radius: 16px;
-  color: #ff9090;
-  font-size: 30px;
-  cursor: pointer;
-  transition: 0.2s all;
-
-  &:hover {
-    background-color: #ff9090;
-    color: white;
-  }
-`;
-
-const SmallBtn = styled.div`
-  display: grid;
-  place-content: center;
-  width: 80px;
-  height: 80px;
-  background-color: white;
-  border: 1px solid #ff9090;
-  border-radius: 16px;
-  color: #ff9090;
-  font-size: 30px;
-  cursor: pointer;
-  transition: 0.2s all;
-
-  &:hover {
-    background-color: #ff9090;
-    color: white;
-  }
-`;
-
-const ExtraCard1 = styled.div`
-  position: absolute;
-  left: 40px;
-  top: 24px;
-  width: 300px;
-  height: 420px;
-  background-color: #ffe0e0;
-  border-radius: 16px;
-  box-shadow: 3px 3px 2px rgba(172, 172, 172, 0.25);
-  z-index: -1;
-`;
-const ExtraCard2 = styled.div`
-  position: absolute;
-  left: 52px;
-  top: 44px;
-  width: 300px;
-  height: 381px;
-  background-color: #f6d3d3;
-  border-radius: 16px;
-  box-shadow: 3px 3px 2px rgba(172, 172, 172, 0.25);
-  z-index: -2;
+  align-items: flex-start;
+  gap: 16px;
+  margin-top: 32px;
 `;
 
 const SpecialOfferForm = styled.form`
@@ -125,6 +34,7 @@ const SpecialOfferForm = styled.form`
   flex-direction: column;
   margin-left: 24px;
   width: calc(100vw - 48px);
+
   h1 {
     font-size: ${(props) => props.theme.fontBigTitle.fontSize};
     font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
@@ -145,6 +55,7 @@ const SpecialOfferForm = styled.form`
     }
   }
 `;
+
 const SeeResultBtn = styled.input`
   width: 100%;
   height: 48px;
@@ -157,12 +68,36 @@ const SeeResultBtn = styled.input`
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
 `;
+
 const SkipBtn = styled.input`
   background-color: transparent;
   border: none;
   outline: none;
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
+  color: ${(props) => props.theme.secondaryFont};
+`;
+
+const NextBtn = styled.button`
+  position: absolute;
+  bottom: 90px;
+  width: 360px;
+  min-height: 48px;
+  border-radius: 16px;
+  border: none;
+  outline: none;
+  background-color: ${(props) => props.theme.brandColor};
+  font-size: ${(props) => props.theme.fontBtn.fontSize};
+  font-weight: ${(props) => props.theme.fontBtn.fontWeight};
+  color: white;
+  cursor: pointer;
+`;
+
+const Code = styled.div`
+  position: absolute;
+  bottom: 42px;
+  left: 24px;
+  font-size: 14px;
   color: ${(props) => props.theme.secondaryFont};
 `;
 
@@ -173,15 +108,8 @@ export default function Questions() {
   const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
   const [page, setPage] = useState(0);
   const [answer, setAnswer] = useState({});
+  const [value, setValue] = useState({});
   const questionData = questions[category];
-
-  const onclick = async (answerNumber) => {
-    setAnswer({
-      ...answer,
-      [questionData[page].key]: questionData[page].options[answerNumber].value,
-    });
-    setPage((prev) => (prev += 1));
-  };
 
   const submitForm = async (data) => {
     const formData = { ...answer, ...data };
@@ -216,42 +144,52 @@ export default function Questions() {
     }
   };
 
+  const onclickNext = (answerNumber) => {
+    setAnswer({
+      ...answer,
+      ...value,
+    });
+    setPage((prev) => (prev += 1));
+  };
+
+  const onclickOption = (answerNumber) => {
+    setValue({
+      [questionData[page].key]: questionData[page].options[answerNumber].value,
+    });
+  };
+
   return (
     <Container>
-      <CenterBox>
-        <Title>{questionData[page] ? "Questions" : "One more question!"}</Title>
+      <FlexBox>
         {questionData[page] ? (
-          <Card>
-            <Page>
-              {page + 1}/{questionData.length}
-            </Page>
-            <h1>{questionData[page].title}</h1>
-            <BtnGroup>
-              {questionData[page].options.map((option, i) =>
-                questionData[page].options.length > 4 ? (
-                  <SmallBtn
-                    key={i}
-                    onClick={() => {
-                      onclick(i);
-                    }}
-                  >
-                    {option.display}
-                  </SmallBtn>
-                ) : (
-                  <BigBtn
-                    key={i}
-                    onClick={() => {
-                      onclick(i);
-                    }}
-                  >
-                    {option.display}
-                  </BigBtn>
-                )
-              )}
-            </BtnGroup>
-            <ExtraCard1 />
-            <ExtraCard2 />
-          </Card>
+          <>
+            <Pages total={questionData.length} current={page + 1} />
+            <p style={{ width: "100%", marginTop: 24, paddingLeft: 12 }}>
+              Choose one option
+            </p>
+            <h1
+              style={{
+                width: "100%",
+                marginTop: 12,
+                paddingLeft: 12,
+                fontSize: 34,
+              }}
+            >
+              {questionData[page].title}
+            </h1>
+            <OptionsContainer>
+              {questionData[page].options.map((option, i) => (
+                <OptionBox
+                  key={i}
+                  text={option.display}
+                  icon={option.icon}
+                  onClick={() => onclickOption(i)}
+                />
+              ))}
+            </OptionsContainer>
+            <NextBtn onClick={onclickNext}>Next</NextBtn>
+            {roomInfo.code !== "no-code" && <Code>Code: {roomInfo.code}</Code>}
+          </>
         ) : (
           <>
             <SpecialOfferForm onSubmit={handleSubmit(submitForm)}>
@@ -269,7 +207,7 @@ export default function Questions() {
             </SpecialOfferForm>
           </>
         )}
-      </CenterBox>
+      </FlexBox>
     </Container>
   );
 }
