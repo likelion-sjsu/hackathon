@@ -121,7 +121,7 @@ export default function Questions() {
       const res = await fetch(`${SERVER_URL}/recommend/${roomInfo.code}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(answer),
+        body: JSON.stringify(formData),
       });
       if (res.ok) navigate("/standby"); // 대기창으로
     } else if (roomInfo.role === "individual") {
@@ -130,7 +130,7 @@ export default function Questions() {
       const res = await fetch(`${SERVER_URL}/recommend/food/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(answer),
+        body: JSON.stringify(formData),
       });
       const data = await res.json();
 
