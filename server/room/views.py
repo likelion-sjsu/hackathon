@@ -77,8 +77,8 @@ class RoomAPI(APIView):
         result.delete()
         return Response({"message": "successfully deleted!"}, status=204)
 
-class GroupAPI(APIView):
-    def get(self, request):
+class GroupAPI(APIView): 
+    def post(self, request):
         code = request.GET['code']
         try:
             room = Room.objects.get(code=code)
@@ -114,8 +114,9 @@ class GroupAPI(APIView):
         except Room.DoesNotExist:
             return Response({'error' : {'message' : "room not found!"}}, status = status.HTTP_404_NOT_FOUND)
         
-        
-    def post(self, request,code):
+class AnswerAPI(APIView):        
+    def post(self, request):
+        code = request.GET['code']
         try:
             room = Room.objects.get(code=code)
             
