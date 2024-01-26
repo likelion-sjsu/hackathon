@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('room/', RoomListAPI.as_view()),
     path('room/<str:code>', RoomAPI.as_view()),
-    path('recommend/<str:code>', GroupAPI.as_view()),
+    path('recommend', GroupAPI.as_view()),
     path('recommend/result/<str:code>', GroupAPI.as_view()),
     path('recommend/<str:category>/', SoloAPI.as_view())
 ]
