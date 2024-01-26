@@ -17,14 +17,25 @@ const Container = styled.main`
 const CenterBox = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  width: 100%;
+  justify-content: flex-start;
+  width: 360px;
+  height: 548px;
 `;
 
 const Title = styled.div`
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: 600;
+  padding-left: 12px;
+`;
+
+const Subtitle = styled.div`
+  font-size: ${(props) => props.theme.fontBigTitle.fontSize};
+  font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
+  padding-left: 12px;
+  width: 280px;
+  margin-bottom: 32px;
+  line-height: 48px;
 `;
 
 const Box = styled.div`
@@ -32,7 +43,7 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   width: 360px;
-  height: 140px;
+  height: 90px;
   margin-bottom: 24px;
   border: 1px solid;
   border-radius: 16px;
@@ -45,6 +56,7 @@ const Box = styled.div`
     height: 24px;
   }
 `;
+
 const Image = styled.div`
   margin-left: 24px;
   margin-right: 20px;
@@ -101,6 +113,7 @@ export default function SelectCategory(props) {
     <Container>
       <CenterBox>
         <Title>Categories</Title>
+        <Subtitle>What can we help you to decide?</Subtitle>
         <Box
           style={{ borderColor: theme.food }}
           onClick={() => onclick("food")}
@@ -110,33 +123,30 @@ export default function SelectCategory(props) {
           </Image>
           <Content>
             <h1>Food</h1>
-            <p>Let's go somewhere fun!</p>
           </Content>
           <ChevronRightIcon />
         </Box>
         <Box
           style={{ borderColor: theme.hangout }}
-          onClick={() => onclick("hangout")}
+          // onClick={() => onclick("hangout")}
         >
           <Image>
             <img src={HangoutIcon} alt="hangout" />
           </Image>
           <Content>
             <h1>Hangout</h1>
-            <p>Let's go somewhere fun!</p>
           </Content>
           <ChevronRightIcon />
         </Box>
         <Box
           style={{ borderColor: theme.travel }}
-          onClick={() => onclick("travel")}
+          // onClick={() => onclick("travel")}
         >
           <Image>
             <img src={TravelIcon} alt="travel" />
           </Image>
           <Content>
             <h1>Travel</h1>
-            <p>Let's go somewhere fun!</p>
           </Content>
           <ChevronRightIcon />
         </Box>

@@ -21,12 +21,14 @@ const CenterBox = styled.div`
 const Subtitle = styled.div`
   font-size: ${(props) => props.theme.fontBigTitle.fontSize};
   font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
+  padding-left: 12px;
 `;
 
 const Title = styled.div`
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: 600;
+  padding-left: 12px;
 `;
 
 const Box = styled.div`

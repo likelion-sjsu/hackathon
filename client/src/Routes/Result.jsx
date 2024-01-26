@@ -21,6 +21,7 @@ const Title = styled.div`
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: 600;
+  padding-left: 12px;
 `;
 
 const Box = styled.div`
@@ -43,6 +44,7 @@ const Box = styled.div`
     margin-top: 50px;
     font-size: 48px;
     font-weight: 700;
+    text-align: center;
   }
   p {
     margin-top: 50px;

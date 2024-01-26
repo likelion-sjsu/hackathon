@@ -24,6 +24,7 @@ const Title = styled.div`
   margin-bottom: 32px;
   font-size: 24px;
   font-weight: 600;
+  padding-left: 12px;
 `;
 
 const Box = styled.div`
