@@ -40,33 +40,54 @@ const Ring = styled.div`
 export default function StandBy() {
   const theme = useTheme();
   const navigate = useNavigate();
-  const { code, role, category } = JSON.parse(localStorage.getItem("roomInfo"));
+  const { code, role } = JSON.parse(localStorage.getItem("roomInfo"));
   const [percent, setPercent] = useState(0);
   const [periods, setPeriods] = useState(".");
+
+  const Code = styled.div`
+    position: absolute;
+    bottom: 42px;
+    left: 24px;
+    font-size: 14px;
+    color: ${(props) => props.theme.secondaryFont};
+  `;
 
   const { data, isLoading } = useQuery(
     ["room", code],
     () => getRoomData(code),
     {
-      onSuccess: async (data) => {
-        if (data.end === true) {
-          const res = await fetch(
-            `${SERVER_URL}/recommend/result/${category}/${code}`,
-            { method: "POST" }
-          );
-          const result = await res.json();
-          console.log(res.status, result);
-          if (res.ok) navigate("/result", { state: result });
+      onSuccess: async ({ outcome, answered_count, max_count }) => {
+        // FOR LEADER ONLY
+        if (role === "leader") {
+          if (answered_count === max_count) {
+            const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
+              method: "GET",
+            });
+            if (!res.ok) {
+              alert("There is something wrong in server..");
+            }
+          }
+        }
+
+        if (outcome !== "") {
+          const res = await fetch(`${SERVER_URL}/room/${code}`, {
+            method: "GET",
+          });
+          const { outcome } = await res.json();
+          if (res.ok) navigate("/result", { state: { result: outcome } });
         }
       },
-      refetchInterval: 5000,
+      refetchInterval: 3000,
     }
   );
 
   const onclick = async () => {
-    const res = await fetch(`${SERVER_URL}/room/${code}`, { method: "PUT" });
-    const data = await res.json();
-    console.log(res.status, data);
+    const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
+      method: "GET",
+    });
+    if (!res.ok) {
+      alert("There is something wrong in server..");
+    }
   };
 
   useEffect(
@@ -103,6 +124,7 @@ export default function StandBy() {
       {role === "leader" && (
         <ClosePollBtn onClick={onclick}>Close Poll</ClosePollBtn>
       )}
+      <Code>Code: {code}</Code>
     </Container>
   );
 }

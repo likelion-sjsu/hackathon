@@ -21,14 +21,12 @@ class RoomListAPI(APIView):
         instance = Room()
         code= instance.generate_short_identifier()
 
-        
         data = {
             'code': code,
             'category': category,
             'max_count': max_count
         }
         
-        print(category)
         if category not in ['food', 'activity', 'travel']:
             return Response({'detail': "category not allowed"}, status=status.HTTP_404_NOT_FOUND)
 
@@ -59,8 +57,8 @@ class RoomAPI(APIView):
     def put(self, request, code):
         try:
             room = Room.objects.get(code=code)
-            if room.end == True:
-                return Response({"message": "room already terminated"},status=status.HTTP_400_BAD_REQUEST)       
+            # if room.end == True:
+            #     return Response({"message": "room already terminated"},status=status.HTTP_400_BAD_REQUEST)       
             room.end = True
             room.save()
             serializer = RoomSerializer(room)
@@ -79,13 +77,48 @@ class RoomAPI(APIView):
         result.delete()
         return Response({"message": "successfully deleted!"}, status=204)
 
-class AnswerAPI(APIView):
+class GroupAPI(APIView):
+    def get(self, request, code):
+        try:
+            room = Room.objects.get(code=code)
+            category = room.category
+            if category == 'food':
+                
+                content = "Each one of us prefers the following food. "
+                for i, data in enumerate(room.results):
+                    cuisine = data['cuisine']
+                    type = data['type']
+                    comfort = data['comfort']
+                    spiciness = data['spiciness']
+                    temperature = data['temperature']
+                    special_offer = data['special_offer']
+                    content += f"{i+1}. {temperature} {spiciness} {cuisine} food including {type} in {comfort} atmosphere. {special_offer}"
+                content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of food."
+
+                # Create a chat completion
+                api_key = config('OPENAI_API_KEY')
+                client = OpenAI(api_key=api_key)
+                chat_completion = client.chat.completions.create(
+                    model="gpt-3.5-turbo",
+                    messages=[{"role": "user", "content": content}]
+                )
+                room.outcome = chat_completion.choices[0].message.content    
+                room.end = True
+                room.save()
+                serializer = RoomSerializer(room)
+                return Response(serializer.data)
+            else:
+                return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
+          
+        except Room.DoesNotExist:
+            return Response({'error' : {'message' : "room not found!"}}, status = status.HTTP_404_NOT_FOUND)
+        
+        
     def post(self, request,code):
         try:
             room = Room.objects.get(code=code)
-            serializer = RoomSerializer(room)
-            category = serializer.data.get("category")
-            fields = ['cuisine', 'soup', 'spiciness', 'temperature', 'type']
+            
+            fields = ['cuisine', 'comfort', 'spiciness', 'temperature', 'type', 'special_offer']
             data = {field: request.data.get(field) for field in fields}
             room.results.append(data)
             room.answered_count +=1
@@ -96,45 +129,24 @@ class AnswerAPI(APIView):
         except Room.DoesNotExist:
             return Response({'error' : {'message' : "room not found!"}}, status = status.HTTP_404_NOT_FOUND)
 
-
-class RecommendAPI(APIView):
-    def post(self, request, category, code):
-        try:
-            room = Room.objects.get(code=code,category=category)
-            serializer = RoomSerializer(room)
-            category = serializer.data.get("category")
-            print(serializer.data)
-            if category == 'food':
-                fields = ['cuisine', 'soup', 'spiciness', 'temperature', 'type']
-                data = {field: request.data.get(field) for field in fields}
-                content = f"Recommend me one of {data['temperature']}, {data['spiciness']}% spicy, {data['soup']}, {data['cuisine']} food including {data['type']}. respond just the words of food."
-                # Create a chat completion
-                api_key = config('OPENAI_API_KEY')
-                print("api key ", api_key)
-                client = OpenAI(api_key=api_key)
-                chat_completion = client.chat.completions.create(
-                    model="gpt-3.5-turbo",
-                    messages=[{"role": "user", "content": content}]
-                )
-                result = chat_completion.choices[0].message.content    
-                return Response({"result": result})
-            else:
-                return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
-          
-        except Room.DoesNotExist:
-            return Response({'error' : {'message' : "room not found!"}}, status = status.HTTP_404_NOT_FOUND)
-
 class SoloAPI(APIView):
     def post(self, request, category):
+        data = request.data
+        
+        cuisine = data['cuisine']
+        type = data['type']
+        spiciness = data['spiciness']
+        comfort = data['comfort']
+        temperature = data['temperature']
+        special_offer = data['special_offer']
         try:
-            print(category)
             if category == 'food':
                 fields = ['cuisine', 'soup', 'spiciness', 'temperature', 'type']
                 data = {field: request.data.get(field) for field in fields}
-                content = f"Recommend me one of {data['temperature']}, {data['spiciness']}% spicy, {data['soup']}, {data['cuisine']} food including {data['type']}. respond just the words of food."
+                content = f"Recommend me one of {temperature} {spiciness} {cuisine} foods including {type} in {comfort} atmosphere. {special_offer}.respond just the words of one food."
+                
                 # Create a chat completion
                 api_key = config('OPENAI_API_KEY')
-                print("api key ", api_key)
                 client = OpenAI(api_key=api_key)
                 chat_completion = client.chat.completions.create(
                     model="gpt-3.5-turbo",
@@ -144,6 +156,6 @@ class SoloAPI(APIView):
                 return Response({"result": result})
             else:
                 return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
-          
+            
         except Room.DoesNotExist:
             return Response({'error' : {'message' : "room not found!"}}, status = status.HTTP_404_NOT_FOUND)
