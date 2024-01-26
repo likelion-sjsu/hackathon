@@ -102,23 +102,23 @@ export const questions = {
       options: [
         {
           display: "😌 Not Spicy",
-          value: "no",
+          value: "no spicy",
         },
         {
           display: "😅 Mild Spicy",
-          value: "mild",
+          value: "mild spicy",
         },
         {
           display: "😤 Medium Spicy",
-          value: "moderately",
+          value: "moderately spicy",
         },
         {
           display: "🥵 Very Spicy",
-          value: "very",
+          value: "very spicy",
         },
         {
           display: "🤯 Extremely Spicy",
-          value: "extremely",
+          value: "extremely spicy",
         },
         {
           display: "🚫 No Preference",
@@ -136,31 +136,31 @@ export const questions = {
         },
         {
           display: "Adventurous",
-          value: "Adventurous",
+          value: "adventurous",
         },
         {
           display: "Elegant",
-          value: "Elegant",
+          value: "elegant",
         },
         {
           display: "Trendy",
-          value: "Trendy",
+          value: "trendy",
         },
         {
           display: "Classic",
-          value: "Classic",
+          value: "classic",
         },
         {
           display: "Modern",
-          value: "Modern",
+          value: "modern",
         },
         {
           display: "Unique",
-          value: "Unique",
+          value: "unique",
         },
         {
           display: "Cozy",
-          value: "Cozy",
+          value: "cozy",
         },
         {
           display: "🚫 No Preference",
