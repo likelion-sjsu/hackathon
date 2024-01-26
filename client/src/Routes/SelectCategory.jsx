@@ -94,7 +94,7 @@ export default function SelectCategory(props) {
         localStorage.setItem(
           "roomInfo",
           JSON.stringify({
-            role: "leader",
+            ...roomInfo,
             code: data.code,
             category: category,
           })
