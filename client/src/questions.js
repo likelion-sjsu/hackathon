@@ -67,12 +67,32 @@ export const questions = {
           value: "meat",
         },
         {
+          display: "🥗 Salad",
+          value: "salad",
+        },
+        {
+          display: "🍞 Bakery",
+          value: "bread",
+        },
+        {
           display: "🍜 Noodles",
           value: "noodle",
         },
         {
-          display: "🐟 Seafood",
+          display: "🍔 Fast Foods",
+          value: "fast food",
+        },
+        {
+          display: "🦐 Seafood",
           value: "seafood",
+        },
+        {
+          display: "🍨 Dessert",
+          value: "dessert",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "",
         },
       ],
     },
