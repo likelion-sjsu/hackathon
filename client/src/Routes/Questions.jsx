@@ -18,7 +18,7 @@ const FlexBox = styled.div`
   align-items: center;
   width: 360px;
   margin: 0 auto;
-  padding-top: 100px;
+  padding-top: 40px;
 `;
 
 const OptionsContainer = styled.div`
@@ -32,8 +32,8 @@ const OptionsContainer = styled.div`
 const SpecialOfferForm = styled.form`
   display: flex;
   flex-direction: column;
-  margin-left: 24px;
-  width: 360px;
+  max-width: 100%;
+  width: calc(100vw - 48px);
 
   h1 {
     font-size: ${(props) => props.theme.fontBigTitle.fontSize};
@@ -78,11 +78,12 @@ const SkipBtn = styled.input`
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
   color: ${(props) => props.theme.secondaryFont};
+  cursor: pointer;
 `;
 
 const NextBtn = styled.button`
   position: absolute;
-  bottom: 90px;
+  bottom: 60px;
   width: 360px;
   min-height: 48px;
   border-radius: 16px;
