@@ -124,42 +124,41 @@ export default function JoinGroup() {
 
   useEffect(() => {
     const delayedFunction = () => {
-      onChange("");
-      setErrorMsg("");
+      if (authorized === false) {
+        onChange("");
+        setErrorMsg("");
+      }
     };
     const timeoutId = setTimeout(delayedFunction, 3000);
     return () => clearTimeout(timeoutId);
-  }, [errorMsg]);
+  }, [authorized, errorMsg]);
 
   useEffect(() => {
     async function joinRoom() {
       if (!/^\d{4}$/.test(code)) {
         setErrorMsg("Please enter 4 digits.");
-        onChange("");
         return;
       }
-
-      setErrorMsg("");
       const res = await fetch(`${SERVER_URL}/room/${code}`);
       const data = await res.json();
 
-      console.log(res.status, data);
+      setErrorMsg("");
       if (res.ok) {
         if (data.end === true) {
           setAuthorized(false);
-          setErrorMsg("Wrong code entered");
+          setErrorMsg("Invalid code (terminated)");
           return;
         }
         if (data.answered_count === data.max_count) {
           setAuthorized(false);
-          setErrorMsg("The group is full");
+          setErrorMsg("Invalid code (full group)");
           return;
         }
         setCategory(data.category);
         setAuthorized(true);
       } else if (res.status === 404) {
         setAuthorized(false);
-        setErrorMsg("Wrong code entered");
+        setErrorMsg("Invalid code (group  not exist)");
       } else {
         alert("뭐야 이건");
       }
@@ -181,22 +180,46 @@ export default function JoinGroup() {
       <SubTitle>Enter the 4-digit code</SubTitle>
       <DigitGroup>
         <Label>
-          <Digit>{code[0]}</Digit>
+          <Digit
+            style={{
+              outline: errorMsg === "" ? "" : "1px solid red",
+            }}
+          >
+            {code[0]}
+          </Digit>
           <hr />
           <Input inputMode="decimal" {...digits[0]} />
         </Label>
         <Label>
-          <Digit>{code[1]}</Digit>
+          <Digit
+            style={{
+              outline: errorMsg === "" ? "" : "1px solid red",
+            }}
+          >
+            {code[1]}
+          </Digit>
           <hr />
           <Input inputMode="decimal" {...digits[1]} />
         </Label>
         <Label>
-          <Digit>{code[2]}</Digit>
+          <Digit
+            style={{
+              outline: errorMsg === "" ? "" : "1px solid red",
+            }}
+          >
+            {code[2]}
+          </Digit>
           <hr />
           <Input inputMode="decimal" {...digits[2]} />
         </Label>
         <Label>
-          <Digit>{code[3]}</Digit>
+          <Digit
+            style={{
+              outline: errorMsg === "" ? "" : "1px solid red",
+            }}
+          >
+            {code[3]}
+          </Digit>
           <hr />
           <Input inputMode="decimal" {...digits[3]} />
         </Label>

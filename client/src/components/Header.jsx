@@ -32,7 +32,7 @@ const previosPages = ["/mode", "/category", "/create", "/join"];
 export default function Header() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
-  console.log(previosPages.includes(pathname));
+
   return (
     <Container>
       <MobileTopIcons />

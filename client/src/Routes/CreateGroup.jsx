@@ -15,7 +15,7 @@ const CenterBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 360px;
-  height: 568px;
+  height: 548px;
 `;
 
 const Subtitle = styled.div`
