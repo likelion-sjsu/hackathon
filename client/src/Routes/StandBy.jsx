@@ -70,11 +70,7 @@ export default function StandBy() {
         }
 
         if (outcome !== "") {
-          const res = await fetch(`${SERVER_URL}/room/${code}`, {
-            method: "GET",
-          });
-          const { outcome } = await res.json();
-          if (res.ok) navigate("/result", { state: { result: outcome } });
+          navigate("/result", { state: { result: outcome } });
         }
       },
       refetchInterval: 3000,

@@ -144,7 +144,7 @@ export default function JoinGroup() {
 
       setErrorMsg("");
       if (res.ok) {
-        if (data.end === true) {
+        if (data.outcome !== "") {
           setAuthorized(false);
           setErrorMsg("Invalid code (terminated)");
           return;
