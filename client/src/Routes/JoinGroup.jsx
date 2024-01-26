@@ -28,13 +28,13 @@ const DigitGroup = styled.div`
   display: flex;
   gap: 16px;
   margin-top: 40px;
-  margin-bottom: 24px;
 `;
 const Label = styled.label`
   position: relative;
   width: 80px;
   height: 80px;
   font-size: 30px;
+
   &:focus-within > div {
     /* box-shadow: inset 0 2px 5px 0 rgba(9, 30, 66, 0.2); */
     background-color: white;
@@ -77,10 +77,10 @@ const Input = styled.input`
 `;
 
 const ErrorMsg = styled.p`
-  margin-top: 10px;
-  font-size: 15px;
-  color: red;
+  font-size: 14px;
+  color: #e80c0c;
   height: 10px;
+  margin-top: 8px;
 `;
 
 const BtnPlaceholder = styled.button`
@@ -93,6 +93,7 @@ const BtnPlaceholder = styled.button`
   outline: none;
   width: 360px;
   height: 48px;
+  margin-top: 24px;
 `;
 
 const NextBtn = styled.button`
@@ -105,6 +106,7 @@ const NextBtn = styled.button`
   outline: none;
   width: 360px;
   height: 48px;
+  margin-top: 24px;
 `;
 
 export default function JoinGroup() {
@@ -122,9 +124,10 @@ export default function JoinGroup() {
 
   useEffect(() => {
     const delayedFunction = () => {
+      onChange("");
       setErrorMsg("");
     };
-    const timeoutId = setTimeout(delayedFunction, 5000);
+    const timeoutId = setTimeout(delayedFunction, 3000);
     return () => clearTimeout(timeoutId);
   }, [errorMsg]);
 
@@ -143,17 +146,20 @@ export default function JoinGroup() {
       console.log(res.status, data);
       if (res.ok) {
         if (data.end === true) {
-          onChange("");
           setAuthorized(false);
-          setErrorMsg("Group does not exist.");
+          setErrorMsg("Wrong code entered");
+          return;
+        }
+        if (data.answered_count === data.max_count) {
+          setAuthorized(false);
+          setErrorMsg("The group is full");
           return;
         }
         setCategory(data.category);
         setAuthorized(true);
       } else if (res.status === 404) {
-        onChange("");
         setAuthorized(false);
-        setErrorMsg("Group does not exist.");
+        setErrorMsg("Wrong code entered");
       } else {
         alert("뭐야 이건");
       }
@@ -195,12 +201,12 @@ export default function JoinGroup() {
           <Input inputMode="decimal" {...digits[3]} />
         </Label>
       </DigitGroup>
+      <ErrorMsg>{errorMsg}</ErrorMsg>
       {authorized ? (
         <NextBtn onClick={onClickNext}>Next</NextBtn>
       ) : (
         <BtnPlaceholder>Next</BtnPlaceholder>
       )}
-      <ErrorMsg>{errorMsg}</ErrorMsg>
     </Container>
   );
 }
