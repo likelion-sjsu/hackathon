@@ -22,6 +22,7 @@ const TemperatureBox = styled.div`
   width: calc(50% - 8px);
   height: 180px;
   border-radius: 16px;
+  cursor: pointer;
   div {
     display: flex;
     flex-direction: column;
