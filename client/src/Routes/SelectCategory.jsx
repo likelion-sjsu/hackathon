@@ -57,17 +57,15 @@ const Box = styled.div`
   }
 `;
 
-const Image = styled.div`
+const Image = styled.img`
   margin-left: 24px;
   margin-right: 20px;
+  width: 48px;
 `;
+
 const Content = styled.div`
   display: flex;
   flex-direction: column;
-
-  h1 {
-    margin-bottom: 16px;
-  }
 `;
 
 export default function SelectCategory(props) {
@@ -118,9 +116,7 @@ export default function SelectCategory(props) {
           style={{ borderColor: theme.food }}
           onClick={() => onclick("food")}
         >
-          <Image>
-            <img src={FoodIcon} alt="food" />
-          </Image>
+          <Image src={FoodIcon} alt="food" />
           <Content>
             <h1>Food</h1>
           </Content>
@@ -130,9 +126,7 @@ export default function SelectCategory(props) {
           style={{ borderColor: theme.hangout }}
           // onClick={() => onclick("hangout")}
         >
-          <Image>
-            <img src={HangoutIcon} alt="hangout" />
-          </Image>
+          <Image src={HangoutIcon} alt="hangout" />
           <Content>
             <h1>Hangout</h1>
           </Content>
@@ -142,9 +136,7 @@ export default function SelectCategory(props) {
           style={{ borderColor: theme.travel }}
           // onClick={() => onclick("travel")}
         >
-          <Image>
-            <img src={TravelIcon} alt="travel" />
-          </Image>
+          <Image src={TravelIcon} alt="travel" />
           <Content>
             <h1>Travel</h1>
           </Content>
