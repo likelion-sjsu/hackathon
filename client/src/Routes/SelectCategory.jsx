@@ -1,40 +1,17 @@
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { SERVER_URL } from "api";
 import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import FoodIcon from "../assets/food.png";
 import TravelIcon from "../assets/travel.png";
 import HangoutIcon from "../assets/hangout.png";
-import Logo from "components/Logo";
 
 const Container = styled.main`
   display: grid;
   place-content: center;
   width: 100vw;
   height: calc(100vh - 36px);
-`;
-
-const Header = styled.div`
-  position: absolute;
-  top: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  h1 {
-    font-size: 17px;
-    font-weight: 600;
-  }
-
-  a {
-    position: absolute;
-    left: 40px;
-    svg {
-      height: 24px;
-    }
-  }
 `;
 
 const CenterBox = styled.div`
@@ -122,12 +99,6 @@ export default function SelectCategory(props) {
 
   return (
     <Container>
-      <Header>
-        <Link to={"/mode"}>
-          <ChevronLeftIcon />
-        </Link>
-        <Logo />
-      </Header>
       <CenterBox>
         <Title>Categories</Title>
         <Box

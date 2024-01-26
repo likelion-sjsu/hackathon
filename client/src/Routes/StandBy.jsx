@@ -17,7 +17,8 @@ const Container = styled.div`
 `;
 
 const ClosePollBtn = styled.button`
-  margin-top: 50px;
+  position: absolute;
+  bottom: 90px;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};

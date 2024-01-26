@@ -1,5 +1,5 @@
 import React from "react";
-import CreatedIcon from "../assets/created.svg";
+import CreatedIcon from "../assets/Check-icon.svg";
 import styled from "styled-components";
 import Logo from "components/Logo";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,8 @@ const Code = styled.div`
 `;
 
 const Btn = styled.button`
-  margin-top: 130px;
+  position: absolute;
+  bottom: 90px;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};

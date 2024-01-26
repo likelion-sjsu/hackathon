@@ -1,34 +1,16 @@
 import React, { useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
-import { ChevronLeftIcon, ChevronRightIcon } from "@heroicons/react/24/outline";
+import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import Solo from "../assets/solo.png";
 import Leader from "../assets/leader.png";
 import Member from "../assets/member.png";
-import Logo from "components/Logo";
 
 const Container = styled.main`
   display: grid;
   place-content: center;
   width: 100vw;
   height: calc(100vh - 36px);
-`;
-
-const Header = styled.div`
-  position: absolute;
-  top: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  a {
-    position: absolute;
-    left: 40px;
-    svg {
-      height: 24px;
-    }
-  }
 `;
 
 const CenterBox = styled.div`
@@ -89,16 +71,8 @@ export default function SelectMode() {
 
   return (
     <Container>
-      <Header>
-        <Link to={"/"}>
-          <ChevronLeftIcon />
-        </Link>
-        <Logo />
-      </Header>
-
       <CenterBox>
         <Title>Choose Category</Title>
-
         <Box
           style={{ borderColor: theme.brandColor }}
           onClick={() => navigate("/category")}

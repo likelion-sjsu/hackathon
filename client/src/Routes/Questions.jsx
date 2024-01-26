@@ -4,29 +4,23 @@ import styled from "styled-components";
 import { questions } from "questions";
 import { SERVER_URL } from "api";
 import { Controller, useForm } from "react-hook-form";
-import Logo from "components/Logo";
 
 const Container = styled.main`
+  display: grid;
+  place-content: center;
   width: 100vw;
   height: calc(100vh - 36px);
 `;
 
-const Header = styled.div`
-  position: absolute;
-  top: 65px;
+const CenterBox = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
   width: 100%;
-
-  h1 {
-    font-size: 17px;
-    font-weight: 600;
-  }
 `;
 
 const Title = styled.div`
-  margin: 100px 0 32px 20px;
+  margin-bottom: 32px;
   font-size: 24px;
   font-weight: 600;
 `;
@@ -224,59 +218,58 @@ export default function Questions() {
 
   return (
     <Container>
-      <Header>
-        <Logo />
-      </Header>
-      <Title>{questionData[page] ? "Questions" : "One more question!"}</Title>
-      {questionData[page] ? (
-        <Card>
-          <Page>
-            {page + 1}/{questionData.length}
-          </Page>
-          <h1>{questionData[page].title}</h1>
-          <BtnGroup>
-            {questionData[page].options.map((option, i) =>
-              questionData[page].options.length > 4 ? (
-                <SmallBtn
-                  key={i}
-                  onClick={() => {
-                    onclick(i);
-                  }}
-                >
-                  {option.display}
-                </SmallBtn>
-              ) : (
-                <BigBtn
-                  key={i}
-                  onClick={() => {
-                    onclick(i);
-                  }}
-                >
-                  {option.display}
-                </BigBtn>
-              )
-            )}
-          </BtnGroup>
-          <ExtraCard1 />
-          <ExtraCard2 />
-        </Card>
-      ) : (
-        <>
-          <SpecialOfferForm onSubmit={handleSubmit(submitForm)}>
-            <h1>Is there anything we need to be aware of? </h1>
-            <Controller
-              name="special_offer"
-              control={control}
-              defaultValue=""
-              render={({ field }) => (
-                <textarea {...field} rows={4} placeholder="Type here..." />
+      <CenterBox>
+        <Title>{questionData[page] ? "Questions" : "One more question!"}</Title>
+        {questionData[page] ? (
+          <Card>
+            <Page>
+              {page + 1}/{questionData.length}
+            </Page>
+            <h1>{questionData[page].title}</h1>
+            <BtnGroup>
+              {questionData[page].options.map((option, i) =>
+                questionData[page].options.length > 4 ? (
+                  <SmallBtn
+                    key={i}
+                    onClick={() => {
+                      onclick(i);
+                    }}
+                  >
+                    {option.display}
+                  </SmallBtn>
+                ) : (
+                  <BigBtn
+                    key={i}
+                    onClick={() => {
+                      onclick(i);
+                    }}
+                  >
+                    {option.display}
+                  </BigBtn>
+                )
               )}
-            />
-            <SeeResultBtn type="submit" value={"See Result"} />
-            <SkipBtn type="submit" value="skip" />
-          </SpecialOfferForm>
-        </>
-      )}
+            </BtnGroup>
+            <ExtraCard1 />
+            <ExtraCard2 />
+          </Card>
+        ) : (
+          <>
+            <SpecialOfferForm onSubmit={handleSubmit(submitForm)}>
+              <h1>Is there anything we need to be aware of? </h1>
+              <Controller
+                name="special_offer"
+                control={control}
+                defaultValue=""
+                render={({ field }) => (
+                  <textarea {...field} rows={4} placeholder="Type here..." />
+                )}
+              />
+              <SeeResultBtn type="submit" value={"See Result"} />
+              <SkipBtn type="submit" value="skip" />
+            </SpecialOfferForm>
+          </>
+        )}
+      </CenterBox>
     </Container>
   );
 }

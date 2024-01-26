@@ -1,9 +1,7 @@
-import { ChevronLeftIcon } from "@heroicons/react/24/outline";
 import { SERVER_URL } from "api";
-import Logo from "components/Logo";
 import React, { useEffect, useState } from "react";
 import useDigitInput from "react-digit-input";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.main`
@@ -12,23 +10,6 @@ const Container = styled.main`
   align-items: center;
   width: 100vw;
   height: calc(100vh - 36px);
-`;
-
-const Header = styled.div`
-  position: absolute;
-  top: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-
-  a {
-    position: absolute;
-    left: 40px;
-    svg {
-      height: 24px;
-    }
-  }
 `;
 
 const Title = styled.div`
@@ -190,12 +171,6 @@ export default function JoinGroup() {
 
   return (
     <Container>
-      <Header>
-        <Link to={"/mode"}>
-          <ChevronLeftIcon />
-        </Link>
-        <Logo />
-      </Header>
       <Title>Verification Code</Title>
       <SubTitle>Enter the 4-digit code</SubTitle>
       <DigitGroup>
