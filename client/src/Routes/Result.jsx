@@ -94,7 +94,13 @@ export default function Result() {
           <p>Have a wonderful day!</p>
         </Box>
       </CenterBox>
-      <ToMapBtn to={"/"}>Open in Google Maps</ToMapBtn>
+      <ToMapBtn
+        to={`https://www.google.com/search?q=${result.replace(/ /g, "+")}`}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Open in Google Maps
+      </ToMapBtn>
       <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>
     </Container>
   );
