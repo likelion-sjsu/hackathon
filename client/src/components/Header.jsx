@@ -9,6 +9,7 @@ const Container = styled.header`
   position: sticky;
   top: 0;
   background-color: transparent;
+  height: 36px;
 `;
 
 const LogoHeader = styled.div`

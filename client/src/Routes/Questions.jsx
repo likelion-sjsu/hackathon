@@ -33,7 +33,7 @@ const SpecialOfferForm = styled.form`
   display: flex;
   flex-direction: column;
   margin-left: 24px;
-  width: calc(100vw - 48px);
+  width: 360px;
 
   h1 {
     font-size: ${(props) => props.theme.fontBigTitle.fontSize};
@@ -50,6 +50,7 @@ const SpecialOfferForm = styled.form`
     border: none;
     outline: none;
     font-size: 17px;
+    resize: none;
     &::placeholder {
       color: ${(props) => props.theme.secondaryFont};
     }
@@ -67,6 +68,7 @@ const SeeResultBtn = styled.input`
   outline: none;
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
+  cursor: pointer;
 `;
 
 const SkipBtn = styled.input`
