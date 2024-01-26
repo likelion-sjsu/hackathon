@@ -9,12 +9,9 @@ const Container = styled.header`
   position: sticky;
   top: 0;
   background-color: transparent;
-  height: 36px;
 `;
 
 const LogoHeader = styled.div`
-  position: absolute;
-  top: 65px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -23,7 +20,7 @@ const LogoHeader = styled.div`
 
 const PrevPageBtn = styled.button`
   position: absolute;
-  left: 40px;
+  left: 30px;
   svg {
     height: 24px;
   }

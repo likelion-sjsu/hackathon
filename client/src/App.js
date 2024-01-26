@@ -91,7 +91,6 @@ body {
   font-family: 'Montserrat', sans-serif;
   background-color: #fff;
   color: ${(props) => props.theme.mainFont};
-  overflow: hidden;
 }
 a {
   text-decoration:none;
