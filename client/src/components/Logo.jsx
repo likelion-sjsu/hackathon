@@ -4,5 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 export default function Logo() {
   const navigate = useNavigate();
-  return <img onClick={() => navigate("/")} src={LogoSvg} alt="Logo" />;
+  return (
+    <img
+      style={{ cursor: "pointer" }}
+      onClick={() => navigate("/")}
+      src={LogoSvg}
+      alt="Logo"
+    />
+  );
 }

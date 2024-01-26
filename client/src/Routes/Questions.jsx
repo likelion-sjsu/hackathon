@@ -18,7 +18,7 @@ const FlexBox = styled.div`
   align-items: center;
   width: 360px;
   margin: 0 auto;
-  padding-top: 40px;
+  padding-top: 50px;
 `;
 
 const OptionsContainer = styled.div`
@@ -72,6 +72,7 @@ const SeeResultBtn = styled.input`
 `;
 
 const SkipBtn = styled.input`
+  margin-top: 30px;
   background-color: transparent;
   border: none;
   outline: none;
@@ -82,8 +83,7 @@ const SkipBtn = styled.input`
 `;
 
 const NextBtn = styled.button`
-  position: absolute;
-  bottom: 60px;
+  margin-top: 30px;
   width: 360px;
   min-height: 48px;
   border-radius: 16px;

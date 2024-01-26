@@ -6,8 +6,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
 
 const Container = styled.header`
-  position: sticky;
-  top: 0;
+  /* position: sticky;
+  top: 0; */
   background-color: transparent;
 `;
 
