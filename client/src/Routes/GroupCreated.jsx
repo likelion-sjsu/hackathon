@@ -25,7 +25,7 @@ const Code = styled.div`
   font-size: 48px;
   font-weight: 600;
   letter-spacing: 20px;
-  margin-top: 60px;
+  margin-top: 40px;
 `;
 
 const Btn = styled.button`
@@ -47,7 +47,7 @@ export default function GroupCreated() {
 
   return (
     <Container>
-      <img style={{ marginTop: 180 }} src={CreatedIcon} alt="" />
+      <img style={{ marginTop: 60 }} src={CreatedIcon} alt="" />
       <h1>Group Created</h1>
       <p>Share the number above</p>
       <p>with your friends</p>
