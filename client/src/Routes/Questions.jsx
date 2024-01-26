@@ -204,8 +204,6 @@ export default function Questions() {
             >
               Next
             </NextBtn>
-
-            {roomInfo.code !== "no-code" && <Code>Code: {roomInfo.code}</Code>}
           </>
         ) : (
           <>
@@ -225,6 +223,7 @@ export default function Questions() {
           </>
         )}
       </FlexBox>
+      {roomInfo.code !== "no-code" && <Code>Code: {roomInfo.code}</Code>}
     </Container>
   );
 }
