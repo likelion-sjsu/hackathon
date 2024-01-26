@@ -1,53 +1,77 @@
 export const questions = {
   food: [
     {
-      title: "Choose cuisine",
+      title: "Preferred Cuisine",
       key: "cuisine",
       options: [
         {
-          display: "🇰🇷",
-          value: "Korean",
-        },
-        {
-          display: "🇯🇵",
-          value: "Japanese",
-        },
-        {
-          display: "🇨🇳",
-          value: "Chinese",
-        },
-        {
-          display: "🇻🇳",
-          value: "Vietnamese",
-        },
-        {
-          display: "🇱🇷",
+          display: "🇱🇷 American",
           value: "American",
         },
         {
-          display: "🇲🇽",
+          display: "🇨🇳 Chinese",
+          value: "Chinese",
+        },
+        {
+          display: "🇻🇳 Vietnamese",
+          value: "Vietnamese",
+        },
+        {
+          display: "🇲🇽 Mexican",
           value: "Mexican",
+        },
+        {
+          display: "🇰🇷 Korean",
+          value: "Korean",
+        },
+        {
+          display: "🇪🇹 Ethiopian",
+          value: "Ethiopian",
+        },
+        {
+          display: "🇮🇳 Indian",
+          value: "Indian",
+        },
+        {
+          display: "🇹🇭 Thai",
+          value: "Thai",
+        },
+        {
+          display: "🇬🇷 Greek",
+          value: "Greek",
+        },
+        {
+          display: "🇯🇵 Japanese",
+          value: "Japanese",
+        },
+        {
+          display: "🇮🇹 Italian",
+          value: "Italian",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "",
         },
       ],
     },
     {
-      title: "Choose type",
+      title: "What Are You Craving?",
       key: "type",
       options: [
         {
-          display: "🍚",
+          display: "🍚 Rice",
           value: "rice",
         },
         {
-          display: "🍖",
+          display: "🍖 Meat",
           value: "meat",
         },
         {
-          display: "🍜",
+          display: "🍜 Noodles",
           value: "noodle",
         },
         {
-          display: "🦞",
+          display: "🐟 Seafood",
           value: "seafood",
         },
       ],
@@ -57,34 +81,70 @@ export const questions = {
       key: "spiciness",
       options: [
         {
-          display: "😌",
+          display: "😌 Not Spicy",
           value: "no",
         },
         {
-          display: "🌶️",
+          display: "😅 Mild Spicy",
           value: "mild",
         },
         {
-          display: "🌶️🌶️",
+          display: "😤 Medium Spicy",
           value: "moderately",
         },
         {
-          display: "🌶️🌶️🌶️",
+          display: "🥵 Very Spicy",
           value: "very",
+        },
+        {
+          display: "🤯 Extremely Spicy",
+          value: "extremely",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "",
         },
       ],
     },
     {
-      title: "Soup?",
-      key: "soup",
+      title: "Comfort Level",
+      key: "comfort",
       options: [
         {
-          display: "yes",
-          value: "soup-based",
+          display: "Homey",
+          value: "homey",
         },
         {
-          display: "no",
-          value: "no soup",
+          display: "Adventurous",
+          value: "Adventurous",
+        },
+        {
+          display: "Elegant",
+          value: "Elegant",
+        },
+        {
+          display: "Trendy",
+          value: "Trendy",
+        },
+        {
+          display: "Classic",
+          value: "Classic",
+        },
+        {
+          display: "Modern",
+          value: "Modern",
+        },
+        {
+          display: "Unique",
+          value: "Unique",
+        },
+        {
+          display: "Cozy",
+          value: "Cozy",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
         },
       ],
     },
@@ -93,12 +153,18 @@ export const questions = {
       key: "temperature",
       options: [
         {
-          display: "🔥",
+          icon: "☀️",
+          display: "Warm",
           value: "warm",
         },
         {
-          display: "❄️",
+          icon: "❄️",
+          display: "Cold",
           value: "cold",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "",
         },
       ],
     },
