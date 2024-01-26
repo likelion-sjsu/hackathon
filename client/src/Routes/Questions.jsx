@@ -189,6 +189,7 @@ export default function Questions() {
                   key={i}
                   text={option.display}
                   icon={option.icon}
+                  selected={Object.values(value)[0] === option.value}
                   onClick={() => onclickOption(i)}
                 />
               ))}

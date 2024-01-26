@@ -14,9 +14,6 @@ const Container = styled.div`
   border: 1px solid #eeeeee;
   transition: 0.2s border-color;
   cursor: pointer;
-  &:hover {
-    border: 2px solid #836aad;
-  }
 `;
 
 const TemperatureBox = styled.div`
@@ -25,9 +22,6 @@ const TemperatureBox = styled.div`
   width: calc(50% - 8px);
   height: 180px;
   border-radius: 16px;
-  &:hover {
-    border: 2px solid #836aad;
-  }
   div {
     display: flex;
     flex-direction: column;
@@ -50,14 +44,16 @@ const TemperatureBox = styled.div`
   }
 `;
 
-export default function OptionBox({ text, onClick, icon }) {
+export default function OptionBox({ text, onClick, icon, selected }) {
   return icon ? (
     <TemperatureBox
+      onClick={onClick}
       style={{
         backgroundColor:
           text === "Warm"
             ? "rgba(255, 196, 196, 0.32)"
             : "rgba(226, 249, 255, 0.6)",
+        border: selected === true && "2px solid #836aad",
       }}
     >
       <div>
@@ -72,6 +68,13 @@ export default function OptionBox({ text, onClick, icon }) {
       </div>
     </TemperatureBox>
   ) : (
-    <Container onClick={onClick}>{text}</Container>
+    <Container
+      onClick={onClick}
+      style={{
+        border: selected === true && "2px solid #836aad",
+      }}
+    >
+      {text}
+    </Container>
   );
 }
