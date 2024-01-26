@@ -90,6 +90,7 @@ const NextBtn = styled.button`
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
   color: white;
+  transition: 0.2s all;
   cursor: pointer;
 `;
 
@@ -144,12 +145,17 @@ export default function Questions() {
     }
   };
 
-  const onclickNext = (answerNumber) => {
+  const onclickNext = () => {
+    if (Object.keys(value).length === 0) {
+      console.log("한가지를 선택하세요");
+      return;
+    }
     setAnswer({
       ...answer,
       ...value,
     });
     setPage((prev) => (prev += 1));
+    setValue({});
   };
 
   const onclickOption = (answerNumber) => {
@@ -187,7 +193,17 @@ export default function Questions() {
                 />
               ))}
             </OptionsContainer>
-            <NextBtn onClick={onclickNext}>Next</NextBtn>
+            <NextBtn
+              style={{
+                background: Object.keys(value).length === 0 && "transparent",
+                color: Object.keys(value).length === 0 && "#A6A6A6",
+                border: Object.keys(value).length === 0 && "1px solid #A6A6A6",
+              }}
+              onClick={onclickNext}
+            >
+              Next
+            </NextBtn>
+
             {roomInfo.code !== "no-code" && <Code>Code: {roomInfo.code}</Code>}
           </>
         ) : (
