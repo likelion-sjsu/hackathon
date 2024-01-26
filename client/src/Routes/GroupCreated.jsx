@@ -1,7 +1,6 @@
 import React from "react";
 import CreatedIcon from "../assets/Check-icon.svg";
 import styled from "styled-components";
-import Logo from "components/Logo";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.main`
@@ -22,25 +21,15 @@ const Container = styled.main`
   }
 `;
 
-const Header = styled.div`
-  position: absolute;
-  top: 65px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-`;
-
 const Code = styled.div`
   font-size: 48px;
   font-weight: 600;
   letter-spacing: 20px;
-  margin-top: 96px;
+  margin-top: 60px;
 `;
 
 const Btn = styled.button`
-  position: absolute;
-  bottom: 90px;
+  margin-top: 60px;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
@@ -58,9 +47,6 @@ export default function GroupCreated() {
 
   return (
     <Container>
-      <Header>
-        <Logo />
-      </Header>
       <img style={{ marginTop: 180 }} src={CreatedIcon} alt="" />
       <h1>Group Created</h1>
       <p>Share the number above</p>
