@@ -95,7 +95,10 @@ export default function Result() {
         </Box>
       </CenterBox>
       <ToMapBtn
-        to={`https://www.google.com/search?q=${result.replace(/ /g, "+")}`}
+        to={`https://www.google.com/maps/search/${result.replace(
+          / /g,
+          "+"
+        )}+near+me`}
         target="_blank"
         rel="noopener noreferrer"
       >
