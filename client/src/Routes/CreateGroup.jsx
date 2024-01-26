@@ -15,7 +15,6 @@ const CenterBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 360px;
-  height: 548px;
 `;
 
 const Subtitle = styled.div`
@@ -36,7 +35,7 @@ const Box = styled.div`
   justify-content: center;
   gap: 20px;
   width: 100%;
-  margin-top: 110px;
+  margin-top: 80px;
   svg {
     cursor: pointer;
   }
@@ -53,7 +52,7 @@ const Box = styled.div`
 `;
 
 const CreateBtn = styled.button`
-  margin-top: 160px;
+  margin-top: 80px;
   width: 360px;
   min-height: 48px;
   border-radius: 16px;

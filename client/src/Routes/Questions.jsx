@@ -99,9 +99,11 @@ const NextBtn = styled.button`
 
 const Code = styled.div`
   position: absolute;
-  bottom: 42px;
-  left: 24px;
+  top: 135px;
+  right: 12px;
   font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
   color: ${(props) => props.theme.secondaryFont};
 `;
 

@@ -17,8 +17,7 @@ const Container = styled.div`
 `;
 
 const ClosePollBtn = styled.button`
-  position: absolute;
-  bottom: 90px;
+  margin-top: 60px;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
@@ -33,7 +32,7 @@ const ClosePollBtn = styled.button`
 const Ring = styled.div`
   width: 160px;
   height: 160px;
-  margin-top: 210px;
+  margin-top: 150px;
   margin-bottom: 30px;
 `;
 
@@ -46,9 +45,11 @@ export default function StandBy() {
 
   const Code = styled.div`
     position: absolute;
-    bottom: 42px;
-    left: 24px;
+    top: 135px;
+    right: 12px;
     font-size: 14px;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 300;
     color: ${(props) => props.theme.secondaryFont};
   `;
 
