@@ -78,8 +78,7 @@ class RoomAPI(APIView):
         return Response({"message": "successfully deleted!"}, status=204)
 
 class GroupAPI(APIView): 
-    def post(self, request):
-        code = request.GET['code']
+    def get(self, request, code):
         try:
             room = Room.objects.get(code=code)
             category = room.category
