@@ -9,7 +9,7 @@ class Room(models.Model):
     category = models.CharField(max_length=10, default="food")
     max_count = models.IntegerField(default =1, null=True)
     answered_count = models.IntegerField(default=0)
-    end = models.BooleanField(default=False)
+    outcome = models.CharField(max_length=100, default="")
 
     @staticmethod
     def generate_short_identifier(digits=4):
