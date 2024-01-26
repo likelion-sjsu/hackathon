@@ -3,9 +3,9 @@ import { SERVER_URL } from "api";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
-import FoodIcon from "../assets/food.png";
-import TravelIcon from "../assets/travel.png";
-import HangoutIcon from "../assets/hangout.png";
+import FoodIcon from "../assets/Food-icon.svg";
+import TravelIcon from "../assets/Travel-icon.svg";
+import HangoutIcon from "../assets/Hangout-icon.svg";
 
 const Container = styled.main`
   display: grid;

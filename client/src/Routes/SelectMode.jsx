@@ -2,9 +2,9 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { ChevronRightIcon } from "@heroicons/react/24/outline";
-import Solo from "../assets/solo.png";
-import Leader from "../assets/leader.png";
-import Member from "../assets/member.png";
+import SoloIcon from "../assets/Solo-icon.svg";
+import GroupCreateIcon from "../assets/Group-create-icon.svg";
+import GroupJoinIcon from "../assets/Group-join-icon.svg";
 
 const Container = styled.main`
   display: grid;
@@ -78,7 +78,7 @@ export default function SelectMode() {
           onClick={() => navigate("/category")}
         >
           <Image>
-            <img src={Solo} alt="" />
+            <img src={SoloIcon} alt="" />
           </Image>
           <Content>
             <h1>Solo</h1>
@@ -92,7 +92,7 @@ export default function SelectMode() {
           onClick={() => navigate("/create")}
         >
           <Image>
-            <img src={Leader} alt="" />
+            <img src={GroupCreateIcon} alt="" />
           </Image>
           <Content>
             <h1>Make Group</h1>
@@ -106,7 +106,7 @@ export default function SelectMode() {
           onClick={() => navigate("/join")}
         >
           <Image>
-            <img src={Member} alt="" />
+            <img src={GroupJoinIcon} alt="" />
           </Image>
           <Content>
             <h1>Join Group</h1>
