@@ -28,6 +28,8 @@ const Box = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 60px;
   width: 360px;
   height: 400px;
   margin-bottom: 24px;
@@ -37,18 +39,13 @@ const Box = styled.div`
 
   img {
     height: 64px;
-    margin-top: 78px;
   }
 
   h1 {
-    margin-top: 50px;
     font-weight: 700;
     text-align: center;
     white-space: nowrap;
     width: 340px;
-  }
-  p {
-    margin-top: 50px;
   }
 `;
 
@@ -82,9 +79,17 @@ const ToHomeBtn = styled(Link)`
   cursor: pointer;
 `;
 
+const price_query = {
+  "": "",
+  "price range within $0-$10": "1e0!",
+  "price range within $10-$25": "1e1!",
+  "price range within $25-$50": "1e2!",
+  "price range within $50 and up": "1e3!",
+};
+
 export default function Result() {
   const location = useLocation();
-  const { result } = location.state;
+  const { result, query } = location.state;
   const [fontSize, setFontSize] = useState(48);
   const boxRef = useRef(null);
 
@@ -112,7 +117,14 @@ export default function Result() {
     return () => {
       window.removeEventListener("resize", adjustFontSize);
     };
-  }, []); // Only re-run the effect if fontSize changes
+  }, [result]); // Only re-run the effect if fontSize changes
+
+  const url = `https://www.google.com/maps/search/${result.replace(
+    / /g,
+    "+"
+  )}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
+    price_query[query.price]
+  }6e5?entry=ttu`;
 
   return (
     <Container>
@@ -124,14 +136,7 @@ export default function Result() {
           <p>Have a wonderful day!</p>
         </Box>
       </CenterBox>
-      <ToMapBtn
-        to={`https://www.google.com/maps/search/${result.replace(
-          / /g,
-          "+"
-        )}+near+me`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
+      <ToMapBtn to={url} target="_blank" rel="noopener noreferrer">
         Open in Google Maps
       </ToMapBtn>
       <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>

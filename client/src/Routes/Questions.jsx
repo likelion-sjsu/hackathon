@@ -142,7 +142,9 @@ export default function Questions() {
 
       if (res.ok) {
         console.log(data);
-        navigate("/result", { state: { result: data.result } });
+        navigate("/result", {
+          state: { result: data.result, query: formData },
+        });
       } else {
         alert("There is something wrong in the server");
       }
