@@ -1,4 +1,4 @@
-# 선택장애
+# Decide.
 
 ## Setup (MacOS)
 
