@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import FoodIcon from "../assets/Food-icon.svg";
@@ -42,9 +42,10 @@ const Box = styled.div`
 
   h1 {
     margin-top: 50px;
-    font-size: 48px;
     font-weight: 700;
     text-align: center;
+    white-space: nowrap;
+    width: 340px;
   }
   p {
     margin-top: 50px;
@@ -84,13 +85,42 @@ const ToHomeBtn = styled(Link)`
 export default function Result() {
   const location = useLocation();
   const { result } = location.state;
+  const [fontSize, setFontSize] = useState(48);
+  const boxRef = useRef(null);
+
+  useEffect(() => {
+    const adjustFontSize = () => {
+      const box = boxRef.current;
+      if (!box) return;
+
+      const boxWidth = box.clientWidth - 40;
+      const textWidth = box.scrollWidth;
+
+      const scaleFactor = boxWidth / textWidth;
+      const newFontSize = Math.floor(fontSize * scaleFactor);
+
+      setFontSize(newFontSize);
+    };
+
+    // Adjust font size on initial render
+    adjustFontSize();
+
+    // Attach resize event listener
+    window.addEventListener("resize", adjustFontSize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", adjustFontSize);
+    };
+  }, []); // Only re-run the effect if fontSize changes
+
   return (
     <Container>
       <CenterBox>
         <Title>Enjoy!</Title>
-        <Box>
+        <Box ref={boxRef}>
           <img src={FoodIcon} alt="food-icon" />
-          <h1>{result}</h1>
+          <h1 style={{ fontSize: fontSize }}>{result}</h1>
           <p>Have a wonderful day!</p>
         </Box>
       </CenterBox>
