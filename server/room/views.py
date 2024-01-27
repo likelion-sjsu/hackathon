@@ -119,7 +119,7 @@ class AnswerAPI(APIView):
         try:
             room = Room.objects.get(code=code)
             
-            fields = ['cuisine', 'comfort', 'spiciness', 'temperature', 'type', 'special_offer']
+            fields = ['cuisine', 'price', 'spiciness', 'temperature', 'type', 'special_offer']
             data = {field: request.data.get(field) for field in fields}
             room.results.append(data)
             room.answered_count +=1
