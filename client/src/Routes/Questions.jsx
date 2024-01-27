@@ -129,7 +129,7 @@ export default function Questions() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      if (res.ok) navigate("/standby"); // 대기창으로
+      if (res.ok) navigate("/standby", { state: { query: formData } }); // 대기창으로
     } else if (roomInfo.role === "individual") {
       /* Case 2. Individual */
       // 바로 open ai 로 결과 받아오기

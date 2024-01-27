@@ -1,7 +1,7 @@
 import { SERVER_URL, getRoomData } from "api";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
@@ -42,6 +42,8 @@ export default function StandBy() {
   const { code, role } = JSON.parse(localStorage.getItem("roomInfo"));
   const [percent, setPercent] = useState(0);
   const [periods, setPeriods] = useState(".");
+  const { state } = useLocation();
+  console.log(state.query);
 
   const Code = styled.div`
     position: absolute;
@@ -69,9 +71,11 @@ export default function StandBy() {
             }
           }
         }
-
+        console.log(outcome);
         if (outcome !== "") {
-          navigate("/result", { state: { result: outcome } });
+          navigate("/result", {
+            state: { result: outcome, query: state.query },
+          });
         }
       },
       refetchInterval: 3000,
