@@ -67,7 +67,7 @@ const CreateBtn = styled.button`
 
 export default function CreateGroup() {
   const navigate = useNavigate();
-  const [num, setNum] = useState(1);
+  const [num, setNum] = useState(2);
 
   const onClickCreateRoom = () => {
     localStorage.setItem(
@@ -84,7 +84,7 @@ export default function CreateGroup() {
         <Subtitle>How many people are in your group?</Subtitle>
         <Box>
           <MinusIcon
-            onClick={() => num > 1 && setNum((prev) => prev - 1)}
+            onClick={() => num > 2 && setNum((prev) => prev - 1)}
             width={40}
           />
           <div>{num}</div>
