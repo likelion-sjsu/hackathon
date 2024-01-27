@@ -120,6 +120,7 @@ export default function Questions() {
   const submitForm = async (data) => {
     const formData = { ...answer, ...data };
     console.log(formData);
+
     /* Case 1. ROOM */
     if (roomInfo.role === "leader" || roomInfo.role === "member") {
       // 방 데이터에 추가만 하기

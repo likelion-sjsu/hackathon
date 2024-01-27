@@ -88,11 +88,11 @@ class GroupAPI(APIView):
                 for i, data in enumerate(room.results):
                     cuisine = data['cuisine']
                     type = data['type']
-                    comfort = data['comfort']
+                    price = data['price']
                     spiciness = data['spiciness']
                     temperature = data['temperature']
                     special_offer = data['special_offer']
-                    content += f"{i+1}. {temperature} {spiciness} {cuisine} food including {type} in {comfort} atmosphere. {special_offer}"
+                    content += f"{i+1}. {temperature} and {spiciness} {cuisine} food including {type} in {price}. {special_offer}"
                 content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of food."
 
                 # Create a chat completion
@@ -137,14 +137,14 @@ class SoloAPI(APIView):
         cuisine = data['cuisine']
         type = data['type']
         spiciness = data['spiciness']
-        comfort = data['comfort']
+        price = data['price']
         temperature = data['temperature']
         special_offer = data['special_offer']
         try:
             if category == 'food':
                 fields = ['cuisine', 'soup', 'spiciness', 'temperature', 'type']
                 data = {field: request.data.get(field) for field in fields}
-                content = f"Recommend me one of {temperature} {spiciness} {cuisine} foods including {type} in {comfort} atmosphere. {special_offer}.respond just the words of one food."
+                content = f"Recommend me one of {temperature} and {spiciness} {cuisine} foods including {type} in {price}. {special_offer} andrespond just the words of one food."
                 
                 # Create a chat completion
                 api_key = config('OPENAI_API_KEY')

@@ -97,7 +97,33 @@ export const questions = {
       ],
     },
     {
-      title: "How spicy?",
+      title: "Price Range",
+      key: "price",
+      options: [
+        {
+          display: "$ 0 - 10",
+          value: "price range within $0-$10",
+        },
+        {
+          display: "$$ 10 - 25",
+          value: "price range within $10-$25",
+        },
+        {
+          display: "$$$ 25 - 50",
+          value: "price range within $25-$50",
+        },
+        {
+          display: "$$$$+50",
+          value: "price range within $50 and up",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "",
+        },
+      ],
+    },
+    {
+      title: "How Spicy?",
       key: "spiciness",
       options: [
         {
@@ -127,58 +153,16 @@ export const questions = {
       ],
     },
     {
-      title: "Comfort Level",
-      key: "comfort",
-      options: [
-        {
-          display: "Homey",
-          value: "homey",
-        },
-        {
-          display: "Adventurous",
-          value: "adventurous",
-        },
-        {
-          display: "Elegant",
-          value: "elegant",
-        },
-        {
-          display: "Trendy",
-          value: "trendy",
-        },
-        {
-          display: "Classic",
-          value: "classic",
-        },
-        {
-          display: "Modern",
-          value: "modern",
-        },
-        {
-          display: "Unique",
-          value: "unique",
-        },
-        {
-          display: "Cozy",
-          value: "cozy",
-        },
-        {
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Temperature?",
+      title: "What Type of Food?",
       key: "temperature",
       options: [
         {
-          icon: "☀️",
+          icon: "🍲",
           display: "Warm",
           value: "warm",
         },
         {
-          icon: "❄️",
+          icon: "🍨",
           display: "Cold",
           value: "cold",
         },
