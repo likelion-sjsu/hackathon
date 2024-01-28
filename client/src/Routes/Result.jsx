@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
-import FoodIcon from "../assets/Food-icon.svg";
-import HangoutIcon from "../assets/Hangout-icon.svg";
+import { useQuery } from "react-query";
+import { getPicture } from "api";
 
 const Container = styled.main`
   display: grid;
@@ -28,6 +28,7 @@ const Title = styled.div`
 `;
 
 const Box = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,12 +37,15 @@ const Box = styled.div`
   width: 360px;
   height: 360px;
   margin-bottom: 24px;
-  border: 1px solid;
   border-radius: 16px;
-  box-shadow: 1px 2px 5px lightgray;
+  box-shadow: 3px 3px 4px rgba(204, 204, 204, 0.25);
 
-  img {
-    height: 64px;
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #00000033;
+    border-radius: 16px;
   }
 
   h1 {
@@ -49,6 +53,12 @@ const Box = styled.div`
     text-align: center;
     white-space: nowrap;
     width: 340px;
+    color: white;
+    z-index: 10;
+  }
+  p {
+    color: white;
+    z-index: 10;
   }
 `;
 
@@ -97,10 +107,13 @@ const price_query = {
 export default function Result() {
   const location = useLocation();
   const { result, query } = location.state;
-  const [fontSize, setFontSize] = useState(48);
+  const [fontSize, setFontSize] = useState(64);
   const boxRef = useRef(null);
   const { category } = JSON.parse(localStorage.getItem("roomInfo"));
   const theme = useTheme();
+  const { data: photoData, isLoading: photoLoading } = useQuery(["pictures"], {
+    queryFn: () => getPicture(result),
+  });
 
   useEffect(() => {
     const adjustFontSize = () => {
@@ -138,11 +151,17 @@ export default function Result() {
     <Container>
       <CenterBox>
         <Title>Enjoy!</Title>
-        <Box ref={boxRef} style={{ borderColor: theme[category] }}>
-          <img
-            src={category === "food" ? FoodIcon : HangoutIcon}
-            alt="food-icon"
-          />
+        <Box
+          ref={boxRef}
+          style={{
+            background: photoLoading
+              ? "none"
+              : `url(${photoData.photos[0].src.large})`,
+            borderColor: theme[category],
+            backgroundSize: "cover",
+          }}
+        >
+          <div />
           <h1
             style={{
               fontFamily: "'Fugaz One', sans-serif",
