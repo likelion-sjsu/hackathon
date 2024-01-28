@@ -119,11 +119,9 @@ export default function Questions() {
   const [value, setValue] = useState({});
   const questionData = questions[category];
   const [isFetching, setIsFetching] = useState(false);
-  console.log(value, answer);
 
   const submitForm = async (data) => {
     const formData = { ...answer, ...data };
-    console.log(formData);
     setIsFetching(true);
 
     /* Case 1. ROOM */
