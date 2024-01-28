@@ -45,7 +45,7 @@ const Box = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: #00000033;
+    background-color: rgb(0 0 0 / 30%);
     border-radius: 16px;
   }
 
@@ -110,8 +110,6 @@ export default function Result() {
   const { result, query } = location.state;
   const [fontSize, setFontSize] = useState(64);
   const boxRef = useRef(null);
-  const { category } = JSON.parse(localStorage.getItem("roomInfo"));
-  const theme = useTheme();
   const { data: photoData, isLoading: photoLoading } = useQuery(
     ["pictures", result],
     {
@@ -160,9 +158,7 @@ export default function Result() {
           style={{
             background: photoLoading
               ? "none"
-              : `url(${photoData.photos[0].src.medium})`,
-            borderColor: theme[category],
-            backgroundSize: photoLoading ? "none" : `cover`,
+              : `url(${photoData.photos[0].src.medium}) 0% 0% / cover`,
           }}
         >
           <div />
