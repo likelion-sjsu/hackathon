@@ -77,6 +77,13 @@ export default function SelectCategory(props) {
     console.log(category);
 
     if (roomInfo.role === "individual") {
+      localStorage.setItem(
+        "roomInfo",
+        JSON.stringify({
+          ...roomInfo,
+          category: category,
+        })
+      );
       navigate(`${category}`);
     } else {
       const formData = new FormData();
@@ -111,7 +118,7 @@ export default function SelectCategory(props) {
     <Container>
       <CenterBox>
         <Title>Categories</Title>
-        <Subtitle>What can we help you to decide?</Subtitle>
+        <Subtitle>What can we help you to decide on?</Subtitle>
         <Box
           style={{ borderColor: theme.food }}
           onClick={() => onclick("food")}
