@@ -30,7 +30,7 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-size: ${(props) => props.theme.fontBigTitle.fontSize};
+  font-size: 28px;
   font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
   padding-left: 12px;
   width: 280px;

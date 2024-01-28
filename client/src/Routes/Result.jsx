@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import styled, { useTheme } from "styled-components";
+import styled from "styled-components";
 import { useQuery } from "react-query";
 import { getPicture } from "api";
 
