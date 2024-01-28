@@ -93,7 +93,7 @@ export const questions = {
       ],
     },
     {
-      title: "Price Range",
+      title: "Select Price Range",
       key: "price",
       options: [
         {
@@ -119,7 +119,7 @@ export const questions = {
       ],
     },
     {
-      title: "How Spicy?",
+      title: "Select Spicy Level",
       key: "spiciness",
       options: [
         {
@@ -149,7 +149,7 @@ export const questions = {
       ],
     },
     {
-      title: "What Type of Food?",
+      title: "Warm or Cold",
       key: "temperature",
       options: [
         {
@@ -171,7 +171,7 @@ export const questions = {
   ],
   hangout: [
     {
-      title: "Hangout Time",
+      title: "Select Hangout Time",
       key: "time",
       options: [
         {
@@ -197,7 +197,7 @@ export const questions = {
       ],
     },
     {
-      title: "Group Size",
+      title: "Select Group Size",
       key: "size",
       options: [
         {
@@ -223,7 +223,7 @@ export const questions = {
       ],
     },
     {
-      title: "Indoor or Outdoor Hangout?",
+      title: "Indoor or Outdoor?",
       key: "place",
       options: [
         {
@@ -243,7 +243,7 @@ export const questions = {
       ],
     },
     {
-      title: "Vibe?",
+      title: "Select Vibe",
       key: "mood",
       options: [
         {
@@ -255,12 +255,16 @@ export const questions = {
           value: "adventurous",
         },
         {
+          display: "Cozy",
+          value: "cozy",
+        },
+        {
           display: "Sports",
           value: "sports",
         },
         {
-          display: "Trendy",
-          value: "trendy",
+          display: "Instagram",
+          value: "instagram",
         },
         {
           display: "Artistic",
@@ -269,10 +273,6 @@ export const questions = {
         {
           display: "Unique",
           value: "unique",
-        },
-        {
-          display: "Cozy",
-          value: "cozy",
         },
         {
           display: "🚫 No Preference",
