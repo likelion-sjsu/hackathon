@@ -1,6 +1,20 @@
 # 선택장애 치료제 - Decide.
-  ## OpenAI API를 활용하여 다수의 결정을 도와드리는 Decide 웹앱입니다.
-  
+
+OpenAI API를 활용하여 다수의 결정을 도와드리는 Decide 웹앱입니다.
+
+## by RedTesla
+
+- 이주한 - PM / Design
+- 박미진 - UX/UI Designer
+- 윤주열 - Fullstack
+- 유재성 - Frontend
+- 김형균 - Backend
+- 김양휘 - Backend
+
+## Design
+
+[Figma](https://www.figma.com/file/DNN508FUy3oCnYjacybPYA/LikeLion-Hackathon?type=design&mode=design&t=VN8vV3o3SV39OeJZ-1)
+
 ## Setup (MacOS)
 
 ### 1. Client - ReactJS
