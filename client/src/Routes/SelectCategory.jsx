@@ -124,7 +124,7 @@ export default function SelectCategory(props) {
         </Box>
         <Box
           style={{ borderColor: theme.hangout }}
-          // onClick={() => onclick("hangout")}
+          onClick={() => onclick("hangout")}
         >
           <Image src={HangoutIcon} alt="hangout" />
           <Content>

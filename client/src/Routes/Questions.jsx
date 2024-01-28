@@ -119,9 +119,11 @@ export default function Questions() {
   const [value, setValue] = useState({});
   const questionData = questions[category];
   const [isFetching, setIsFetching] = useState(false);
+  console.log(value, answer);
 
   const submitForm = async (data) => {
     const formData = { ...answer, ...data };
+    console.log(formData);
     setIsFetching(true);
 
     /* Case 1. ROOM */
@@ -136,7 +138,7 @@ export default function Questions() {
     } else if (roomInfo.role === "individual") {
       /* Case 2. Individual */
       // 바로 open ai 로 결과 받아오기
-      const res = await fetch(`${SERVER_URL}/recommend/food/`, {
+      const res = await fetch(`${SERVER_URL}/recommend/${category}/`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),

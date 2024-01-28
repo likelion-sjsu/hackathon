@@ -173,4 +173,98 @@ export const questions = {
       ],
     },
   ],
+  hangout: [
+    {
+      title: "Choose your hangout time",
+      key: "time",
+      options: [
+        {
+          display: "Morning",
+          value: "morning",
+        },
+        {
+          display: "Afternoon",
+          value: "afternoon",
+        },
+        {
+          display: "Evening",
+          value: "evening",
+        },
+        {
+          display: "Late-Night",
+          value: "late-night",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "Group Size",
+      key: "size",
+      options: [
+        {
+          display: "Alone",
+          value: "along",
+        },
+        {
+          display: "2-3 people",
+          value: "2-3",
+        },
+        {
+          display: "Small group (4-6)",
+          value: "4-6",
+        },
+        {
+          display: "Medium Group(7-10)",
+          value: "7-10",
+        },
+        {
+          display: "Large Group (10+)",
+          value: "10 and up",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "place",
+      key: "place",
+      options: [
+        {
+          display: "Indoor",
+          value: "Indoor",
+        },
+        {
+          display: "outdoor",
+          value: "outdoor",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "active vs. quiet",
+      key: "mood",
+      options: [
+        {
+          display: "active, energetic",
+          value: "active, energetic",
+        },
+        {
+          display: "relaxed and quiet",
+          value: "relaxed and quiet",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+  ],
 };

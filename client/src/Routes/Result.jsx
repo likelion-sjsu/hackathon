@@ -119,10 +119,9 @@ export default function Result() {
     };
   }, [result]); // Only re-run the effect if fontSize changes
 
-  const url = `https://www.google.com/maps/search/${result.replace(
-    / /g,
-    "+"
-  )}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
+  const url = `https://www.google.com/maps/search/${result
+    .replace(/ /g, "+")
+    .replace(".", "")}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
     price_query[query.price]
   }6e5?entry=ttu`;
 
@@ -132,7 +131,7 @@ export default function Result() {
         <Title>Enjoy!</Title>
         <Box ref={boxRef}>
           <img src={FoodIcon} alt="food-icon" />
-          <h1 style={{ fontSize: fontSize }}>{result}</h1>
+          <h1 style={{ fontSize: fontSize }}>{result.replace(".", "")}</h1>
           <p>Have a wonderful day!</p>
         </Box>
       </CenterBox>
