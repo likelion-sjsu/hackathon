@@ -49,10 +49,10 @@ export default function GroupCreated() {
     <Container>
       <img style={{ marginTop: 60 }} src={CreatedIcon} alt="" />
       <h1>Group Created</h1>
-      <p>Share the number above</p>
+      <p>Share the number below</p>
       <p>with your friends</p>
       <Code>{code}</Code>
-      <Btn onClick={() => navigate(`/category/${category}`)}>Next</Btn>
+      <Btn onClick={() => navigate(`/category/${category}`)}>Open Poll</Btn>
     </Container>
   );
 }

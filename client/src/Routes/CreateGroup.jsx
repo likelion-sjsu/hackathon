@@ -93,7 +93,7 @@ export default function CreateGroup() {
             width={40}
           />
         </Box>
-        <CreateBtn onClick={onClickCreateRoom}>Create</CreateBtn>
+        <CreateBtn onClick={onClickCreateRoom}>Next</CreateBtn>
       </CenterBox>
     </Container>
   );
