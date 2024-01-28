@@ -72,9 +72,10 @@ const SeeResultBtn = styled.input`
 `;
 
 const SkipBtn = styled.input`
-  margin-top: 30px;
   background-color: transparent;
-  border: none;
+  min-height: 48px;
+  border-radius: 16px;
+  border: 1px solid #a6a6a6;
   outline: none;
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
@@ -225,8 +226,8 @@ export default function Questions() {
                   <textarea {...field} rows={4} placeholder="Type here..." />
                 )}
               />
-              <SeeResultBtn type="submit" value={"See Result"} />
-              <SkipBtn type="submit" value="skip" />
+              <SeeResultBtn type="submit" value={"Submit"} />
+              <SkipBtn type="submit" value="Skip" />
             </SpecialOfferForm>
           </>
         )}
