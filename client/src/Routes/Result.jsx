@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import styled from "styled-components";
+import styled, { useTheme } from "styled-components";
 import FoodIcon from "../assets/Food-icon.svg";
+import HangoutIcon from "../assets/Hangout-icon.svg";
 
 const Container = styled.main`
   display: grid;
@@ -33,7 +34,7 @@ const Box = styled.div`
   width: 360px;
   height: 400px;
   margin-bottom: 24px;
-  border: 1px solid ${(props) => props.theme.food};
+  border: 1px solid;
   border-radius: 16px;
   box-shadow: 1px 2px 5px lightgray;
 
@@ -92,6 +93,8 @@ export default function Result() {
   const { result, query } = location.state;
   const [fontSize, setFontSize] = useState(48);
   const boxRef = useRef(null);
+  const { category } = JSON.parse(localStorage.getItem("roomInfo"));
+  const theme = useTheme();
 
   useEffect(() => {
     const adjustFontSize = () => {
@@ -129,9 +132,19 @@ export default function Result() {
     <Container>
       <CenterBox>
         <Title>Enjoy!</Title>
-        <Box ref={boxRef}>
-          <img src={FoodIcon} alt="food-icon" />
-          <h1 style={{ fontSize: fontSize }}>{result.replace(".", "")}</h1>
+        <Box ref={boxRef} style={{ borderColor: theme[category] }}>
+          <img
+            src={category === "food" ? FoodIcon : HangoutIcon}
+            alt="food-icon"
+          />
+          <h1
+            style={{
+              fontFamily: "'Fugaz One', sans-serif",
+              fontSize: fontSize,
+            }}
+          >
+            {result.replace(".", "")}
+          </h1>
           <p>Have a wonderful day!</p>
         </Box>
       </CenterBox>
