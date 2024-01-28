@@ -25,8 +25,8 @@ export const questions = {
           value: "Korean",
         },
         {
-          display: "🇪🇹 Ethiopian",
-          value: "Ethiopian",
+          display: "🇯🇵 Japanese",
+          value: "Japanese",
         },
         {
           display: "🇮🇳 Indian",
@@ -39,10 +39,6 @@ export const questions = {
         {
           display: "🇬🇷 Greek",
           value: "Greek",
-        },
-        {
-          display: "🇯🇵 Japanese",
-          value: "Japanese",
         },
         {
           display: "🇮🇹 Italian",
@@ -175,7 +171,7 @@ export const questions = {
   ],
   hangout: [
     {
-      title: "Choose your hangout time",
+      title: "Hangout Time",
       key: "time",
       options: [
         {
@@ -201,7 +197,7 @@ export const questions = {
       ],
     },
     {
-      title: "How many people will hangout?",
+      title: "Group Size",
       key: "size",
       options: [
         {
@@ -227,7 +223,7 @@ export const questions = {
       ],
     },
     {
-      title: "Indoor or Outdoor hangout?",
+      title: "Indoor or Outdoor",
       key: "place",
       options: [
         {
@@ -247,7 +243,7 @@ export const questions = {
       ],
     },
     {
-      title: "What type of hangout do you want?",
+      title: "Atmosphere",
       key: "mood",
       options: [
         {
