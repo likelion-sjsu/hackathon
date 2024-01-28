@@ -1,6 +1,7 @@
 # 선택장애 치료제 - Decide.
 
-OpenAI API를 활용하여 다수의 결정을 도와드리는 Decide 웹앱입니다.
+OpenAI API를 활용하여 다수의 결정을 도와드리는 Decide 웹앱입니다. <br />
+https://sjsu-decide.vercel.app/
 
 ## by RedTesla
 
