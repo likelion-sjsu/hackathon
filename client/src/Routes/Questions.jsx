@@ -26,7 +26,7 @@ const OptionsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
-  gap: 16px;
+  gap: 12px;
   margin-top: 32px;
 `;
 
@@ -191,6 +191,7 @@ export default function Questions() {
                 marginTop: 12,
                 paddingLeft: 12,
                 fontSize: 34,
+                lineHeight: "42px",
               }}
             >
               {questionData[page].title}
@@ -199,6 +200,7 @@ export default function Questions() {
               {questionData[page].options.map((option, i) => (
                 <OptionBox
                   key={i}
+                  keycode={questionData[page].key}
                   text={option.display}
                   icon={option.icon}
                   selected={Object.values(value)[0] === option.value}
@@ -220,7 +222,7 @@ export default function Questions() {
         ) : (
           <>
             <SpecialOfferForm onSubmit={handleSubmit(submitForm)}>
-              <h1>Is there anything we need to be aware of? </h1>
+              <h1>Is there anything we need to be aware of? (special note)</h1>
               <Controller
                 name="special_offer"
                 control={control}

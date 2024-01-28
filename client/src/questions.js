@@ -101,19 +101,19 @@ export const questions = {
       key: "price",
       options: [
         {
-          display: "$ 0 - 10",
+          display: "0 - 10",
           value: "$0-$10",
         },
         {
-          display: "$$ 10 - 25",
+          display: "10 - 25",
           value: "$10-$25",
         },
         {
-          display: "$$$ 25 - 50",
+          display: "25 - 50",
           value: "$25-$50",
         },
         {
-          display: "$$$$+50",
+          display: "50+",
           value: "$50 and up",
         },
         {
@@ -179,19 +179,19 @@ export const questions = {
       key: "time",
       options: [
         {
-          display: "Morning",
+          display: "🌅 Morning",
           value: "morning",
         },
         {
-          display: "Afternoon",
+          display: "🏞️ Afternoon",
           value: "afternoon",
         },
         {
-          display: "Evening",
+          display: "🏙️ Evening",
           value: "evening",
         },
         {
-          display: "Late-Night",
+          display: "🌃 Late-Night",
           value: "late-night",
         },
         {
@@ -201,27 +201,23 @@ export const questions = {
       ],
     },
     {
-      title: "Group Size",
+      title: "How many people will hangout?",
       key: "size",
       options: [
         {
-          display: "Alone",
-          value: "along",
-        },
-        {
-          display: "2-3 people",
+          display: "👫 2-3 Friends",
           value: "2-3",
         },
         {
-          display: "Small group (4-6)",
+          display: "👨‍👩‍👦 Small group (4-6)",
           value: "4-6",
         },
         {
-          display: "Medium Group(7-10)",
+          display: "👨‍👩‍👦👨‍👩‍👦‍👦 Medium Group (7-10)",
           value: "7-10",
         },
         {
-          display: "Large Group (10+)",
+          display: "👨‍👩‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦 Large Group (10+)",
           value: "10 and up",
         },
         {
@@ -231,15 +227,17 @@ export const questions = {
       ],
     },
     {
-      title: "place",
+      title: "Indoor or Outdoor hangout?",
       key: "place",
       options: [
         {
+          icon: "🏠",
           display: "Indoor",
           value: "Indoor",
         },
         {
-          display: "outdoor",
+          icon: "🪂",
+          display: "Outdoor",
           value: "outdoor",
         },
         {
@@ -249,16 +247,36 @@ export const questions = {
       ],
     },
     {
-      title: "active vs. quiet",
+      title: "What type of hangout do you want?",
       key: "mood",
       options: [
         {
-          display: "active, energetic",
-          value: "active, energetic",
+          display: "Homey",
+          value: "homey",
         },
         {
-          display: "relaxed and quiet",
-          value: "relaxed and quiet",
+          display: "Adventurous",
+          value: "adventurous",
+        },
+        {
+          display: "Sports",
+          value: "sports",
+        },
+        {
+          display: "Trendy",
+          value: "trendy",
+        },
+        {
+          display: "Artistic",
+          value: "artistic",
+        },
+        {
+          display: "Unique",
+          value: "unique",
+        },
+        {
+          display: "Cozy",
+          value: "cozy",
         },
         {
           display: "🚫 No Preference",
