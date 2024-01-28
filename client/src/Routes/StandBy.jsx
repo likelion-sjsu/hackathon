@@ -43,7 +43,6 @@ export default function StandBy() {
   const [percent, setPercent] = useState(0);
   const [periods, setPeriods] = useState(".");
   const { state } = useLocation();
-  console.log(state.query);
 
   const Code = styled.div`
     position: absolute;
@@ -71,7 +70,7 @@ export default function StandBy() {
             }
           }
         }
-        console.log(outcome);
+
         if (outcome !== "") {
           navigate("/result", {
             state: { result: outcome, query: state.query },
