@@ -232,13 +232,17 @@ export default function Questions() {
         ) : (
           <>
             <SpecialOfferForm onSubmit={handleSubmit(submitForm)}>
-              <h1>Is there anything we need to be aware of?</h1>
+              <h1>Any special notes we need to be aware of?</h1>
               <Controller
                 name="special_offer"
                 control={control}
                 defaultValue=""
                 render={({ field }) => (
-                  <textarea {...field} rows={4} placeholder="Type here..." />
+                  <textarea
+                    {...field}
+                    rows={4}
+                    placeholder="ex) I am a vegan."
+                  />
                 )}
               />
               <SeeResultBtn type="submit">
