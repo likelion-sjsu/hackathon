@@ -85,16 +85,24 @@ class GroupAPI(APIView):
             if category == 'food':
                 
                 content = "Each one of us prefers the following food. "
+                spiciness_list = ["no spicy", "mild spicy", "moderately spicy", "very spicy", "extremely spicy", "whatever"]
+                price_list = ["$0-$10", "$10-$25", "$25-$50", "$50 and up", "whatever"]
+                spiciness = "whatever"
+                price = "whatever"
+
                 for i, data in enumerate(room.results):
                     cuisine = data['cuisine']
                     type = data['type']
-                    price = data['price']
-                    spiciness = data['spiciness']
                     temperature = data['temperature']
                     special_offer = data['special_offer']
-                    content += f"{i+1}. {temperature} and {spiciness} {cuisine} food including {type} in {price}. {special_offer}"
-                content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of food."
+                    content += f"{i+1}. {temperature}  {cuisine} food including {type}. {special_offer}. "
 
+                    spiciness = spiciness_list[min(spiciness_list.index(spiciness), spiciness_list.index(data['spiciness']))]
+                    price = price_list[min(price_list.index(price), price_list.index(data['price']))]
+
+                content += f"Spiciness : {spiciness}, price range: {price}."
+                content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of food."
+                print(content)
                 # Create a chat completion
                 api_key = config('OPENAI_API_KEY')
                 client = OpenAI(api_key=api_key)

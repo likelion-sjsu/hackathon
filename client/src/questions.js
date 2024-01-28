@@ -102,23 +102,23 @@ export const questions = {
       options: [
         {
           display: "$ 0 - 10",
-          value: "price range within $0-$10",
+          value: "$0-$10",
         },
         {
           display: "$$ 10 - 25",
-          value: "price range within $10-$25",
+          value: "$10-$25",
         },
         {
           display: "$$$ 25 - 50",
-          value: "price range within $25-$50",
+          value: "$25-$50",
         },
         {
           display: "$$$$+50",
-          value: "price range within $50 and up",
+          value: "$50 and up",
         },
         {
           display: "🚫 No Preference",
-          value: "",
+          value: "whatever",
         },
       ],
     },
@@ -148,7 +148,7 @@ export const questions = {
         },
         {
           display: "🚫 No Preference",
-          value: "",
+          value: "whatever",
         },
       ],
     },
