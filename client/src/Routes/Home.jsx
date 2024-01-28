@@ -11,10 +11,12 @@ const Container = styled.main`
 `;
 
 const CenterBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  height: 550px;
 `;
 
 const Desciption = styled.div`
@@ -24,18 +26,20 @@ const Desciption = styled.div`
 `;
 
 const StartBtn = styled(Link)`
-  padding: 15px 130px;
+  display: grid;
+  place-content: center;
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
+  height: 48px;
   background-color: ${(props) => props.theme.brandColor};
+  color: white;
+  border: none;
+  border-radius: 16px;
+  outline: none;
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
-  border-radius: 16px;
-  color: white;
-  transition: 0.2s all;
   cursor: pointer;
-
-  &:hover {
-    background-color: #6a45a8;
-  }
 `;
 
 export default function Home() {
