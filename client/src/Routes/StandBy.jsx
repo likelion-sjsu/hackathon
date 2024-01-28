@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { PulseLoader, ClimbingBoxLoader } from "react-spinners";
 
 const Container = styled.div`
   display: flex;
@@ -36,23 +37,23 @@ const Ring = styled.div`
   margin-bottom: 30px;
 `;
 
+const Code = styled.div`
+  position: absolute;
+  top: 135px;
+  right: 12px;
+  font-size: 14px;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 300;
+  color: ${(props) => props.theme.secondaryFont};
+`;
+
 export default function StandBy() {
   const theme = useTheme();
   const navigate = useNavigate();
   const { code, role } = JSON.parse(localStorage.getItem("roomInfo"));
   const [percent, setPercent] = useState(0);
-  const [periods, setPeriods] = useState(".");
   const { state } = useLocation();
-
-  const Code = styled.div`
-    position: absolute;
-    top: 135px;
-    right: 12px;
-    font-size: 14px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 300;
-    color: ${(props) => props.theme.secondaryFont};
-  `;
+  const [isFetching, setIsFetching] = useState(false);
 
   const { data, isLoading } = useQuery(
     ["room", code],
@@ -62,15 +63,21 @@ export default function StandBy() {
         // FOR LEADER ONLY
         if (role === "leader") {
           if (answered_count === max_count) {
+            setIsFetching(true);
             const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
               method: "GET",
             });
-            if (!res.ok) {
+            const data = await res.json();
+            if (res.ok) {
+              navigate("/result", {
+                state: { result: data.outcome, query: state.query },
+              });
+            } else {
               alert("There is something wrong in server..");
             }
+            setIsFetching(false);
           }
         }
-
         if (outcome !== "") {
           navigate("/result", {
             state: { result: outcome, query: state.query },
@@ -82,30 +89,25 @@ export default function StandBy() {
   );
 
   const onclick = async () => {
+    setIsFetching(true);
     const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
       method: "GET",
     });
-    if (!res.ok) {
+    const data = await res.json();
+    if (res.ok) {
+      navigate("/result", {
+        state: { result: data.outcome, query: state.query },
+      });
+    } else {
       alert("There is something wrong in server..");
     }
+    setIsFetching(false);
   };
 
   useEffect(
     () => data && setPercent((data.answered_count / data.max_count) * 100),
     [data]
   );
-
-  useEffect(() => {
-    const delayedFunction = () => {
-      if (periods === "...") {
-        setPeriods(".");
-        return;
-      }
-      setPeriods((prev) => prev + ".");
-    };
-    const timeoutId = setTimeout(delayedFunction, 1000);
-    return () => clearTimeout(timeoutId);
-  }, [periods]);
 
   return (
     <Container>
@@ -120,9 +122,16 @@ export default function StandBy() {
         />
       </Ring>
       <p>Please wait.</p>
-      <p>We are collecting all the responses{periods}</p>
+      <ClimbingBoxLoader size={15} color={theme.brandColor} />
+      <p>We are collecting all the responses.</p>
       {role === "leader" && (
-        <ClosePollBtn onClick={onclick}>Close Poll</ClosePollBtn>
+        <ClosePollBtn onClick={onclick}>
+          {isFetching ? (
+            <PulseLoader size={8} color="whitesmoke" speedMultiplier={0.8} />
+          ) : (
+            "Close Poll"
+          )}
+        </ClosePollBtn>
       )}
       <Code>Code: {code}</Code>
     </Container>

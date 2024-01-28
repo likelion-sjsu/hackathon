@@ -6,6 +6,7 @@ import { SERVER_URL } from "api";
 import { Controller, useForm } from "react-hook-form";
 import OptionBox from "components/OptionsBox";
 import Pages from "components/Pages";
+import { PulseLoader } from "react-spinners";
 
 const Container = styled.main`
   width: 100vw;
@@ -57,7 +58,7 @@ const SpecialOfferForm = styled.form`
   }
 `;
 
-const SeeResultBtn = styled.input`
+const SeeResultBtn = styled.button`
   width: 100%;
   height: 48px;
   margin-bottom: 20px;
@@ -117,10 +118,11 @@ export default function Questions() {
   const [answer, setAnswer] = useState({});
   const [value, setValue] = useState({});
   const questionData = questions[category];
+  const [isFetching, setIsFetching] = useState(false);
 
   const submitForm = async (data) => {
     const formData = { ...answer, ...data };
-    console.log(formData);
+    setIsFetching(true);
 
     /* Case 1. ROOM */
     if (roomInfo.role === "leader" || roomInfo.role === "member") {
@@ -152,6 +154,7 @@ export default function Questions() {
     } else {
       alert("who are you");
     }
+    setIsFetching(false);
   };
 
   const onclickNext = () => {
@@ -226,7 +229,17 @@ export default function Questions() {
                   <textarea {...field} rows={4} placeholder="Type here..." />
                 )}
               />
-              <SeeResultBtn type="submit" value={"Submit"} />
+              <SeeResultBtn type="submit">
+                {isFetching ? (
+                  <PulseLoader
+                    size={8}
+                    color="whitesmoke"
+                    speedMultiplier={0.8}
+                  />
+                ) : (
+                  "Submit"
+                )}
+              </SeeResultBtn>
               <SkipBtn type="submit" value="Skip" />
             </SpecialOfferForm>
           </>
