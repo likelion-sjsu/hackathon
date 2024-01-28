@@ -16,6 +16,7 @@ const CenterBox = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 360px;
   height: 550px;
 `;
 
@@ -29,7 +30,7 @@ const StartBtn = styled(Link)`
   display: grid;
   place-content: center;
   position: absolute;
-  bottom: 60px;
+  bottom: 0px;
   width: 100%;
   height: 48px;
   background-color: ${(props) => props.theme.brandColor};
