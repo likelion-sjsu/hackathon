@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import FoodIcon from "../assets/Food-icon.svg";
+import { useQuery } from "react-query";
+import { getPicture } from "api";
 
 const Container = styled.main`
   display: grid;
@@ -11,47 +12,60 @@ const Container = styled.main`
 `;
 
 const CenterBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 360px;
+  height: 550px;
 `;
 
 const Title = styled.div`
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   font-size: 24px;
   font-weight: 600;
   padding-left: 12px;
 `;
 
 const Box = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  gap: 60px;
   width: 360px;
-  height: 400px;
+  height: 360px;
   margin-bottom: 24px;
-  border: 1px solid ${(props) => props.theme.food};
   border-radius: 16px;
-  box-shadow: 1px 2px 5px lightgray;
+  box-shadow: 3px 3px 4px rgba(204, 204, 204, 0.25);
+  background-size: cover;
 
-  img {
-    height: 64px;
-    margin-top: 78px;
+  div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(0 0 0 / 30%);
+    border-radius: 16px;
   }
 
   h1 {
-    margin-top: 50px;
-    font-size: 48px;
     font-weight: 700;
     text-align: center;
+    white-space: nowrap;
+    width: 340px;
+    color: white;
+    z-index: 10;
   }
   p {
-    margin-top: 50px;
+    color: white;
+    z-index: 10;
   }
 `;
 
 const ToMapBtn = styled(Link)`
+  position: absolute;
+  bottom: 68px;
   display: grid;
   place-content: center;
   margin-top: 40px;
@@ -68,6 +82,8 @@ const ToMapBtn = styled(Link)`
 `;
 
 const ToHomeBtn = styled(Link)`
+  position: absolute;
+  bottom: 0;
   display: grid;
   place-content: center;
   margin-top: 24px;
@@ -81,30 +97,86 @@ const ToHomeBtn = styled(Link)`
   cursor: pointer;
 `;
 
+const price_query = {
+  whatever: "",
+  "$0-$10": "1e0!",
+  "$10-$25": "1e1!",
+  "$25-$50": "1e2!",
+  "$50 and up": "1e3!",
+};
+
 export default function Result() {
   const location = useLocation();
-  const { result } = location.state;
+  const { result, query } = location.state;
+  const [fontSize, setFontSize] = useState(64);
+  const boxRef = useRef(null);
+  const { data: photoData, isLoading: photoLoading } = useQuery(
+    ["pictures", result],
+    {
+      queryFn: () => getPicture(result),
+    }
+  );
+
+  useEffect(() => {
+    const adjustFontSize = () => {
+      const box = boxRef.current;
+      if (!box) return;
+
+      const boxWidth = box.clientWidth - 40;
+      const textWidth = box.scrollWidth;
+
+      const scaleFactor = boxWidth / textWidth;
+      const newFontSize = Math.floor(fontSize * scaleFactor);
+
+      setFontSize(newFontSize);
+    };
+
+    // Adjust font size on initial render
+    adjustFontSize();
+
+    // Attach resize event listener
+    window.addEventListener("resize", adjustFontSize);
+
+    // Clean up the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", adjustFontSize);
+    };
+  }, [result]); // Only re-run the effect if fontSize changes
+
+  const url = `https://www.google.com/maps/search/${result
+    .replace(/ /g, "+")
+    .replace(".", "")}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
+    price_query[query.price]
+  }6e5?entry=ttu`;
+
   return (
     <Container>
       <CenterBox>
         <Title>Enjoy!</Title>
-        <Box>
-          <img src={FoodIcon} alt="food-icon" />
-          <h1>{result}</h1>
+        <Box
+          ref={boxRef}
+          style={{
+            background: photoLoading
+              ? "none"
+              : `url(${photoData.photos[0].src.medium}) 0% 0% / cover`,
+          }}
+        >
+          <div />
+          <h1
+            style={{
+              fontFamily: "'Fugaz One', sans-serif",
+              fontSize: fontSize,
+            }}
+          >
+            {result.replace(".", "")}
+          </h1>
           <p>Have a wonderful day!</p>
         </Box>
+        <ToMapBtn to={url} target="_blank" rel="noopener noreferrer">
+          Open in Google Maps
+        </ToMapBtn>
+        <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>
       </CenterBox>
-      <ToMapBtn
-        to={`https://www.google.com/maps/search/${result.replace(
-          / /g,
-          "+"
-        )}+near+me`}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Open in Google Maps
-      </ToMapBtn>
-      <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>
     </Container>
   );
 }

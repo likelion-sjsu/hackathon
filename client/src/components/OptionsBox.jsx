@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import DollarIcon from "../assets/dollar-icon.svg";
 
 const Container = styled.div`
-  display: grid;
-  place-content: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   padding: 0 16px;
   font-size: 16px;
   line-height: 18px;
@@ -16,7 +19,7 @@ const Container = styled.div`
   cursor: pointer;
 `;
 
-const TemperatureBox = styled.div`
+const IconBoxContainer = styled.div`
   display: grid;
   place-content: center;
   width: calc(50% - 8px);
@@ -35,6 +38,7 @@ const TemperatureBox = styled.div`
     place-content: center;
     width: 72px;
     height: 72px;
+    background-color: white;
     border-radius: 72px;
     border: 1px solid black;
     font-size: 40px;
@@ -45,29 +49,41 @@ const TemperatureBox = styled.div`
   }
 `;
 
-export default function OptionBox({ text, onClick, icon, selected }) {
+const iconBoxColor = {
+  background: {
+    Warm: "rgba(255, 196, 196, 0.32)",
+    Cold: "rgba(226, 249, 255, 0.32)",
+    Indoor: "rgba(255, 230, 153, 0.32)",
+    Outdoor: "rgba(212, 253, 213, 0.32)",
+  },
+  border: {
+    Warm: "#FF9090",
+    Cold: "#9BE8FC",
+    Indoor: "#FFEB83",
+    Outdoor: "#99CF9E",
+  },
+};
+
+export default function OptionBox({ keycode, text, onClick, icon, selected }) {
   return icon ? (
-    <TemperatureBox
+    <IconBoxContainer
       onClick={onClick}
       style={{
-        backgroundColor:
-          text === "Warm"
-            ? "rgba(255, 196, 196, 0.32)"
-            : "rgba(226, 249, 255, 0.6)",
+        backgroundColor: iconBoxColor.background[text],
         border: selected === true && "2px solid #836aad",
       }}
     >
       <div>
         <label
           style={{
-            border: text === "Warm" ? "1px solid #FF9090" : "1px solid #9BE8FC",
+            borderColor: iconBoxColor.border[text],
           }}
         >
           {icon}
         </label>
         <h1>{text}</h1>
       </div>
-    </TemperatureBox>
+    </IconBoxContainer>
   ) : (
     <Container
       onClick={onClick}
@@ -75,6 +91,9 @@ export default function OptionBox({ text, onClick, icon, selected }) {
         border: selected === true && "2px solid #836aad",
       }}
     >
+      {keycode === "price" && text !== "🚫 No Preference" && (
+        <img src={DollarIcon} alt="dollar" />
+      )}
       {text}
     </Container>
   );

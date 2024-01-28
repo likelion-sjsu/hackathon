@@ -10,7 +10,7 @@ const Container = styled.main`
   display: grid;
   place-content: center;
   width: 100vw;
-  height: calc(100vh - 36px);
+  height: calc(100vh - 54px);
 `;
 
 const CenterBox = styled.div`
@@ -18,6 +18,7 @@ const CenterBox = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 100%;
+  height: 550px;
 `;
 
 const Title = styled.div`

@@ -24,7 +24,7 @@ const Dot = styled(motion.div)`
 export default function Pages({ total, current }) {
   return (
     <Container>
-      {Array.from({ length: total }).map((_, index) =>
+      {Array.from({ length: total + 1 }).map((_, index) =>
         index === current - 1 ? (
           <Bar layoutId="bar" key={index} />
         ) : (

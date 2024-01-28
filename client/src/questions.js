@@ -5,7 +5,7 @@ export const questions = {
       key: "cuisine",
       options: [
         {
-          display: "🇱🇷 American",
+          display: "🇺🇸 American",
           value: "American",
         },
         {
@@ -25,8 +25,8 @@ export const questions = {
           value: "Korean",
         },
         {
-          display: "🇪🇹 Ethiopian",
-          value: "Ethiopian",
+          display: "🇯🇵 Japanese",
+          value: "Japanese",
         },
         {
           display: "🇮🇳 Indian",
@@ -39,10 +39,6 @@ export const questions = {
         {
           display: "🇬🇷 Greek",
           value: "Greek",
-        },
-        {
-          display: "🇯🇵 Japanese",
-          value: "Japanese",
         },
         {
           display: "🇮🇹 Italian",
@@ -97,7 +93,33 @@ export const questions = {
       ],
     },
     {
-      title: "How spicy?",
+      title: "Select Price Range",
+      key: "price",
+      options: [
+        {
+          display: "0 - 10",
+          value: "$0-$10",
+        },
+        {
+          display: "10 - 25",
+          value: "$10-$25",
+        },
+        {
+          display: "25 - 50",
+          value: "$25-$50",
+        },
+        {
+          display: "50+",
+          value: "$50 and up",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "Select Spicy Level",
       key: "spiciness",
       options: [
         {
@@ -122,13 +144,107 @@ export const questions = {
         },
         {
           display: "🚫 No Preference",
-          value: "",
+          value: "whatever",
         },
       ],
     },
     {
-      title: "Comfort Level",
-      key: "comfort",
+      title: "Warm or Cold",
+      key: "temperature",
+      options: [
+        {
+          icon: "🍲",
+          display: "Warm",
+          value: "warm",
+        },
+        {
+          icon: "🍨",
+          display: "Cold",
+          value: "cold",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "",
+        },
+      ],
+    },
+  ],
+  hangout: [
+    {
+      title: "Select Hangout Time",
+      key: "time",
+      options: [
+        {
+          display: "🌅 Morning",
+          value: "morning",
+        },
+        {
+          display: "🏞️ Afternoon",
+          value: "afternoon",
+        },
+        {
+          display: "🏙️ Evening",
+          value: "evening",
+        },
+        {
+          display: "🌃 Late-Night",
+          value: "late-night",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "Select Group Size",
+      key: "size",
+      options: [
+        {
+          display: "👫 2-3 Friends",
+          value: "2-3",
+        },
+        {
+          display: "👨‍👩‍👦 Small group (4-6)",
+          value: "4-6",
+        },
+        {
+          display: "👨‍👩‍👦👨‍👩‍👦‍👦 Medium Group (7-10)",
+          value: "7-10",
+        },
+        {
+          display: "👨‍👩‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦 Large Group (10+)",
+          value: "10 and up",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "Indoor or Outdoor?",
+      key: "place",
+      options: [
+        {
+          icon: "🏠",
+          display: "Indoor",
+          value: "Indoor",
+        },
+        {
+          icon: "🪂",
+          display: "Outdoor",
+          value: "outdoor",
+        },
+        {
+          display: "🚫 No Preference",
+          value: "whatever",
+        },
+      ],
+    },
+    {
+      title: "Select Vibe",
+      key: "mood",
       options: [
         {
           display: "Homey",
@@ -139,52 +255,28 @@ export const questions = {
           value: "adventurous",
         },
         {
-          display: "Elegant",
-          value: "elegant",
+          display: "Cozy",
+          value: "cozy",
         },
         {
-          display: "Trendy",
-          value: "trendy",
+          display: "Sports",
+          value: "sports",
         },
         {
-          display: "Classic",
-          value: "classic",
+          display: "Instagram",
+          value: "instagram",
         },
         {
-          display: "Modern",
-          value: "modern",
+          display: "Artistic",
+          value: "artistic",
         },
         {
           display: "Unique",
           value: "unique",
         },
         {
-          display: "Cozy",
-          value: "cozy",
-        },
-        {
           display: "🚫 No Preference",
           value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Temperature?",
-      key: "temperature",
-      options: [
-        {
-          icon: "☀️",
-          display: "Warm",
-          value: "warm",
-        },
-        {
-          icon: "❄️",
-          display: "Cold",
-          value: "cold",
-        },
-        {
-          display: "🚫 No Preference",
-          value: "",
         },
       ],
     },

@@ -11,7 +11,7 @@ const Container = styled.main`
   display: grid;
   place-content: center;
   width: 100vw;
-  height: calc(100vh - 36px);
+  height: calc(100vh - 54px);
 `;
 
 const CenterBox = styled.div`
@@ -19,7 +19,7 @@ const CenterBox = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   width: 360px;
-  height: 548px;
+  height: 550px;
 `;
 
 const Title = styled.div`
@@ -30,7 +30,7 @@ const Title = styled.div`
 `;
 
 const Subtitle = styled.div`
-  font-size: ${(props) => props.theme.fontBigTitle.fontSize};
+  font-size: 28px;
   font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
   padding-left: 12px;
   width: 280px;
@@ -77,6 +77,13 @@ export default function SelectCategory(props) {
     console.log(category);
 
     if (roomInfo.role === "individual") {
+      localStorage.setItem(
+        "roomInfo",
+        JSON.stringify({
+          ...roomInfo,
+          category: category,
+        })
+      );
       navigate(`${category}`);
     } else {
       const formData = new FormData();
@@ -111,7 +118,7 @@ export default function SelectCategory(props) {
     <Container>
       <CenterBox>
         <Title>Categories</Title>
-        <Subtitle>What can we help you to decide?</Subtitle>
+        <Subtitle>What can we help you to decide on?</Subtitle>
         <Box
           style={{ borderColor: theme.food }}
           onClick={() => onclick("food")}
@@ -124,7 +131,7 @@ export default function SelectCategory(props) {
         </Box>
         <Box
           style={{ borderColor: theme.hangout }}
-          // onClick={() => onclick("hangout")}
+          onClick={() => onclick("hangout")}
         >
           <Image src={HangoutIcon} alt="hangout" />
           <Content>

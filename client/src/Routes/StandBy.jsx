@@ -1,23 +1,35 @@
 import { SERVER_URL, getRoomData } from "api";
 import React, { useEffect, useState } from "react";
 import { useQuery } from "react-query";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
+import { PulseLoader } from "react-spinners";
 
 const Container = styled.div`
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: calc(100vh - 54px);
+`;
+
+const CenterBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width: 360px;
+  height: 550px;
+  margin: 0 auto;
   p {
     margin-top: 30px;
   }
 `;
 
 const ClosePollBtn = styled.button`
-  margin-top: 60px;
+  position: absolute;
+  bottom: 0;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
@@ -32,8 +44,8 @@ const ClosePollBtn = styled.button`
 const Ring = styled.div`
   width: 160px;
   height: 160px;
-  margin-top: 150px;
   margin-bottom: 30px;
+  margin-top: 60px;
 `;
 
 export default function StandBy() {
@@ -41,17 +53,8 @@ export default function StandBy() {
   const navigate = useNavigate();
   const { code, role } = JSON.parse(localStorage.getItem("roomInfo"));
   const [percent, setPercent] = useState(0);
-  const [periods, setPeriods] = useState(".");
-
-  const Code = styled.div`
-    position: absolute;
-    top: 135px;
-    right: 12px;
-    font-size: 14px;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 300;
-    color: ${(props) => props.theme.secondaryFont};
-  `;
+  const { state } = useLocation();
+  const [isFetching, setIsFetching] = useState(false);
 
   const { data, isLoading } = useQuery(
     ["room", code],
@@ -61,17 +64,26 @@ export default function StandBy() {
         // FOR LEADER ONLY
         if (role === "leader") {
           if (answered_count === max_count) {
+            if (isFetching === true) return;
+            setIsFetching(true);
             const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
               method: "GET",
             });
-            if (!res.ok) {
+            const data = await res.json();
+            if (res.ok) {
+              navigate("/result", {
+                state: { result: data.outcome, query: state.query },
+              });
+            } else {
               alert("There is something wrong in server..");
             }
+            setIsFetching(false);
           }
         }
-
         if (outcome !== "") {
-          navigate("/result", { state: { result: outcome } });
+          navigate("/result", {
+            state: { result: outcome, query: state.query },
+          });
         }
       },
       refetchInterval: 3000,
@@ -79,12 +91,20 @@ export default function StandBy() {
   );
 
   const onclick = async () => {
+    if (isFetching === true) return;
+    setIsFetching(true);
     const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
       method: "GET",
     });
-    if (!res.ok) {
+    const data = await res.json();
+    if (res.ok) {
+      navigate("/result", {
+        state: { result: data.outcome, query: state.query },
+      });
+    } else {
       alert("There is something wrong in server..");
     }
+    setIsFetching(false);
   };
 
   useEffect(
@@ -92,36 +112,34 @@ export default function StandBy() {
     [data]
   );
 
-  useEffect(() => {
-    const delayedFunction = () => {
-      if (periods === "...") {
-        setPeriods(".");
-        return;
-      }
-      setPeriods((prev) => prev + ".");
-    };
-    const timeoutId = setTimeout(delayedFunction, 1000);
-    return () => clearTimeout(timeoutId);
-  }, [periods]);
-
   return (
     <Container>
-      <Ring>
-        <CircularProgressbar
-          value={percent}
-          text={isLoading ? "-" : data.answered_count + " of " + data.max_count}
-          styles={{
-            path: { stroke: theme.brandColor },
-            text: { fill: theme.mainFont },
-          }}
-        />
-      </Ring>
-      <p>Please wait.</p>
-      <p>We are collecting all the responses{periods}</p>
-      {role === "leader" && (
-        <ClosePollBtn onClick={onclick}>Close Poll</ClosePollBtn>
-      )}
-      <Code>Code: {code}</Code>
+      <CenterBox>
+        <Ring>
+          <CircularProgressbar
+            value={percent}
+            text={
+              isLoading ? "-" : data.answered_count + " of " + data.max_count
+            }
+            styles={{
+              path: { stroke: theme.brandColor },
+              text: { fill: theme.mainFont },
+            }}
+          />
+        </Ring>
+        <p>Code: {code}</p>
+        <p>Please wait...</p>
+        <p>We are collecting all the responses</p>
+        {role === "leader" && (
+          <ClosePollBtn onClick={onclick}>
+            {isFetching ? (
+              <PulseLoader size={8} color="whitesmoke" speedMultiplier={0.8} />
+            ) : (
+              "Close Poll"
+            )}
+          </ClosePollBtn>
+        )}
+      </CenterBox>
     </Container>
   );
 }

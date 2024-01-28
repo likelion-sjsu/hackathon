@@ -124,7 +124,7 @@ export default function JoinGroup() {
 
   useEffect(() => {
     const delayedFunction = () => {
-      if (authorized === false) {
+      if (authorized === false && errorMsg !== "") {
         onChange("");
         setErrorMsg("");
       }
