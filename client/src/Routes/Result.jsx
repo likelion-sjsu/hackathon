@@ -80,11 +80,11 @@ const ToHomeBtn = styled(Link)`
 `;
 
 const price_query = {
-  "": "",
-  "price range within $0-$10": "1e0!",
-  "price range within $10-$25": "1e1!",
-  "price range within $25-$50": "1e2!",
-  "price range within $50 and up": "1e3!",
+  whatever: "",
+  "$0-$10": "1e0!",
+  "$10-$25": "1e1!",
+  "$25-$50": "1e2!",
+  "$50 and up": "1e3!",
 };
 
 export default function Result() {
