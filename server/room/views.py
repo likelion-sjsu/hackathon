@@ -1,10 +1,8 @@
-from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Room
 from rest_framework.views import APIView
 from .serializers import RoomSerializer
-import shortuuid
 from openai import OpenAI
 from decouple import config
 
@@ -101,10 +99,10 @@ class GroupAPI(APIView):
                 spiciness = spiciness_list[min(spiciness_list.index(spiciness), spiciness_list.index(data['spiciness']))]
                 price = price_list[min(price_list.index(price), price_list.index(data['price']))]
             content += f"Spiciness : {spiciness}, price range: {price}."
-            content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of place."
+            content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of food."
             
         elif category == 'hangout':
-            content = "Each one of us prefers the following place to hangout. "
+            content = "Each one of us prefers the following requirements for hangout. "
             for i, data in enumerate(room.results):
                 time = data['time']
                 size = data['size']
@@ -112,11 +110,10 @@ class GroupAPI(APIView):
                 mood = data['mood']
                 special_offer = data['special_offer']
                 content += f"{i+1}. time: {time}, number of size: {size}, place: {place}, mood: {mood}. {special_offer} "
-            content += " Recommend one place that can mostly fulfil our preferences. Respond just the word of place."
+            content += " Recommend one thing to do that can mostly fulfil our preferences. Respond just the word of thing."
         else:
             return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
             
-        print(content)
         # Create a chat completion
         api_key = config('OPENAI_API_KEY')
         client = OpenAI(api_key=api_key)
@@ -170,13 +167,13 @@ class SoloAPI(APIView):
                 size = data['size']
                 place = data['place']
                 mood = data['mood']
-                content = "Recommend me one place to hangout that satisfies the following conditions."
+                content = "Recommend me one thing to do to hangout that satisfies the following conditions."
                 content += f"time: {time}, number of size: {size}, place: {place}, mood: {mood}. {special_offer}."
-                content += " respond just the words of one place."
+                content += " respond just the words of one the thing."
                 
             else:
                 return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
-            print(content)
+                
             # Create a chat completion
             api_key = config('OPENAI_API_KEY')
             client = OpenAI(api_key=api_key)
