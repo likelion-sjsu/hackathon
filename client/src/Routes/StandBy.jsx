@@ -8,17 +8,28 @@ import "react-circular-progressbar/dist/styles.css";
 import { PulseLoader } from "react-spinners";
 
 const Container = styled.div`
+  display: grid;
+  place-content: center;
+  width: 100vw;
+  height: calc(100vh - 54px);
+`;
+
+const CenterBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-
+  width: 360px;
+  height: 550px;
+  margin: 0 auto;
   p {
     margin-top: 30px;
   }
 `;
 
 const ClosePollBtn = styled.button`
-  margin-top: 60px;
+  position: absolute;
+  bottom: 0;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
@@ -33,18 +44,8 @@ const ClosePollBtn = styled.button`
 const Ring = styled.div`
   width: 160px;
   height: 160px;
-  margin-top: 150px;
   margin-bottom: 30px;
-`;
-
-const Code = styled.div`
-  position: absolute;
-  top: 135px;
-  right: 12px;
-  font-size: 14px;
-  font-family: "Montserrat", sans-serif;
-  font-weight: 300;
-  color: ${(props) => props.theme.secondaryFont};
+  margin-top: 60px;
 `;
 
 export default function StandBy() {
@@ -111,28 +112,32 @@ export default function StandBy() {
 
   return (
     <Container>
-      <Ring>
-        <CircularProgressbar
-          value={percent}
-          text={isLoading ? "-" : data.answered_count + " of " + data.max_count}
-          styles={{
-            path: { stroke: theme.brandColor },
-            text: { fill: theme.mainFont },
-          }}
-        />
-      </Ring>
-      <p>Please wait...</p>
-      <p>We are collecting all the responses</p>
-      {role === "leader" && (
-        <ClosePollBtn onClick={onclick}>
-          {isFetching ? (
-            <PulseLoader size={8} color="whitesmoke" speedMultiplier={0.8} />
-          ) : (
-            "Close Poll"
-          )}
-        </ClosePollBtn>
-      )}
-      <Code>Code: {code}</Code>
+      <CenterBox>
+        <Ring>
+          <CircularProgressbar
+            value={percent}
+            text={
+              isLoading ? "-" : data.answered_count + " of " + data.max_count
+            }
+            styles={{
+              path: { stroke: theme.brandColor },
+              text: { fill: theme.mainFont },
+            }}
+          />
+        </Ring>
+        <p>Code: {code}</p>
+        <p>Please wait...</p>
+        <p>We are collecting all the responses</p>
+        {role === "leader" && (
+          <ClosePollBtn onClick={onclick}>
+            {isFetching ? (
+              <PulseLoader size={8} color="whitesmoke" speedMultiplier={0.8} />
+            ) : (
+              "Close Poll"
+            )}
+          </ClosePollBtn>
+        )}
+      </CenterBox>
     </Container>
   );
 }

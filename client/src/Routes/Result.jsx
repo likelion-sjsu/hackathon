@@ -12,14 +12,16 @@ const Container = styled.main`
 `;
 
 const CenterBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
   width: 360px;
+  height: 550px;
 `;
 
 const Title = styled.div`
-  margin-bottom: 32px;
+  margin-bottom: 24px;
   font-size: 24px;
   font-weight: 600;
   padding-left: 12px;
@@ -32,7 +34,7 @@ const Box = styled.div`
   justify-content: center;
   gap: 60px;
   width: 360px;
-  height: 400px;
+  height: 360px;
   margin-bottom: 24px;
   border: 1px solid;
   border-radius: 16px;
@@ -51,6 +53,8 @@ const Box = styled.div`
 `;
 
 const ToMapBtn = styled(Link)`
+  position: absolute;
+  bottom: 68px;
   display: grid;
   place-content: center;
   margin-top: 40px;
@@ -67,6 +71,8 @@ const ToMapBtn = styled(Link)`
 `;
 
 const ToHomeBtn = styled(Link)`
+  position: absolute;
+  bottom: 0;
   display: grid;
   place-content: center;
   margin-top: 24px;
@@ -147,11 +153,11 @@ export default function Result() {
           </h1>
           <p>Have a wonderful day!</p>
         </Box>
+        <ToMapBtn to={url} target="_blank" rel="noopener noreferrer">
+          Open in Google Maps
+        </ToMapBtn>
+        <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>
       </CenterBox>
-      <ToMapBtn to={url} target="_blank" rel="noopener noreferrer">
-        Open in Google Maps
-      </ToMapBtn>
-      <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>
     </Container>
   );
 }

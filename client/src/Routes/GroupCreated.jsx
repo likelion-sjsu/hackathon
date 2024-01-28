@@ -4,11 +4,10 @@ import styled from "styled-components";
 import { useNavigate } from "react-router-dom";
 
 const Container = styled.main`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  display: grid;
+  place-content: center;
   width: 100vw;
-  height: calc(100vh - 36px);
+  height: calc(100vh - 54px);
 
   h1 {
     margin-top: 40px;
@@ -21,6 +20,16 @@ const Container = styled.main`
   }
 `;
 
+const CenterBox = styled.div`
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 360px;
+  height: 550px;
+  margin: 0 auto;
+`;
+
 const Code = styled.div`
   font-size: 48px;
   font-weight: 600;
@@ -29,7 +38,8 @@ const Code = styled.div`
 `;
 
 const Btn = styled.button`
-  margin-top: 60px;
+  position: absolute;
+  bottom: 0;
   background-color: ${(props) => props.theme.brandColor};
   font-size: ${(props) => props.theme.fontBtn.fontSize};
   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
@@ -47,12 +57,14 @@ export default function GroupCreated() {
 
   return (
     <Container>
-      <img style={{ marginTop: 60 }} src={CreatedIcon} alt="" />
-      <h1>Group Created</h1>
-      <p>Share the number below</p>
-      <p>with your friends</p>
-      <Code>{code}</Code>
-      <Btn onClick={() => navigate(`/category/${category}`)}>Open Poll</Btn>
+      <CenterBox>
+        <img style={{ marginTop: 60 }} src={CreatedIcon} alt="" />
+        <h1>Group Created</h1>
+        <p>Share the number below</p>
+        <p>with your friends</p>
+        <Code>{code}</Code>
+        <Btn onClick={() => navigate(`/category/${category}`)}>Open Poll</Btn>
+      </CenterBox>
     </Container>
   );
 }

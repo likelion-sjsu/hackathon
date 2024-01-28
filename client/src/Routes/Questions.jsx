@@ -9,17 +9,20 @@ import Pages from "components/Pages";
 import { PulseLoader } from "react-spinners";
 
 const Container = styled.main`
+  display: grid;
+  place-content: center;
   width: 100vw;
-  height: calc(100vh - 36px);
+  height: calc(100vh - 54px);
 `;
 
 const FlexBox = styled.div`
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 360px;
+  height: 550px;
   margin: 0 auto;
-  padding-top: 50px;
 `;
 
 const OptionsContainer = styled.div`
@@ -35,9 +38,10 @@ const SpecialOfferForm = styled.form`
   flex-direction: column;
   max-width: 100%;
   width: calc(100vw - 48px);
+  margin-top: 30px;
 
   h1 {
-    font-size: ${(props) => props.theme.fontBigTitle.fontSize};
+    font-size: 28px;
     font-weight: ${(props) => props.theme.fontBigTitle.fontWeight};
     line-height: 50px;
     margin-bottom: 30px;
@@ -59,9 +63,10 @@ const SpecialOfferForm = styled.form`
 `;
 
 const SeeResultBtn = styled.button`
+  position: absolute;
+  bottom: 68px;
   width: 100%;
   height: 48px;
-  margin-bottom: 20px;
   background-color: ${(props) => props.theme.brandColor};
   color: white;
   border: none;
@@ -73,6 +78,9 @@ const SeeResultBtn = styled.button`
 `;
 
 const SkipBtn = styled.input`
+  position: absolute;
+  bottom: 0;
+  width: 100%;
   background-color: transparent;
   min-height: 48px;
   border-radius: 16px;
@@ -85,7 +93,8 @@ const SkipBtn = styled.input`
 `;
 
 const NextBtn = styled.button`
-  margin-top: 30px;
+  position: absolute;
+  bottom: 0;
   width: 360px;
   min-height: 48px;
   border-radius: 16px;
@@ -179,9 +188,9 @@ export default function Questions() {
   return (
     <Container>
       <FlexBox>
+        <Pages total={questionData.length} current={page + 1} />
         {questionData[page] ? (
           <>
-            <Pages total={questionData.length} current={page + 1} />
             <p style={{ width: "100%", marginTop: 24, paddingLeft: 12 }}>
               Choose one option
             </p>
@@ -190,7 +199,7 @@ export default function Questions() {
                 width: "100%",
                 marginTop: 12,
                 paddingLeft: 12,
-                fontSize: 34,
+                fontSize: 28,
                 lineHeight: "42px",
               }}
             >
@@ -222,7 +231,7 @@ export default function Questions() {
         ) : (
           <>
             <SpecialOfferForm onSubmit={handleSubmit(submitForm)}>
-              <h1>Is there anything we need to be aware of? (special note)</h1>
+              <h1>Is there anything we need to be aware of?</h1>
               <Controller
                 name="special_offer"
                 control={control}
