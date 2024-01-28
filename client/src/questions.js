@@ -5,7 +5,7 @@ export const questions = {
       key: "cuisine",
       options: [
         {
-          display: "🇱🇷 American",
+          display: "🇺🇸 American",
           value: "American",
         },
         {
@@ -223,7 +223,7 @@ export const questions = {
       ],
     },
     {
-      title: "Indoor or Outdoor",
+      title: "Indoor or Outdoor Hangout?",
       key: "place",
       options: [
         {
@@ -243,7 +243,7 @@ export const questions = {
       ],
     },
     {
-      title: "Atmosphere",
+      title: "Vibe?",
       key: "mood",
       options: [
         {
