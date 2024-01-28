@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import styled, { useTheme } from "styled-components";
 import { CircularProgressbar } from "react-circular-progressbar";
 import "react-circular-progressbar/dist/styles.css";
-import { PulseLoader, ClimbingBoxLoader } from "react-spinners";
+import { PulseLoader } from "react-spinners";
 
 const Container = styled.div`
   display: flex;
@@ -121,9 +121,8 @@ export default function StandBy() {
           }}
         />
       </Ring>
-      <p>Please wait.</p>
-      <ClimbingBoxLoader size={15} color={theme.brandColor} />
-      <p>We are collecting all the responses.</p>
+      <p>Please wait...</p>
+      <p>We are collecting all the responses</p>
       {role === "leader" && (
         <ClosePollBtn onClick={onclick}>
           {isFetching ? (
