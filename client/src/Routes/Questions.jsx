@@ -130,6 +130,7 @@ export default function Questions() {
   const [isFetching, setIsFetching] = useState(false);
 
   const submitForm = async (data) => {
+    if (isFetching === true) return;
     const formData = { ...answer, ...data };
     setIsFetching(true);
 

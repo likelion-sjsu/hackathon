@@ -64,6 +64,7 @@ export default function StandBy() {
         // FOR LEADER ONLY
         if (role === "leader") {
           if (answered_count === max_count) {
+            if (isFetching === true) return;
             setIsFetching(true);
             const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
               method: "GET",
@@ -90,6 +91,7 @@ export default function StandBy() {
   );
 
   const onclick = async () => {
+    if (isFetching === true) return;
     setIsFetching(true);
     const res = await fetch(`${SERVER_URL}/recommend/result/${code}`, {
       method: "GET",
