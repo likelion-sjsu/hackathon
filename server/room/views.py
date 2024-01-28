@@ -95,10 +95,12 @@ class GroupAPI(APIView):
                 type = data['type']
                 temperature = data['temperature']
                 special_offer = data['special_offer']
-                content += f"{i+1}. {temperature}  {cuisine} food including {type}. {special_offer}. "
+                content += f"{i+1}. {temperature} {cuisine} food"
+                if type != "": content += f" including {type}"
+                if special_offer != "": content += f". {special_offer}"
                 spiciness = spiciness_list[min(spiciness_list.index(spiciness), spiciness_list.index(data['spiciness']))]
                 price = price_list[min(price_list.index(price), price_list.index(data['price']))]
-            content += f"Spiciness : {spiciness}, price range: {price}."
+            content += f". Spiciness : {spiciness}, price range: {price}."
             content += " Recommend one food that can mostly fulfil our preferences. Respond just the word of food."
             
         elif category == 'hangout':
@@ -160,8 +162,12 @@ class SoloAPI(APIView):
                 spiciness = data['spiciness']
                 price = data['price']
                 temperature = data['temperature']
-                content = f"Recommend me one of {temperature} and {spiciness} {cuisine} foods including {type} in {price}. {special_offer}. respond just the words of one food."
-                
+                content = f"Recommend me one of {temperature} {spiciness} {cuisine} foods"
+                if type != "": content += f" including {type}"
+                if price != "whatever": content += f" in price range within {price}"
+                if special_offer != "": content += f". {special_offer}"
+                content += f". Respond just the words of one food."
+
             elif category == 'hangout':
                 time = data['time']
                 size = data['size']
