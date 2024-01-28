@@ -39,6 +39,7 @@ const Box = styled.div`
   margin-bottom: 24px;
   border-radius: 16px;
   box-shadow: 3px 3px 4px rgba(204, 204, 204, 0.25);
+  background-size: cover;
 
   div {
     position: absolute;
@@ -111,9 +112,12 @@ export default function Result() {
   const boxRef = useRef(null);
   const { category } = JSON.parse(localStorage.getItem("roomInfo"));
   const theme = useTheme();
-  const { data: photoData, isLoading: photoLoading } = useQuery(["pictures"], {
-    queryFn: () => getPicture(result),
-  });
+  const { data: photoData, isLoading: photoLoading } = useQuery(
+    ["pictures", result],
+    {
+      queryFn: () => getPicture(result),
+    }
+  );
 
   useEffect(() => {
     const adjustFontSize = () => {
@@ -156,9 +160,9 @@ export default function Result() {
           style={{
             background: photoLoading
               ? "none"
-              : `url(${photoData.photos[0].src.large})`,
+              : `url(${photoData.photos[0].src.medium})`,
             borderColor: theme[category],
-            backgroundSize: "cover",
+            backgroundSize: photoLoading ? "none" : `cover`,
           }}
         >
           <div />
