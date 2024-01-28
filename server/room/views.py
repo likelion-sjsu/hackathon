@@ -112,7 +112,7 @@ class GroupAPI(APIView):
                 mood = data['mood']
                 special_offer = data['special_offer']
                 content += f"{i+1}. time: {time}, number of size: {size}, place: {place}, mood: {mood}. {special_offer} "
-            content += " Recommend place that can mostly fulfil our preferences. Respond just the word of place."
+            content += " Recommend one place that can mostly fulfil our preferences. Respond just the word of place."
         else:
             return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
             
