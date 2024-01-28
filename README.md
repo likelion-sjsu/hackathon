@@ -1,5 +1,6 @@
-# 선택장애
-
+# 선택장애 치료제 - Decide.
+  ## OpenAI API를 활용하여 다수의 결정을 도와드리는 Decide 웹앱입니다.
+  
 ## Setup (MacOS)
 
 ### 1. Client - ReactJS
