@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
-import { questions } from "questions";
+import { questionsByCategory } from "questions";
 import { SERVER_URL } from "api";
 import { Controller, useForm } from "react-hook-form";
 import OptionBox from "components/OptionsBox";
@@ -29,6 +29,7 @@ const OptionsContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
+  justify-content: center;
   gap: 12px;
   margin-top: 32px;
 `;
@@ -65,7 +66,7 @@ const SpecialOfferForm = styled.form`
 const SeeResultBtn = styled.button`
   position: absolute;
   bottom: 68px;
-  width: 100%;
+  width: inherit;
   height: 48px;
   background-color: ${(props) => props.theme.brandColor};
   color: white;
@@ -80,7 +81,7 @@ const SeeResultBtn = styled.button`
 const SkipBtn = styled.input`
   position: absolute;
   bottom: 0;
-  width: 100%;
+  width: inherit;
   background-color: transparent;
   min-height: 48px;
   border-radius: 16px;
@@ -128,8 +129,10 @@ export default function Questions() {
   const navigate = useNavigate();
   const { category } = useParams();
   const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
-  const questionData = questions[category];
   const [page, setPage] = useState(0);
+  const questionData = questionsByCategory.find(
+    (q) => q.name === category
+  ).questions;
   const [answer, setAnswer] = useState(
     Array.from({ length: questionData.length }, (_, i) => [
       questionData[i].title,
@@ -227,8 +230,8 @@ export default function Questions() {
                 <OptionBox
                   key={i}
                   keycode={questionData[page].key}
-                  text={option.display}
-                  icon={option.icon}
+                  option={option}
+                  twoOptions={questionData[page].options.length === 3}
                   selected={answer[page][1].includes(option)}
                   onClick={() => onclickOption(i)}
                 />

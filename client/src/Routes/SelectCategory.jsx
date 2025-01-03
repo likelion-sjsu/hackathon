@@ -2,10 +2,8 @@ import { ChevronRightIcon } from "@heroicons/react/24/outline";
 import { SERVER_URL } from "api";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import styled, { useTheme } from "styled-components";
-import FoodIcon from "../assets/Food-icon.svg";
-import TravelIcon from "../assets/Travel-icon.svg";
-import HangoutIcon from "../assets/Hangout-icon.svg";
+import styled from "styled-components";
+import { questionsByCategory } from "questions";
 
 const Container = styled.main`
   display: grid;
@@ -57,25 +55,17 @@ const Box = styled.div`
   }
 `;
 
-const Image = styled.img`
-  margin-left: 24px;
-  margin-right: 20px;
-  width: 48px;
-`;
-
 const Content = styled.div`
   display: flex;
   flex-direction: column;
+  margin-left: 16px;
 `;
 
 export default function SelectCategory(props) {
   const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
   const navigate = useNavigate();
-  const theme = useTheme();
 
   const onclick = async (category) => {
-    console.log(category);
-
     if (roomInfo.role === "individual") {
       localStorage.setItem(
         "roomInfo",
@@ -113,42 +103,26 @@ export default function SelectCategory(props) {
       }
     }
   };
-
+  console.log(questionsByCategory["travel"]);
   return (
     <Container>
       <CenterBox>
         <Title>Categories</Title>
         <Subtitle>What can we help you to decide on?</Subtitle>
-        <Box
-          style={{ borderColor: theme.food }}
-          onClick={() => onclick("food")}
-        >
-          <Image src={FoodIcon} alt="food" />
-          <Content>
-            <h1>Food</h1>
-          </Content>
-          <ChevronRightIcon />
-        </Box>
-        <Box
-          style={{ borderColor: theme.hangout }}
-          onClick={() => onclick("hangout")}
-        >
-          <Image src={HangoutIcon} alt="hangout" />
-          <Content>
-            <h1>Hangout</h1>
-          </Content>
-          <ChevronRightIcon />
-        </Box>
-        <Box
-          style={{ borderColor: theme.travel }}
-          // onClick={() => onclick("travel")}
-        >
-          <Image src={TravelIcon} alt="travel" />
-          <Content>
-            <h1>Travel</h1>
-          </Content>
-          <ChevronRightIcon />
-        </Box>
+        {questionsByCategory.map((category) => (
+          <Box
+            key={category.name}
+            style={{ borderColor: category.theme }}
+            onClick={() => onclick(category.name)}
+          >
+            <Content>
+              <h1>
+                {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+              </h1>
+            </Content>
+            <ChevronRightIcon />
+          </Box>
+        ))}
       </CenterBox>
     </Container>
   );

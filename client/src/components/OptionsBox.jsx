@@ -1,20 +1,17 @@
 import React from "react";
 import styled from "styled-components";
-import DollarIcon from "../assets/dollar-icon.svg";
 
 const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  padding: 0 16px;
-  font-size: 16px;
-  line-height: 18px;
+  padding: 16px 10px;
+  font-size: 14px;
   font-weight: 600;
   border-radius: 16px;
-  height: 56px;
   letter-spacing: 1px;
-  border: 1px solid #eeeeee;
+  border: 1px solid #eee;
   transition: 0.2s border-color;
   cursor: pointer;
 `;
@@ -64,37 +61,54 @@ const iconBoxColor = {
   },
 };
 
-export default function OptionBox({ keycode, text, onClick, icon, selected }) {
-  return icon ? (
-    <IconBoxContainer
-      onClick={onClick}
-      style={{
-        backgroundColor: iconBoxColor.background[text],
-        border: selected === true && "2px solid #836aad",
-      }}
-    >
-      <div>
-        <label
-          style={{
-            borderColor: iconBoxColor.border[text],
-          }}
-        >
-          {icon}
-        </label>
-        <h1>{text}</h1>
-      </div>
-    </IconBoxContainer>
+export default function OptionBox({
+  keycode,
+  option,
+  onClick,
+  selected,
+  twoOptions,
+}) {
+  const text = option.value;
+  const icon = option.icon;
+
+  return twoOptions ? (
+    option.index === 2 ? (
+      <Container
+        onClick={onClick}
+        style={{
+          outline: selected === true && "2px solid #836aad",
+        }}
+      >
+        {icon} {text}
+      </Container>
+    ) : (
+      <IconBoxContainer
+        onClick={onClick}
+        style={{
+          backgroundColor: iconBoxColor.background[text],
+          border: selected === true && "2px solid #836aad",
+        }}
+      >
+        <div>
+          <label
+            style={{
+              borderColor: iconBoxColor.border[text],
+            }}
+          >
+            {icon}
+          </label>
+          <h1>{text}</h1>
+        </div>
+      </IconBoxContainer>
+    )
   ) : (
     <Container
       onClick={onClick}
       style={{
-        border: selected === true && "2px solid #836aad",
+        outline: selected === true && "2px solid #836aad",
       }}
     >
-      {keycode === "price" && text !== "🚫 No Preference" && (
-        <img src={DollarIcon} alt="dollar" />
-      )}
-      {text}
+      {icon} {text}
     </Container>
   );
 }
