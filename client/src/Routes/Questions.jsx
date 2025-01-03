@@ -12,7 +12,7 @@ const Container = styled.main`
   display: grid;
   place-content: center;
   width: 100vw;
-  height: calc(100vh - 54px);
+  height: 100vh;
 `;
 
 const FlexBox = styled.div`
@@ -92,10 +92,15 @@ const SkipBtn = styled.input`
   cursor: pointer;
 `;
 
-const NextBtn = styled.button`
+const PageBtns = styled.div`
   position: absolute;
   bottom: 0;
+  display: flex;
+  gap: 10px;
   width: 360px;
+`;
+const PageBtn = styled.button`
+  width: 100%;
   min-height: 48px;
   border-radius: 16px;
   border: none;
@@ -123,15 +128,20 @@ export default function Questions() {
   const navigate = useNavigate();
   const { category } = useParams();
   const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
-  const [page, setPage] = useState(0);
-  const [answer, setAnswer] = useState([]);
-  const [selectedOptionsIdx, setSelectedOptionsIdx] = useState(new Set());
   const questionData = questions[category];
+  const [page, setPage] = useState(0);
+  const [answer, setAnswer] = useState(
+    Array.from({ length: questionData.length }, (_, i) => [
+      questionData[i].title,
+      [],
+    ])
+  );
+  // const [selectedOptionsIdx, setSelectedOptionsIdx] = useState(new Set());
   const [isFetching, setIsFetching] = useState(false);
 
-  const submitForm = async (data) => {
+  const submitForm = async ({ special_offer }) => {
     if (isFetching === true) return;
-    const formData = [...answer, data];
+    const formData = [...answer, ["special offer", [{ value: special_offer }]]];
     setIsFetching(true);
 
     /* Case 1. ROOM */
@@ -167,35 +177,28 @@ export default function Questions() {
   };
 
   const onclickNext = () => {
-    if (selectedOptionsIdx.size === 0) {
-      console.log("한가지를 선택하세요");
+    if (answer[page][1].length === 0) {
       return;
     }
-    setAnswer((prev) => {
-      const arr = [];
-      selectedOptionsIdx.forEach((i) => {
-        arr.push(questionData[page].options[i].value);
-      });
-      return [
-        ...prev,
-        {
-          [questionData[page].title]: arr,
-        },
-      ];
-    });
+
     setPage((prev) => (prev += 1));
-    setSelectedOptionsIdx(new Set());
+    // setanswer[page](new Set());
+  };
+
+  const onClickPrev = () => {
+    setPage((prev) => (prev -= 1));
   };
 
   const onclickOption = (answerNumber) => {
-    setSelectedOptionsIdx((prev) => {
-      const newSet = new Set(prev);
-      if (newSet.has(answerNumber)) {
-        newSet.delete(answerNumber);
-      } else {
-        newSet.add(answerNumber);
-      }
-      return newSet;
+    setAnswer((prev) => {
+      const result = [...prev];
+      const selectedAnswer = questionData[page].options[answerNumber];
+      if (result[page][1].includes(selectedAnswer)) {
+        result[page][1] = result[page][1].filter(
+          (answer) => answer.index !== selectedAnswer.index
+        );
+      } else result[page][1].push(selectedAnswer);
+      return result;
     });
   };
 
@@ -226,21 +229,31 @@ export default function Questions() {
                   keycode={questionData[page].key}
                   text={option.display}
                   icon={option.icon}
-                  selected={selectedOptionsIdx.has(option.index)}
+                  selected={answer[page][1].includes(option)}
                   onClick={() => onclickOption(i)}
                 />
               ))}
             </OptionsContainer>
-            <NextBtn
-              style={{
-                background: selectedOptionsIdx.size === 0 && "transparent",
-                color: selectedOptionsIdx.size === 0 && "#A6A6A6",
-                border: selectedOptionsIdx.size === 0 && "1px solid #A6A6A6",
-              }}
-              onClick={onclickNext}
-            >
-              Next
-            </NextBtn>
+            <PageBtns>
+              <PageBtn
+                style={{
+                  display: page === 0 ? "none" : "block",
+                }}
+                onClick={onClickPrev}
+              >
+                Back
+              </PageBtn>
+              <PageBtn
+                style={{
+                  background: answer[page][1].length === 0 && "transparent",
+                  color: answer[page][1].length === 0 && "#A6A6A6",
+                  border: answer[page][1].length === 0 && "1px solid #A6A6A6",
+                }}
+                onClick={onclickNext}
+              >
+                Next
+              </PageBtn>
+            </PageBtns>
           </>
         ) : (
           <>
