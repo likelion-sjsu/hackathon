@@ -65,11 +65,9 @@ template = ChatPromptTemplate.from_messages([
 def format_prefs(preferences):
     formatted = ""
     for pref in preferences:
-        for key, value in pref.items():
-            if isinstance(value, list):
-                formatted += f"- {key}: {', '.join(value)}\n"
-            else:
-                formatted += f"- {key}: {value}\n"
+        key = pref[0]
+        value = ', '.join(item['value'] for item in pref[1])
+        formatted += f"- {key}: {value}\n"
     return formatted
 
 
