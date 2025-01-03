@@ -121,12 +121,13 @@ export default function Result() {
   const getMapUrl = (result) =>
     `https://www.google.com/maps/search/${result
       .replace(/ /g, "+")
-      .replace(".", "")}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
+      .replace(".", "")}/data=!3m1!4b1!4m4!2m3!5m1!${
       price_query[query.price]
     }6e5?entry=ttu`;
 
   const getPhotoURL = (i) => {
-    return queries[i].data.photos[0].src.tiny;
+    // @ts-ignore
+    return queries[i].data.photos[0]?.src?.tiny || null;
   };
 
   return (
@@ -136,6 +137,7 @@ export default function Result() {
         <div>
           {results.map((result, i) => (
             <Box
+              key={i}
               ref={boxRef}
               style={{
                 background:
