@@ -154,9 +154,8 @@ export default function Questions() {
       const data = await res.json();
 
       if (res.ok) {
-        console.log(data);
         navigate("/result", {
-          state: { result: data.result, query: formData },
+          state: { results: data, query: formData },
         });
       } else {
         alert("There is something wrong in the server");

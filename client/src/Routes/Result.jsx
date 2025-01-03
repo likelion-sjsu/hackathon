@@ -1,23 +1,27 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useQuery } from "react-query";
+import { useQueries } from "react-query";
 import { getPicture } from "api";
 
 const Container = styled.main`
-  display: grid;
-  place-content: center;
+  position: absolute;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
   width: 100vw;
-  height: calc(100vh - 36px);
+  height: 100vh;
 `;
 
 const CenterBox = styled.div`
   position: relative;
+  bottom: 0;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
-  width: 360px;
-  height: 550px;
+  justify-content: space-between;
+  height: calc(100vh - 100px);
 `;
 
 const Title = styled.div`
@@ -27,7 +31,7 @@ const Title = styled.div`
   padding-left: 12px;
 `;
 
-const Box = styled.div`
+const Box = styled(Link)`
   position: relative;
   display: flex;
   flex-direction: column;
@@ -35,7 +39,7 @@ const Box = styled.div`
   justify-content: center;
   gap: 60px;
   width: 360px;
-  height: 360px;
+  min-height: 80px;
   margin-bottom: 24px;
   border-radius: 16px;
   box-shadow: 3px 3px 4px rgba(204, 204, 204, 0.25);
@@ -45,11 +49,13 @@ const Box = styled.div`
     position: absolute;
     width: 100%;
     height: 100%;
-    background-color: rgb(0 0 0 / 30%);
+    background-color: rgb(0 0 0 / 40%);
     border-radius: 16px;
   }
 
   h1 {
+    font-family: "'Fugaz One', sans-serif";
+    font-size: 24px;
     font-weight: 700;
     text-align: center;
     white-space: nowrap;
@@ -63,30 +69,26 @@ const Box = styled.div`
   }
 `;
 
-const ToMapBtn = styled(Link)`
-  position: absolute;
-  bottom: 68px;
-  display: grid;
-  place-content: center;
-  margin-top: 40px;
-  width: 360px;
-  min-height: 48px;
-  border-radius: 16px;
-  border: none;
-  outline: none;
-  background-color: ${(props) => props.theme.brandColor};
-  font-size: ${(props) => props.theme.fontBtn.fontSize};
-  font-weight: ${(props) => props.theme.fontBtn.fontWeight};
-  color: white;
-  cursor: pointer;
-`;
+// const ToMapBtn = styled(Link)`
+//   display: grid;
+//   place-content: center;
+//   margin-top: 40px;
+//   width: 360px;
+//   min-height: 48px;
+//   border-radius: 16px;
+//   border: none;
+//   outline: none;
+//   background-color: ${(props) => props.theme.brandColor};
+//   font-size: ${(props) => props.theme.fontBtn.fontSize};
+//   font-weight: ${(props) => props.theme.fontBtn.fontWeight};
+//   color: white;
+//   cursor: pointer;
+// `;
 
 const ToHomeBtn = styled(Link)`
-  position: absolute;
-  bottom: 0;
   display: grid;
   place-content: center;
-  margin-top: 24px;
+  margin: 24px auto;
   width: 360px;
   min-height: 48px;
   border-radius: 16px;
@@ -107,74 +109,48 @@ const price_query = {
 
 export default function Result() {
   const location = useLocation();
-  const { result, query } = location.state;
-  const [fontSize, setFontSize] = useState(64);
+  const { results, query } = location.state;
   const boxRef = useRef(null);
-  const { data: photoData, isLoading: photoLoading } = useQuery(
-    ["pictures", result],
-    {
-      queryFn: () => getPicture(result),
-    }
+  const queries = useQueries(
+    results.map((query) => ({
+      queryKey: ["picture", query],
+      queryFn: () => getPicture(query),
+    }))
   );
 
-  useEffect(() => {
-    const adjustFontSize = () => {
-      const box = boxRef.current;
-      if (!box) return;
+  const getMapUrl = (result) =>
+    `https://www.google.com/maps/search/${result
+      .replace(/ /g, "+")
+      .replace(".", "")}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
+      price_query[query.price]
+    }6e5?entry=ttu`;
 
-      const boxWidth = box.clientWidth - 40;
-      const textWidth = box.scrollWidth;
-
-      const scaleFactor = boxWidth / textWidth;
-      const newFontSize = Math.floor(fontSize * scaleFactor);
-
-      setFontSize(newFontSize);
-    };
-
-    // Adjust font size on initial render
-    adjustFontSize();
-
-    // Attach resize event listener
-    window.addEventListener("resize", adjustFontSize);
-
-    // Clean up the event listener on component unmount
-    return () => {
-      window.removeEventListener("resize", adjustFontSize);
-    };
-  }, [result]); // Only re-run the effect if fontSize changes
-
-  const url = `https://www.google.com/maps/search/${result
-    .replace(/ /g, "+")
-    .replace(".", "")}+near+me/data=!3m1!4b1!4m4!2m3!5m1!${
-    price_query[query.price]
-  }6e5?entry=ttu`;
+  const getPhotoURL = (i) => {
+    return queries[i].data.photos[0].src.tiny;
+  };
 
   return (
     <Container>
       <CenterBox>
-        <Title>Enjoy!</Title>
-        <Box
-          ref={boxRef}
-          style={{
-            background: photoLoading
-              ? "none"
-              : `url(${photoData.photos[0].src.medium}) 0% 0% / cover`,
-          }}
-        >
-          <div />
-          <h1
-            style={{
-              fontFamily: "'Fugaz One', sans-serif",
-              fontSize: fontSize,
-            }}
-          >
-            {result.replace(".", "")}
-          </h1>
-          <p>Have a wonderful day!</p>
-        </Box>
-        <ToMapBtn to={url} target="_blank" rel="noopener noreferrer">
-          Open in Google Maps
-        </ToMapBtn>
+        <Title>Results</Title>
+        <div>
+          {results.map((result, i) => (
+            <Box
+              ref={boxRef}
+              style={{
+                background:
+                  queries[i].isSuccess &&
+                  `url(${getPhotoURL(i)}) 50% 50% / cover`,
+              }}
+              to={getMapUrl(result)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div />
+              <h1>{result}</h1>
+            </Box>
+          ))}
+        </div>
         <ToHomeBtn to={"/"}>Go back to Home</ToHomeBtn>
       </CenterBox>
     </Container>
