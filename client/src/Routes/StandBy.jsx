@@ -72,7 +72,7 @@ export default function StandBy() {
             const data = await res.json();
             if (res.ok) {
               navigate("/result", {
-                state: { result: data.outcome, query: state.query },
+                state: { results: data, query: state.query },
               });
             } else {
               alert("There is something wrong in server..");
@@ -82,7 +82,10 @@ export default function StandBy() {
         }
         if (outcome !== "") {
           navigate("/result", {
-            state: { result: outcome, query: state.query },
+            state: {
+              results: JSON.parse(outcome.replace(/'/g, '"')),
+              query: state.query,
+            },
           });
         }
       },
@@ -99,7 +102,7 @@ export default function StandBy() {
     const data = await res.json();
     if (res.ok) {
       navigate("/result", {
-        state: { result: data.outcome, query: state.query },
+        state: { results: data, query: state.query },
       });
     } else {
       alert("There is something wrong in server..");
