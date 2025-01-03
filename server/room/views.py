@@ -1,3 +1,5 @@
+import json
+import os
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Room
@@ -5,6 +7,73 @@ from rest_framework.views import APIView
 from .serializers import RoomSerializer
 from openai import OpenAI
 from decouple import config
+from dotenv import load_dotenv
+from langchain_openai import ChatOpenAI
+from langchain.prompts import ChatPromptTemplate
+from langchain.schema.runnable import RunnablePassthrough
+
+load_dotenv()
+
+openai_api_key = os.getenv('OPENAI_API_KEY')
+
+get_recommendations = {
+    "name": "get_recommendations",
+    "description": "A function that generates personalized recommendations based on the user's preferences and category. The function returns a list of suitable recommendations.",
+    "parameters": {
+        "type": "object",
+        "properties": {
+            "recommendations": {
+                "type": "array",
+                "items": {"type": "string"},
+            }
+        }
+    }
+}
+
+llm = ChatOpenAI(
+    model="gpt-4o-mini",
+    temperature=0.5,
+    streaming=True,
+    openai_api_key=openai_api_key
+).bind(
+    function_call={"name": "get_recommendations"},
+    functions=[get_recommendations]
+)
+
+template = ChatPromptTemplate.from_messages([
+    ("system",
+        """
+        You are a personalized recommendation system specializing in {category}. Based on the user's preferences, provide 5 tailored recommendations.
+
+        User Preferences:
+        {preferences}
+
+        Your task:
+        - Take the provided preferences into account.
+        - Provide 5 distinct, diverse, and recognizable food recommendations that fit the user's preferences in the {category}.
+        - The recommendations should be food names that are commonly searched for and easily recognizable, without any additional descriptions or modifiers like "with" or "and".
+
+        Example Recommendations for food category:
+        - General Tso's Chicken, Orange Chicken, Kung Pao Chicken, Sweet and Sour Pork, Dim Sum
+
+        Recommendation:
+        Please suggest 5 suitable {category} options that match the user's preferences.
+        """)
+])
+
+
+def format_prefs(preferences):
+    formatted = ""
+    for pref in preferences:
+        for key, value in pref.items():
+            if isinstance(value, list):
+                formatted += f"- {key}: {', '.join(value)}\n"
+            else:
+                formatted += f"- {key}: {value}\n"
+    return formatted
+
+
+chain = template | llm
 
 
 class RoomListAPI(APIView):
@@ -117,7 +186,8 @@ class GroupAPI(APIView):
                 place = data['place']
                 mood = data['mood']
                 special_offer = data['special_offer']
-                content += f"{i+1}. time: {time}, number of size: {size}, place: {place}, mood: {mood}. {special_offer} "
+                content += f"{i+1}. time: {time}, number of size: {
+                    size}, place: {place}, mood: {mood}. {special_offer} "
             content += " Recommend one thing to do that can mostly fulfil our preferences. Respond just the word of thing."
         else:
             return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
@@ -162,46 +232,16 @@ class AnswerAPI(APIView):
 class SoloAPI(APIView):
     def post(self, request, category):
         data = request.data
-        print(data)
-        special_offer = data['special_offer']
+        formatted_pref = format_prefs(data)
 
         try:
-            if category == 'food':
-                cuisine = data['cuisine']
-                type = data['type']
-                spiciness = data['spiciness']
-                price = data['price']
-                temperature = data['temperature']
-                content = f"Recommend me one of {temperature} {spiciness} {cuisine} foods"
-                if type != "":
-                    content += f" including {type}"
-                if price != "whatever":
-                    content += f" in price range within {price}"
-                if special_offer != "":
-                    content += f". {special_offer}"
-                content += f". Respond just the words of one food."
+            response = chain.invoke({
+                "category": category,
+                "preferences": {formatted_pref}
+            })
+        except Exception:
+            return Response({'error': {'message': "Errors on OpenAI!"}}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-            elif category == 'hangout':
-                time = data['time']
-                size = data['size']
-                place = data['place']
-                mood = data['mood']
-                content = "Recommend me one thing to do to hangout that satisfies the following conditions."
-                content += f"time: {time}, number of size: {size}, place: {place}, mood: {mood}. {special_offer}."
-                content += " respond just the words of one the thing."
-
-            else:
-                return Response({'error': {'message': "Invalid category"}}, status=status.HTTP_400_BAD_REQUEST)
-
-            # Create a chat completion
-            api_key = config('OPENAI_API_KEY')
-            client = OpenAI(api_key=api_key)
-            chat_completion = client.chat.completions.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "user", "content": content}]
-            )
-            result = chat_completion.choices[0].message.content
-            return Response({"result": result})
-
-        except Room.DoesNotExist:
-            return Response({'error': {'message': "room not found!"}}, status=status.HTTP_404_NOT_FOUND)
+        arguments = response.additional_kwargs["function_call"]["arguments"]
+        result = json.loads(arguments)["recommendations"]
+        return Response(result)
