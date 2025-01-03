@@ -124,14 +124,14 @@ export default function Questions() {
   const { category } = useParams();
   const roomInfo = JSON.parse(localStorage.getItem("roomInfo"));
   const [page, setPage] = useState(0);
-  const [answer, setAnswer] = useState({});
-  const [value, setValue] = useState({});
+  const [answer, setAnswer] = useState([]);
+  const [selectedOptionsIdx, setSelectedOptionsIdx] = useState(new Set());
   const questionData = questions[category];
   const [isFetching, setIsFetching] = useState(false);
 
   const submitForm = async (data) => {
     if (isFetching === true) return;
-    const formData = { ...answer, ...data };
+    const formData = [...answer, data];
     setIsFetching(true);
 
     /* Case 1. ROOM */
@@ -168,21 +168,35 @@ export default function Questions() {
   };
 
   const onclickNext = () => {
-    if (Object.keys(value).length === 0) {
+    if (selectedOptionsIdx.size === 0) {
       console.log("한가지를 선택하세요");
       return;
     }
-    setAnswer({
-      ...answer,
-      ...value,
+    setAnswer((prev) => {
+      const arr = [];
+      selectedOptionsIdx.forEach((i) => {
+        arr.push(questionData[page].options[i].value);
+      });
+      return [
+        ...prev,
+        {
+          [questionData[page].title]: arr,
+        },
+      ];
     });
     setPage((prev) => (prev += 1));
-    setValue({});
+    setSelectedOptionsIdx(new Set());
   };
 
   const onclickOption = (answerNumber) => {
-    setValue({
-      [questionData[page].key]: questionData[page].options[answerNumber].value,
+    setSelectedOptionsIdx((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(answerNumber)) {
+        newSet.delete(answerNumber);
+      } else {
+        newSet.add(answerNumber);
+      }
+      return newSet;
     });
   };
 
@@ -213,16 +227,16 @@ export default function Questions() {
                   keycode={questionData[page].key}
                   text={option.display}
                   icon={option.icon}
-                  selected={Object.values(value)[0] === option.value}
+                  selected={selectedOptionsIdx.has(option.index)}
                   onClick={() => onclickOption(i)}
                 />
               ))}
             </OptionsContainer>
             <NextBtn
               style={{
-                background: Object.keys(value).length === 0 && "transparent",
-                color: Object.keys(value).length === 0 && "#A6A6A6",
-                border: Object.keys(value).length === 0 && "1px solid #A6A6A6",
+                background: selectedOptionsIdx.size === 0 && "transparent",
+                color: selectedOptionsIdx.size === 0 && "#A6A6A6",
+                border: selectedOptionsIdx.size === 0 && "1px solid #A6A6A6",
               }}
               onClick={onclickNext}
             >
