@@ -50,10 +50,11 @@ template = ChatPromptTemplate.from_messages([
 
         Your task:
         - Take the provided preferences into account.
-        - Provide 5 distinct, diverse, and recognizable food recommendations that fit the user's preferences in the {category}.
-        - The recommendations should be food names that are commonly searched for and easily recognizable, without any additional descriptions or modifiers like "with" or "and".
+        - Provide 5 distinct, diverse, and recognizable {category} recommendations that fit the user's preferences in the {category}.
+        - The recommendations should be {category} names that are commonly searched for and easily recognizable, without any additional descriptions or modifiers like "with" or "and".
+        - maximum 3 words
 
-        Example Recommendations for food category:
+        Example Recommendations for {category} category:
         - General Tso's Chicken, Orange Chicken, Kung Pao Chicken, Sweet and Sour Pork, Dim Sum
 
         Recommendation:
@@ -231,7 +232,7 @@ class SoloAPI(APIView):
     def post(self, request, category):
         data = request.data
         formatted_pref = format_prefs(data)
-
+        print(f"{category}\n{formatted_pref}]")
         try:
             response = chain.invoke({
                 "category": category,
@@ -242,4 +243,5 @@ class SoloAPI(APIView):
 
         arguments = response.additional_kwargs["function_call"]["arguments"]
         result = json.loads(arguments)["recommendations"]
+        print(result)
         return Response(result)
