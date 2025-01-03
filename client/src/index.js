@@ -30,9 +30,6 @@ const theme = {
   white: "#FFFFFF",
   brandColor: "#836AAD",
   soloBackground: "#E1CDF4",
-  food: "#FF9090",
-  travel: "#56B398",
-  hangout: "#7E518E",
   groupCreate: "#BB648D",
   groupJoin: "#6B5D9E",
 };

@@ -1,344 +1,209 @@
-export const questions = {
-  food: [
-    {
-      title: "Preferred Cuisine",
-      key: "cuisine",
-      options: [
-        {
-          index: 0,
-          display: "🇺🇸 American",
-          value: "American",
-        },
-        {
-          index: 1,
-          display: "🇨🇳 Chinese",
-          value: "Chinese",
-        },
-        {
-          index: 2,
-          display: "🇻🇳 Vietnamese",
-          value: "Vietnamese",
-        },
-        {
-          index: 3,
-          display: "🇲🇽 Mexican",
-          value: "Mexican",
-        },
-        {
-          index: 4,
-          display: "🇰🇷 Korean",
-          value: "Korean",
-        },
-        {
-          index: 5,
-          display: "🇯🇵 Japanese",
-          value: "Japanese",
-        },
-        {
-          index: 6,
-          display: "🇮🇳 Indian",
-          value: "Indian",
-        },
-        {
-          index: 7,
-          display: "🇹🇭 Thai",
-          value: "Thai",
-        },
-        {
-          index: 8,
-          display: "🇬🇷 Greek",
-          value: "Greek",
-        },
-        {
-          index: 9,
-          display: "🇮🇹 Italian",
-          value: "Italian",
-        },
-        {
-          index: 10,
-          display: "🚫 No Preference",
-          value: "",
-        },
-      ],
-    },
-    {
-      title: "What Are You Craving?",
-      key: "type",
-      options: [
-        {
-          index: 0,
-          display: "🍚 Rice",
-          value: "rice",
-        },
-        {
-          index: 1,
-          display: "🍖 Meat",
-          value: "meat",
-        },
-        {
-          index: 2,
-          display: "🥗 Salad",
-          value: "salad",
-        },
-        {
-          index: 3,
-          display: "🍞 Bakery",
-          value: "bread",
-        },
-        {
-          index: 4,
-          display: "🍜 Noodles",
-          value: "noodle",
-        },
-        {
-          index: 5,
-          display: "🍔 Fast Foods",
-          value: "fast food",
-        },
-        {
-          index: 6,
-          display: "🦐 Seafood",
-          value: "seafood",
-        },
-        {
-          index: 7,
-          display: "🍨 Dessert",
-          value: "dessert",
-        },
-        {
-          index: 8,
-          display: "🚫 No Preference",
-          value: "",
-        },
-      ],
-    },
-    {
-      title: "Select Price Range",
-      key: "price",
-      options: [
-        {
-          index: 0,
-          display: "0 - 10",
-          value: "$0-$10",
-        },
-        {
-          index: 1,
-          display: "10 - 25",
-          value: "$10-$25",
-        },
-        {
-          index: 2,
-          display: "25 - 50",
-          value: "$25-$50",
-        },
-        {
-          index: 3,
-          display: "50 - 100",
-          value: "$50-$100",
-        },
-        {
-          index: 4,
-          display: "100+",
-          value: "$100 and up",
-        },
-        {
-          index: 5,
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Select Spicy Level",
-      key: "spiciness",
-      options: [
-        {
-          index: 0,
-          display: "😌 Not Spicy",
-          value: "no spicy",
-        },
-        {
-          index: 1,
-          display: "😅 Mild Spicy",
-          value: "mild spicy",
-        },
-        {
-          index: 2,
-          display: "😤 Medium Spicy",
-          value: "moderately spicy",
-        },
-        {
-          index: 3,
-          display: "🥵 Very Spicy",
-          value: "very spicy",
-        },
-        {
-          index: 4,
-          display: "🤯 Extremely Spicy",
-          value: "extremely spicy",
-        },
-        {
-          index: 5,
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Warm or Cold",
-      key: "temperature",
-      options: [
-        {
-          icon: "🍲",
-          index: 0,
-          display: "Warm",
-          value: "warm",
-        },
-        {
-          icon: "🍨",
-          index: 1,
-          display: "Cold",
-          value: "cold",
-        },
-        {
-          index: 2,
-          display: "🚫 No Preference",
-          value: "",
-        },
-      ],
-    },
-  ],
-  hangout: [
-    {
-      title: "Select Hangout Time",
-      key: "time",
-      options: [
-        {
-          index: 0,
-          display: "🌅 Morning",
-          value: "morning",
-        },
-        {
-          index: 1,
-          display: "🏞️ Afternoon",
-          value: "afternoon",
-        },
-        {
-          index: 2,
-          display: "🏙️ Evening",
-          value: "evening",
-        },
-        {
-          index: 3,
-          display: "🌃 Late-Night",
-          value: "late-night",
-        },
-        {
-          index: 4,
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Select Group Size",
-      key: "size",
-      options: [
-        {
-          index: 0,
-          display: "👫 2-3 Friends",
-          value: "2-3",
-        },
-        {
-          index: 1,
-          display: "👨‍👩‍👦 Small group (4-6)",
-          value: "4-6",
-        },
-        {
-          index: 2,
-          display: "👨‍👩‍👦👨‍👩‍👦‍👦 Medium Group (7-10)",
-          value: "7-10",
-        },
-        {
-          index: 3,
-          display: "👨‍👩‍👦👨‍👩‍👧‍👦👨‍👩‍👧‍👦 Large Group (10+)",
-          value: "10 and up",
-        },
-        {
-          index: 4,
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Indoor or Outdoor?",
-      key: "place",
-      options: [
-        {
-          icon: "🏠",
-          index: 0,
-          display: "Indoor",
-          value: "Indoor",
-        },
-        {
-          icon: "🪂",
-          index: 1,
-          display: "Outdoor",
-          value: "outdoor",
-        },
-        {
-          index: 2,
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-    {
-      title: "Select Vibe",
-      key: "mood",
-      options: [
-        {
-          index: 0,
-          display: "Homey",
-          value: "homey",
-        },
-        {
-          index: 1,
-          display: "Adventurous",
-          value: "adventurous",
-        },
-        {
-          index: 2,
-          display: "Cozy",
-          value: "cozy",
-        },
-        {
-          index: 3,
-          display: "Sports",
-          value: "sports",
-        },
-        {
-          index: 4,
-          display: "Instagram",
-          value: "instagram",
-        },
-        {
-          index: 5,
-          display: "Artistic",
-          value: "artistic",
-        },
-        {
-          index: 6,
-          display: "Unique",
-          value: "unique",
-        },
-        {
-          index: 7,
-          display: "🚫 No Preference",
-          value: "whatever",
-        },
-      ],
-    },
-  ],
-};
+export const questionsByCategory = [
+  {
+    name: "food",
+    theme: "#FF9090",
+    questions: [
+      {
+        title: "Preferred Cuisine",
+        key: "cuisine",
+        theme: "#FF9090",
+        options: [
+          { index: 0, icon: "🇺🇸", value: "American" },
+          { index: 1, icon: "🇨🇳", value: "Chinese" },
+          { index: 2, icon: "🇻🇳", value: "Vietnamese" },
+          { index: 3, icon: "🇲🇽", value: "Mexican" },
+          { index: 4, icon: "🇰🇷", value: "Korean" },
+          { index: 5, icon: "🇯🇵", value: "Japanese" },
+          { index: 6, icon: "🇮🇳", value: "Indian" },
+          { index: 7, icon: "🇹🇭", value: "Thai" },
+          { index: 8, icon: "🇬🇷", value: "Greek" },
+          { index: 9, icon: "🇮🇹", value: "Italian" },
+          { index: 10, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "What Are You Craving?",
+        key: "type",
+        options: [
+          { index: 0, icon: "🍚", value: "Rice" },
+          { index: 1, icon: "🍖", value: "Meat" },
+          { index: 2, icon: "🥗", value: "Salad" },
+          { index: 3, icon: "🍞", value: "Bread" },
+          { index: 4, icon: "🍜", value: "Noodle" },
+          { index: 5, icon: "🍔", value: "Fast food" },
+          { index: 6, icon: "🦐", value: "Seafood" },
+          { index: 7, icon: "🍨", value: "Dessert" },
+          { index: 8, icon: "🚫", value: "No Preference" },
+        ],
+      },
+      {
+        title: "Select Price Range",
+        key: "price",
+        options: [
+          { index: 0, icon: "🪙", value: "$0-10" },
+          { index: 1, icon: "💵", value: "$10-25" },
+          { index: 2, icon: "💶", value: "$25-50" },
+          { index: 3, icon: "💷", value: "$50-100" },
+          { index: 4, icon: "💳", value: "$100+" },
+          { index: 5, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Select Spicy Level",
+        key: "spiciness",
+        options: [
+          { index: 0, icon: "😌", value: "Not spicy" },
+          { index: 1, icon: "😅", value: "Mild spicy" },
+          { index: 2, icon: "😤", value: "Moderately spicy" },
+          { index: 3, icon: "🥵", value: "Very spicy" },
+          { index: 4, icon: "🤯", value: "Extremely spicy" },
+          { index: 5, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Warm or Cold",
+        key: "temperature",
+        options: [
+          { index: 0, icon: "🍲", value: "Warm" },
+          { index: 1, icon: "🍨", value: "Cold" },
+          { index: 2, icon: "🚫", value: "No Preference" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "activity",
+    theme: "#7E518E",
+    questions: [
+      {
+        title: "When?",
+        key: "time",
+        options: [
+          { index: 0, icon: "🌅", value: "Morning" },
+          { index: 1, icon: "🏞️", value: "Afternoon" },
+          { index: 2, icon: "🏙️", value: "Evening" },
+          { index: 3, icon: "🌃", value: "Late-night" },
+          { index: 4, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Group Size?",
+        key: "size",
+        options: [
+          { index: 0, icon: "🧑", value: "Solo" },
+          { index: 1, icon: "👫", value: "Date (2)" },
+          { index: 2, icon: "👨‍👩‍👦", value: "Small (3-6)" },
+          { index: 3, icon: "👫👬", value: "Medium (7-10)" },
+          { index: 4, icon: "👨‍👩‍👧‍👦👨‍👩‍👧‍👦", value: "Large (10+)" },
+          { index: 5, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Indoor or Outdoor?",
+        key: "place",
+        options: [
+          { index: 0, icon: "🏠", value: "Indoor" },
+          { index: 1, icon: "🪂", value: "Outdoor" },
+          { index: 2, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Vibe?",
+        key: "mood",
+        options: [
+          { index: 0, icon: "⚡", value: "Energetic" },
+          { index: 1, icon: "❤️", value: "Romantic" },
+          { index: 2, icon: "🛋️", value: "Cozy" },
+          { index: 3, icon: "❄️", value: "Chill" },
+          { index: 4, icon: "🎨", value: "Creative" },
+          { index: 5, icon: "💎", value: "Luxurious" },
+          { index: 6, icon: "🌿", value: "Nature-filled" },
+          { index: 7, icon: "🎉", value: "Playful" },
+          { index: 8, icon: "🕊️", value: "Spiritual" },
+          { index: 9, icon: "🤍", value: "Intimate" },
+          { index: 10, icon: "⚽️", value: "Sports" },
+          { index: 11, icon: "🚫", value: "No preference" },
+        ],
+      },
+    ],
+  },
+  {
+    name: "travel",
+    theme: "#56B398",
+    questions: [
+      {
+        title: "Destination?",
+        key: "destination",
+        options: [
+          { index: 0, icon: "🏖️", value: "Beach" },
+          { index: 1, icon: "🏔️", value: "Mountain" },
+          { index: 2, icon: "🏙️", value: "City" },
+          { index: 3, icon: "🌳", value: "Countryside" },
+          { index: 4, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Travel Style?",
+        key: "style",
+        options: [
+          { index: 0, icon: "🧗‍♂️", value: "Adventure" },
+          { index: 1, icon: "🧘‍♀️", value: "Relaxation" },
+          { index: 2, icon: "🏛️", value: "Cultural" },
+          { index: 3, icon: "💎", value: "Luxury" },
+          { index: 4, icon: "🎒", value: "Backpacking" },
+          { index: 5, icon: "👨‍👩‍👧‍👦", value: "Family-friendly" },
+          { index: 6, icon: "🧳", value: "Solo travel" },
+          { index: 7, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Budget?",
+        key: "budget",
+        options: [
+          { index: 0, icon: "🏷️", value: "Low" },
+          { index: 1, icon: "💰", value: "Medium" },
+          { index: 2, icon: "💎", value: "High" },
+          { index: 3, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Duration?",
+        key: "duration",
+        options: [
+          { index: 0, icon: "🏖️", value: "Day trip" },
+          { index: 1, icon: "🗓️", value: "Weekend" },
+          { index: 2, icon: "⏳", value: "1-2 weeks" },
+          { index: 3, icon: "🌍", value: "1 month" },
+          { index: 4, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Continent?",
+        key: "continent",
+        options: [
+          { index: 0, icon: "🇪🇺", value: "Europe" },
+          { index: 1, icon: "🌏", value: "Southeast Asia" },
+          { index: 2, icon: "🏯", value: "East Asia" },
+          { index: 3, icon: "🇺🇸", value: "North America" },
+          { index: 4, icon: "🌎", value: "South America" },
+          { index: 5, icon: "🌍", value: "Africa" },
+          { index: 6, icon: "🇦🇺", value: "Australia" },
+          { index: 7, icon: "🚫", value: "No preference" },
+        ],
+      },
+      {
+        title: "Travel Companion?",
+        key: "companion",
+        options: [
+          { index: 0, icon: "🧑", value: "Solo" },
+          { index: 1, icon: "👫", value: "Couple" },
+          { index: 2, icon: "👨‍👩‍👧‍👦", value: "Family" },
+          { index: 3, icon: "👫", value: "couple" },
+          { index: 2, icon: "👨‍👩‍👧‍👦", value: "family" },
+          { index: 3, icon: "👫👬", value: "friends" },
+          { index: 4, icon: "🚫", value: "no preference" },
+        ],
+      },
+    ],
+  },
+];
