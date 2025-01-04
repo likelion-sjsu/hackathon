@@ -196,11 +196,24 @@ export default function Questions() {
     setAnswer((prev) => {
       const result = [...prev];
       const selectedAnswer = questionData[page].options[answerNumber];
+
+      // unselect
       if (result[page][1].includes(selectedAnswer)) {
         result[page][1] = result[page][1].filter(
           (answer) => answer.index !== selectedAnswer.index
         );
-      } else result[page][1].push(selectedAnswer);
+        return result;
+      }
+
+      // select
+      if (selectedAnswer.icon === "🚫") {
+        result[page][1] = [];
+      } else {
+        result[page][1] = result[page][1].filter(
+          (answer) => answer.icon !== "🚫"
+        );
+      }
+      result[page][1].push(selectedAnswer);
       return result;
     });
   };
