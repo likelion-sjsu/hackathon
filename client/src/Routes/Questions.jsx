@@ -225,7 +225,7 @@ export default function Questions() {
         {questionData[page] ? (
           <>
             <p style={{ width: "100%", marginTop: 24, paddingLeft: 12 }}>
-              Choose one option
+              Choose multiple options
             </p>
             <h1
               style={{
