@@ -1,29 +1,23 @@
 import { Tabs } from "expo-router";
 
 import Ionicons from "@expo/vector-icons/Ionicons";
+import { theme } from "@/styles/theme";
 
 export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: "#ffd33d",
-        headerStyle: {
-          backgroundColor: "#25292e",
-        },
-        headerShadowVisible: false,
-        headerTintColor: "#fff",
-        tabBarStyle: {
-          backgroundColor: "#25292e",
-        },
+        tabBarActiveTintColor: theme.colors.light.primary,
+        headerShown: false,
       }}
     >
       <Tabs.Screen
-        name="index"
+        name="categories/index"
         options={{
-          title: "Home",
+          title: "categories",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={focused ? "home-sharp" : "home-outline"}
+              name={focused ? "man" : "man-outline"}
               color={color}
               size={24}
             />
@@ -31,14 +25,25 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="about"
+        name="create-group/index"
         options={{
-          title: "About",
+          title: "create group",
           tabBarIcon: ({ color, focused }) => (
             <Ionicons
-              name={
-                focused ? "information-circle" : "information-circle-outline"
-              }
+              name={focused ? "person-add" : "person-add-outline"}
+              color={color}
+              size={24}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="join-group/index"
+        options={{
+          title: "join group",
+          tabBarIcon: ({ color, focused }) => (
+            <Ionicons
+              name={focused ? "people-circle" : "people-circle-outline"}
               color={color}
               size={24}
             />
