@@ -207,6 +207,14 @@ class CategoryListAPI(APIView):
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
 
+    def post(self, request):
+        data = request.data
+        load_data_from_json(data)
+        try:
+            return Response({"message": "Category created successfully!"}, status=status.HTTP_201_CREATED)
+        except Exception as e:
+            return Response({"error": {"message": str(e)}}, status=status.HTTP_400_BAD_REQUEST)
+
 
 class CategoryAPI(APIView):
     def get(self, request, id):
@@ -216,8 +224,7 @@ class CategoryAPI(APIView):
         return Response(serializer.data)
 
 
-def load_data_from_json(json_data):
-    category_data = json.loads(json_data)
+def load_data_from_json(category_data):
     category = Category.objects.create(
         name=category_data['name'],
         color=category_data['color']
