@@ -16,13 +16,15 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from room.views import RoomAPI, RoomListAPI, GroupAPI, SoloAPI, AnswerAPI
+from room.views import CategoryAPI, CategoryListAPI, RoomAPI, RoomListAPI, GroupAPI, SoloAPI, AnswerAPI
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('room/', RoomListAPI.as_view()),
     path('room/<str:code>', RoomAPI.as_view()),
-    path('recommend', AnswerAPI.as_view()), 
+    path('recommend', AnswerAPI.as_view()),
     path('recommend/result/<str:code>', GroupAPI.as_view()),
-    path('recommend/<str:category>/', SoloAPI.as_view())
+    path('recommend/<str:category>/', SoloAPI.as_view()),
+    path('category', CategoryListAPI.as_view()),
+    path('category/<str:id>', CategoryAPI.as_view())
 ]

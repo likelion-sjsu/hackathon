@@ -2,9 +2,9 @@ import json
 import os
 from rest_framework.response import Response
 from rest_framework import status
-from .models import Room
+from .models import Category, Room
 from rest_framework.views import APIView
-from .serializers import RoomSerializer
+from .serializers import CategorySerializer, RoomSerializer
 from openai import OpenAI
 from decouple import config
 from dotenv import load_dotenv
@@ -82,10 +82,17 @@ class RoomListAPI(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        category = request.data['category']
+        category_id = request.data['category_id']
         max_count = request.data['max_count']
         instance = Room()
         code = instance.generate_short_identifier()
+
+        try:
+            category = Category.objects.get(id=category_id)
+        except Category.DoesNotExist:
+            return
+        Response({"error": {"message": "Category not found!"}},
+                 status=status.HTTP_404_NOT_FOUND)
 
         data = {
             'code': code,
@@ -93,21 +100,15 @@ class RoomListAPI(APIView):
             'max_count': max_count
         }
 
-        # TODO: Check if category is in the questions DB. Currently DB is in json in client side.
+        room = Room.objects.create(
+            category=category,
+            code=Room.generate_short_identifier(),
+            max_count=request.data.get('max_count', 1),
+            answered_count=0,
+            outcome=""
+        )
 
-        # Deserialize the request data using RoomSerializer
-        room_serializer = RoomSerializer(data=data)
-
-        # Check if the serialized data is valid
-        if room_serializer.is_valid():
-            # Save the room to the database
-            room_serializer.save()
-
-            # Return the serialized data of the created room in the response
-            return Response(room_serializer.data, status=status.HTTP_201_CREATED)
-
-        # If the serialized data is not valid, return error response
-        return Response(room_serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'id': room.id, 'code': room.code}, status=status.HTTP_201_CREATED)
 
 
 class RoomAPI(APIView):
@@ -198,3 +199,38 @@ class SoloAPI(APIView):
         result = json.loads(arguments)["recommendations"]
         print(result)
         return Response(result)
+
+
+class CategoryListAPI(APIView):
+    def get(self, request):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+
+class CategoryAPI(APIView):
+    def get(self, request, id):
+        category = Category.objects.get(id=id)
+        serializer = CategorySerializer(category)
+
+        return Response(serializer.data)
+
+
+def load_data_from_json(json_data):
+    category_data = json.loads(json_data)
+    category = Category.objects.create(
+        name=category_data['name'],
+        color=category_data['color']
+    )
+    for question_data in category_data['questions']:
+        question = category.questions.create(
+            category=category,
+            title=question_data['title'],
+            multiple=question_data['multiple']
+        )
+        for option_data in question_data['options']:
+            question.options.create(
+                index=option_data['index'],
+                icon=option_data['icon'],
+                value=option_data['value']
+            )
