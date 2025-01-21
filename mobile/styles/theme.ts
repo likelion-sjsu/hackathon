@@ -6,6 +6,7 @@ export const theme = {
       background: "#fff",
       text: "#333333",
       white: "#FFFFFF",
+      gray: "#666666",
     },
     dark: {},
   },
@@ -15,10 +16,12 @@ export const theme = {
     bold: "Montserrat_700Bold",
   },
   fontSize: {
-    large: "1.8rem",
-    medium: "1.5rem",
-    small: "1.2rem",
-    smaller: "1rem",
+    larger: "40px",
+    large: "28px",
+    medium: "24px",
+    small: "20px",
+    smaller: "16px",
+    smallest: "14px",
   },
 };
 

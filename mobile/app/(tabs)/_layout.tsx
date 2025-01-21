@@ -12,41 +12,29 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="categories/index"
+        name="solo"
         options={{
-          title: "categories",
+          title: "Solo",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "man" : "man-outline"}
-              color={color}
-              size={24}
-            />
+            <Ionicons name={focused ? "man" : "man-outline"} color={color} size={24} />
           ),
         }}
       />
       <Tabs.Screen
-        name="create-group/index"
+        name="create-group"
         options={{
-          title: "create group",
+          title: "Create Group",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "person-add" : "person-add-outline"}
-              color={color}
-              size={24}
-            />
+            <Ionicons name={focused ? "person-add" : "person-add-outline"} color={color} size={24} />
           ),
         }}
       />
       <Tabs.Screen
-        name="join-group/index"
+        name="join-group"
         options={{
-          title: "join group",
+          title: "Join Group",
           tabBarIcon: ({ color, focused }) => (
-            <Ionicons
-              name={focused ? "people-circle" : "people-circle-outline"}
-              color={color}
-              size={24}
-            />
+            <Ionicons name={focused ? "people-circle" : "people-circle-outline"} color={color} size={24} />
           ),
         }}
       />
