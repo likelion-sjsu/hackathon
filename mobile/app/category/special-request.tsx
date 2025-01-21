@@ -8,7 +8,7 @@ import {
   Container,
   Title,
 } from "@/styles/GlobalStyle";
-import { TextInput, View } from "react-native";
+import { TextInput, View, TouchableWithoutFeedback, Keyboard } from "react-native";
 import styled from "styled-components";
 import { Controller, useForm } from "react-hook-form";
 import Loader from "@/components/Loader";
@@ -82,31 +82,33 @@ export default function SpecialRequest({ category, answers }) {
   };
 
   return (
-    <Container>
-      <Form>
-        <Title>Any special requests we need know?</Title>
-        <Controller
-          name="special_request"
-          control={control}
-          render={({ field: { onChange, value } }) => (
-            <TextArea
-              onChangeText={(value) => onChange(value)}
-              value={value}
-              placeholder="ex) I am a vegan."
-              secureTextEntry
-            />
-          )}
-        />
-        <BtnContainer>
-          <Btn onPress={handleSubmit(onSubmit)} style={{ marginTop: 40 }}>
-            {isFetching ? <Loader /> : <BtnText>Submit</BtnText>}
-          </Btn>
-          <BtnPlaceHolder onPress={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
-            {isFetching ? <Loader /> : <BtnPlaceHolderText>Skip</BtnPlaceHolderText>}
-          </BtnPlaceHolder>
-        </BtnContainer>
-        {mode.size > 1 && <CodeText>Code: {mode.code}</CodeText>}
-      </Form>
-    </Container>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container>
+        <Form>
+          <Title>Any special requests we need know?</Title>
+          <Controller
+            name="special_request"
+            control={control}
+            render={({ field: { onChange, value } }) => (
+              <TextArea
+                onChangeText={(value) => onChange(value)}
+                value={value}
+                placeholder="ex) I am a vegan."
+                secureTextEntry
+              />
+            )}
+          />
+          <BtnContainer>
+            <Btn onPress={handleSubmit(onSubmit)} style={{ marginTop: 40 }}>
+              {isFetching ? <Loader /> : <BtnText>Submit</BtnText>}
+            </Btn>
+            <BtnPlaceHolder onPress={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
+              {isFetching ? <Loader /> : <BtnPlaceHolderText>Skip</BtnPlaceHolderText>}
+            </BtnPlaceHolder>
+          </BtnContainer>
+          {mode.size > 1 && <CodeText>Code: {mode.code}</CodeText>}
+        </Form>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }

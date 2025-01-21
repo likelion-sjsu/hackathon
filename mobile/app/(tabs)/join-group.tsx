@@ -12,7 +12,7 @@ import { SERVER_URL } from "@/utils/api";
 import { modeAtom } from "@/utils/atoms";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Text, TextInput } from "react-native";
+import { Keyboard, Text, TextInput, TouchableWithoutFeedback } from "react-native";
 import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
@@ -53,7 +53,7 @@ export default function JoinGroup() {
       setMode({ role: 1, size: max_count, code });
       push(`/category/${category}`);
     } else if (res.status === 404) {
-      alert("Group not found. Please try a different code.");
+      alert("Group not found.\nPlease try a different code.");
     } else {
       alert("Something wrong in the server.");
     }
@@ -61,22 +61,30 @@ export default function JoinGroup() {
   };
 
   return (
-    <Container style={{ alignItems: "center" }}>
-      <Title style={{ marginTop: 20 }}>Verify Your Code</Title>
-      <Subtitle style={{ marginTop: 20 }}>Enter 4-digit code</Subtitle>
-      <DigitContainer keyboardType="number-pad" maxLength={4} value={code} onChangeText={setCode} placeholder="CODE" />
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <Container style={{ alignItems: "center" }}>
+        <Title style={{ marginTop: 20 }}>Verify Your Code</Title>
+        <Subtitle style={{ marginTop: 20 }}>Enter 4-digit code</Subtitle>
+        <DigitContainer
+          keyboardType="number-pad"
+          maxLength={4}
+          value={code}
+          onChangeText={setCode}
+          placeholder="CODE"
+        />
 
-      <BtnContainer>
-        {code.length === 4 ? (
-          <Btn onPress={onClickNext}>
-            <BtnText>Next</BtnText>
-          </Btn>
-        ) : (
-          <BtnPlaceHolder>
-            <BtnPlaceHolderText>Next</BtnPlaceHolderText>
-          </BtnPlaceHolder>
-        )}
-      </BtnContainer>
-    </Container>
+        <BtnContainer>
+          {code.length === 4 ? (
+            <Btn onPress={onClickNext}>
+              <BtnText>Next</BtnText>
+            </Btn>
+          ) : (
+            <BtnPlaceHolder>
+              <BtnPlaceHolderText>Next</BtnPlaceHolderText>
+            </BtnPlaceHolder>
+          )}
+        </BtnContainer>
+      </Container>
+    </TouchableWithoutFeedback>
   );
 }
