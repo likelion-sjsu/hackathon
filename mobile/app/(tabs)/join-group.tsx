@@ -1,28 +1,28 @@
-import {
-  Btn,
-  BtnContainer,
-  BtnPlaceHolder,
-  BtnPlaceHolderText,
-  BtnText,
-  Container,
-  Subtitle,
-  Title,
-} from "@/styles/GlobalStyle";
+import { Btn, BtnPlaceHolder, BtnPlaceHolderText, BtnText, Container, Subtitle, Title } from "@/styles/GlobalStyle";
 import { SERVER_URL } from "@/utils/api";
 import { modeAtom } from "@/utils/atoms";
 import { useRouter } from "expo-router";
-import { useEffect, useState } from "react";
-import { Keyboard, Text, TextInput, TouchableWithoutFeedback } from "react-native";
+import { useState } from "react";
+import { Keyboard, TextInput, TouchableWithoutFeedback, View } from "react-native";
 import { useRecoilState } from "recoil";
 
 import styled from "styled-components";
 
+const CenterBox = styled(View)`
+  width: 360px;
+  height: 550px;
+  justify-content: center;
+  align-items: center;
+`;
+
 const DigitContainer = styled(TextInput)`
+  margin: 0 auto;
   margin-top: 40px;
+  margin-bottom: 20px;
   font-size: ${(props) => props.theme.fontSize.small};
   font-family: ${(props) => props.theme.fonts.medium};
-  width: 100px;
   height: 50px;
+  width: 100%;
   border: 1px solid #ccc;
   border-radius: 10px;
   padding: 0 15px;
@@ -33,8 +33,7 @@ const DigitContainer = styled(TextInput)`
 export default function JoinGroup() {
   const { push } = useRouter();
   const [code, setCode] = useState("");
-  const [mode, setMode] = useRecoilState(modeAtom);
-  const [category, setCategory] = useState("");
+  const [_, setMode] = useRecoilState(modeAtom);
 
   const onClickNext = async () => {
     console.log(code);
@@ -63,17 +62,16 @@ export default function JoinGroup() {
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <Container style={{ alignItems: "center" }}>
-        <Title style={{ marginTop: 20 }}>Verify Your Code</Title>
-        <Subtitle style={{ marginTop: 20 }}>Enter 4-digit code</Subtitle>
-        <DigitContainer
-          keyboardType="number-pad"
-          maxLength={4}
-          value={code}
-          onChangeText={setCode}
-          placeholder="CODE"
-        />
-
-        <BtnContainer>
+        <CenterBox>
+          <Title>Verify Your Code</Title>
+          <Subtitle>Enter 4-digit code</Subtitle>
+          <DigitContainer
+            keyboardType="number-pad"
+            maxLength={4}
+            value={code}
+            onChangeText={setCode}
+            placeholder="Please Enter the code!"
+          />
           {code.length === 4 ? (
             <Btn onPress={onClickNext}>
               <BtnText>Next</BtnText>
@@ -83,7 +81,7 @@ export default function JoinGroup() {
               <BtnPlaceHolderText>Next</BtnPlaceHolderText>
             </BtnPlaceHolder>
           )}
-        </BtnContainer>
+        </CenterBox>
       </Container>
     </TouchableWithoutFeedback>
   );

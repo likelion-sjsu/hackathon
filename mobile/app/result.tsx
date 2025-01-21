@@ -32,7 +32,6 @@ const ResultText = styled(Text)`
 `;
 
 const ToHomeBtn = styled(Link)`
-  margin-top: 40px;
   width: 360px;
   padding: 12px 0;
   border-radius: 16px;
@@ -86,11 +85,9 @@ export default function Result() {
             </OverlayBtn>
           </ImageContainer>
         ))}
-        <BtnContainer>
-          <ToHomeBtn href={"/"}>
-            <ToHomeBtnText>Go back to Home</ToHomeBtnText>
-          </ToHomeBtn>
-        </BtnContainer>
+        <ToHomeBtn href={"/"}>
+          <ToHomeBtnText>Go back to Home</ToHomeBtnText>
+        </ToHomeBtn>
       </ResultsContainer>
     </Container>
   );

@@ -21,7 +21,6 @@ import { useRouter } from "expo-router";
 const Form = styled(View)`
   flex: 1;
   width: 360px;
-  align-items: center;
   margin-top: 30px;
 `;
 

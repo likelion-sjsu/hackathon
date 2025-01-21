@@ -17,11 +17,14 @@ export const Container = styled(View)`
 export const Title = styled(Text)`
   font-size: ${(props) => props.theme.fontSize.large};
   font-family: ${(props) => props.theme.fonts.bold};
+  margin-bottom: 10px;
+  padding-left: 12px;
 `;
 
 export const Subtitle = styled(Text)`
   font-size: ${(props) => props.theme.fontSize.small};
   font-family: ${(props) => props.theme.fonts.medium};
+  padding-left: 12px;
 `;
 
 export const BtnContainer = styled(View)`

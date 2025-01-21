@@ -1,11 +1,11 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useRouter } from "expo-router";
 import { useState } from "react";
-import { Text, TouchableOpacity, View } from "react-native";
+import { Text, View } from "react-native";
 import { useRecoilState } from "recoil";
 import { modeAtom } from "@/utils/atoms";
 import styled from "styled-components";
-import { Container, Subtitle, Title } from "@/styles/GlobalStyle";
+import { Btn, Container, Subtitle, Title } from "@/styles/GlobalStyle";
 
 const CenterBox = styled(View)`
   flex-direction: column;
@@ -19,9 +19,6 @@ const Box = styled(View)`
   align-items: center;
   gap: 20px;
   margin-top: 150px;
-  svg {
-    cursor: pointer;
-  }
 `;
 
 const Circle = styled(View)`
@@ -34,19 +31,8 @@ const Circle = styled(View)`
 `;
 
 const Number = styled(Text)`
-  font-size: ${(props) => props.theme.fontSize.medium};
+  font-size: ${(props) => props.theme.fontSize.larger};
   font-family: ${(props) => props.theme.fonts.bold};
-`;
-
-const CreateBtn = styled(TouchableOpacity)`
-  justify-content: center;
-  align-items: center;
-  margin-top: 80px;
-  width: 360px;
-  min-height: 48px;
-  border-radius: 16px;
-  background-color: ${(props) => props.theme.colors.light.primary};
-  cursor: pointer;
 `;
 
 const BtnText = styled(Text)`
@@ -68,21 +54,8 @@ export default function AddGroup() {
   return (
     <Container>
       <CenterBox>
-        <Title
-          style={{
-            marginBottom: 30,
-            paddingLeft: 12,
-          }}
-        >
-          Create a Group
-        </Title>
-        <Subtitle
-          style={{
-            paddingLeft: 12,
-          }}
-        >
-          How many people are in your group?
-        </Subtitle>
+        <Title>Create a Group</Title>
+        <Subtitle>How many people are in your group?</Subtitle>
         <Box>
           <Ionicons name="remove" onPress={() => num > 2 && setNum((prev) => prev - 1)} size={40} />
           <Circle>
@@ -90,9 +63,9 @@ export default function AddGroup() {
           </Circle>
           <Ionicons name="add" onPress={() => num < 20 && setNum((prev) => prev + 1)} size={40} />
         </Box>
-        <CreateBtn onPress={onClickCreateRoom}>
+        <Btn style={{ marginTop: 80 }} onPress={onClickCreateRoom}>
           <BtnText>Next</BtnText>
-        </CreateBtn>
+        </Btn>
       </CenterBox>
     </Container>
   );

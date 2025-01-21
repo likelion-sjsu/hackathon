@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import { useRecoilState } from "recoil";
 import { modeAtom } from "@/utils/atoms";
-import { getCategory, getCategoryList, SERVER_URL } from "@/utils/api";
+import { getCategoryList, SERVER_URL } from "@/utils/api";
 import { Container, Subtitle, Title } from "@/styles/GlobalStyle";
 import { useQuery } from "react-query";
 
@@ -56,10 +56,9 @@ export default function Categories() {
 
   return (
     <Container>
-      <Title style={{ marginBottom: 10, paddingLeft: 12 }}>Categories</Title>
+      <Title>Categories</Title>
       <Subtitle
         style={{
-          paddingLeft: 12,
           marginBottom: 32,
         }}
       >
