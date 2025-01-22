@@ -90,6 +90,7 @@ export default function SpecialRequest({ category, answers }) {
             control={control}
             render={({ field: { onChange, value } }) => (
               <TextArea
+                style={{ textAlignVertical: "top" }}
                 onChangeText={(value) => onChange(value)}
                 value={value}
                 placeholder="ex) I am a vegan."

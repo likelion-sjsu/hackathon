@@ -70,15 +70,7 @@
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
-        "exclude": [
-          "@expo-google-fonts/montserrat",
-          "react-circular-progressbar",
-          "react-native-digits-input",
-          "react-query",
-          "react-spinners",
-          "recoil",
-          "styled-components"
-        ]
+        "listUnknownPackages": false
       }
     }
   }

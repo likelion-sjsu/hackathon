@@ -16,12 +16,6 @@ const Box = styled(TouchableOpacity)`
   border: 1px solid;
   border-radius: 16px;
   box-shadow: 1px 2px 5px lightgray;
-
-  svg {
-    position: absolute;
-    right: 24px;
-    height: 24px;
-  }
 `;
 
 const CategoryText = styled(Text)`
