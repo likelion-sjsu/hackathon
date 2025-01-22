@@ -4,9 +4,6 @@
     "slug": "decide",
     "version": "1.0.0",
     "icon": "./assets/images/favicon.png",
-    "splash": {
-      "image": "./assets/images/logo.png"
-    },
     "orientation": "portrait",
     "scheme": "myapp",
     "userInterfaceStyle": "automatic",
@@ -15,7 +12,9 @@
       "bundleIdentifier": "com.jooyulyoon.decide"
     },
     "android": {
-      "package": "com.jooyulyoon.decide"
+      "package": "com.jooyulyoon.decide",
+      "softwareKeyboardLayoutMode" : "pan"
+
     },
     "web": {
       "bundler": "metro",
@@ -26,7 +25,8 @@
       [
         "expo-splash-screen",
         {
-          "imageWidth": 200,
+          "image": "./assets/logo.png",
+          "imageWidth": 100,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
