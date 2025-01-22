@@ -9,10 +9,10 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.jooyulyoon.decide"
+      "bundleIdentifier": "com.juyeolyoon.decide"
     },
     "android": {
-      "package": "com.jooyulyoon.decide"
+      "package": "com.juyeolyoon.decide"
     },
     "web": {
       "bundler": "metro",
