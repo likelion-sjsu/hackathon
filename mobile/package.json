@@ -9,7 +9,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "eject": "expo eject"
   },
   "jest": {
     "preset": "jest-expo"
@@ -22,11 +23,11 @@
     "@types/react-query": "^1.2.8",
     "expo": "~52.0.26",
     "expo-blur": "~14.0.3",
-    "expo-constants": "~17.0.3",
+    "expo-constants": "~17.0.5",
     "expo-font": "~13.0.2",
     "expo-haptics": "~14.0.1",
     "expo-image": "~2.0.4",
-    "expo-linking": "~7.0.4",
+    "expo-linking": "~7.0.5",
     "expo-router": "~4.0.17",
     "expo-splash-screen": "~0.29.21",
     "expo-status-bar": "~2.0.1",
@@ -37,7 +38,7 @@
     "react-circular-progressbar": "^2.1.0",
     "react-dom": "18.3.1",
     "react-hook-form": "^7.54.2",
-    "react-native": "0.76.6",
+    "react-native": "^0.76.6",
     "react-native-circular-progress": "^1.4.1",
     "react-native-digits-input": "^1.0.2",
     "react-native-gesture-handler": "~2.20.2",

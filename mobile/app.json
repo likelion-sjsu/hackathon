@@ -9,12 +9,16 @@
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
-      "bundleIdentifier": "com.juyeolyoon.decide"
+      "bundleIdentifier": "com.juyeolyoon.decide",
+      "infoPlist": {
+        "NSAppTransportSecurity": {
+          "NSAllowsArbitraryLoads": true
+        }
+      }
     },
     "android": {
       "package": "com.juyeolyoon.decide",
-      "softwareKeyboardLayoutMode" : "pan"
-
+      "softwareKeyboardLayoutMode": "pan"
     },
     "web": {
       "bundler": "metro",
@@ -25,7 +29,7 @@
       [
         "expo-splash-screen",
         {
-          "image": "./assets/logo.png",
+          "image": "./assets/images/logo.png",
           "imageWidth": 100,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
