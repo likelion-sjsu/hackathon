@@ -35,7 +35,14 @@
           "backgroundColor": "#ffffff"
         }
       ],
-      "expo-font"
+      "expo-font",
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow the app to access location even when running in the background.",
+          "locationWhenInUsePermission": "Allow the app to access location while in use."
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

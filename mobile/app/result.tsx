@@ -4,6 +4,9 @@ import { useQueries } from "react-query";
 import styled from "styled-components";
 import { BtnContainer, BtnText, Container, Title } from "@/styles/GlobalStyle";
 import { getPicture } from "@/utils/api";
+import { useRecoilState } from "recoil";
+import { LocationObject } from "expo-location";
+import { locAtom } from "@/utils/atoms";
 
 const ResultsContainer = styled(View)`
   flex: 1;
@@ -52,6 +55,7 @@ type PictureData = {
 export default function Result() {
   const { data } = useLocalSearchParams<{ data: string }>();
   const results = data ? JSON.parse(data) : [];
+  const [location, _] = useRecoilState<LocationObject>(locAtom);
 
   const pictures = useQueries(
     results.map((query) => ({
@@ -68,7 +72,10 @@ export default function Result() {
   }
 
   function getMapUrl(result: string) {
-    return `https://www.google.com/maps/search/${encodeURIComponent(result)}/data=!3m1!4b1!4m4!2m3!5m1!$6e5?entry=ttu`;
+    const baseURL = "https://www.google.com/maps/search";
+    const searchQuery = `/${encodeURIComponent(result)}`;
+    const loc = location ? `/@${location.coords.latitude},${location.coords.longitude}` : "";
+    return baseURL + searchQuery + loc;
   }
 
   return (

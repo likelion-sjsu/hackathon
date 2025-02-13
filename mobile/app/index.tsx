@@ -2,6 +2,10 @@ import { Dimensions, Image, Text, View } from "react-native";
 import styled from "styled-components/native";
 import { useRouter } from "expo-router";
 import { Btn, BtnContainer, BtnText, Container } from "@/styles/GlobalStyle";
+import { useEffect, useState } from "react";
+import { getCurrentPositionAsync, LocationObject, requestForegroundPermissionsAsync } from "expo-location";
+import { useRecoilState } from "recoil";
+import { locAtom } from "@/utils/atoms";
 
 const PlaceholderImage = require("@/assets/images/illust.png");
 const screenHeight = Dimensions.get("window").height;
@@ -22,10 +26,23 @@ const HelpText = styled(Text)`
 
 export default function Index() {
   const { push } = useRouter();
+  const [_, setLocation] = useRecoilState<LocationObject | null>(locAtom);
 
   const handleStartBtn = () => {
     push("/solo");
   };
+
+  useEffect(() => {
+    (async () => {
+      let { status } = await requestForegroundPermissionsAsync();
+      if (status !== "granted") {
+        return;
+      }
+
+      let currentLocation = await getCurrentPositionAsync({});
+      setLocation(currentLocation);
+    })();
+  }, []);
 
   return (
     <Container style={{ alignItems: "center" }}>
