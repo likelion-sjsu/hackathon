@@ -66,7 +66,7 @@ const SpecialOfferForm = styled.form`
 const SeeResultBtn = styled.button`
   position: absolute;
   bottom: 68px;
-  width: inherit;
+  width: 100%;
   height: 48px;
   background-color: ${(props) => props.theme.brandColor};
   color: white;
@@ -81,7 +81,7 @@ const SeeResultBtn = styled.button`
 const SkipBtn = styled.input`
   position: absolute;
   bottom: 0;
-  width: inherit;
+  width: 100%;
   background-color: transparent;
   min-height: 48px;
   border-radius: 16px;
