@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from room.views import CategoryAPI, CategoryListAPI, RoomAPI, RoomListAPI, GroupAPI, SoloAPI, AnswerAPI
 
 urlpatterns = [
@@ -26,5 +26,6 @@ urlpatterns = [
     path('recommend/result/<str:code>', GroupAPI.as_view()),
     path('recommend/<str:category>/', SoloAPI.as_view()),
     path('category', CategoryListAPI.as_view()),
-    path('category/<str:id>', CategoryAPI.as_view())
+    path('category/<str:id>', CategoryAPI.as_view()),
+    path('job-hunter/', include('job_hunter.urls')),
 ]
