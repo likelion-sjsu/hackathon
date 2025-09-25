@@ -14,3 +14,12 @@ media
 venv
 .DS_Store
 /static
+
+
+# Virtual environments
+.venv
+
+# directory
+output/
+knowledge/
+node_modules/
