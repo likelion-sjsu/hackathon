@@ -4,7 +4,7 @@ from crewai import Agent, Task, Crew
 from crewai.project import CrewBase, agent, crew, task
 from crewai.knowledge.source.pdf_knowledge_source import PDFKnowledgeSource
 from .models import JobList, MatchedJobList, ChosenJob
-from .tools import web_search_tool
+from .tools.tools import web_search_tool
 
 dotenv.load_dotenv()
 
@@ -12,9 +12,8 @@ dotenv.load_dotenv()
 @CrewBase
 class JobPrepareCrew():
     def __init__(self, resume_file_name):
-        self.resume_file_name = resume_file_name
         self.resume_knowledge = PDFKnowledgeSource(
-            file_paths=[resume_file_name]
+            file_paths=[os.path.basename(resume_file_name)]
         )
 
     @agent
@@ -28,21 +27,18 @@ class JobPrepareCrew():
     def job_matching_agent(self):
         return Agent(
             config=self.agents_config['job_matching_agent'],
-            knowledge_sources=[self.resume_knowledge]
         )
 
     @agent
     def resume_optimization_agent(self):
         return Agent(
             config=self.agents_config['resume_optimization_agent'],
-            knowledge_sources=[self.resume_knowledge],
         )
 
     @agent
     def company_research_agent(self):
         return Agent(
             config=self.agents_config['company_research_agent'],
-            knowledge_sources=[self.resume_knowledge],
             tools=[web_search_tool]
         )
 
@@ -50,7 +46,6 @@ class JobPrepareCrew():
     def interview_prep_agent(self):
         return Agent(
             config=self.agents_config['interview_prep_agent'],
-            knowledge_sources=[self.resume_knowledge],
         )
 
     @task
@@ -81,7 +76,10 @@ class JobPrepareCrew():
     @crew
     def job_prepare_crew(self):
         return Crew(
-            agents=self.agents,
-            tasks=self.tasks,
+            agents=[self.resume_optimization_agent(
+            ), self.company_research_agent(), self.interview_prep_agent()],
+            tasks=[self.resume_rewriting_task(), self.company_research_task(),
+                   self.interview_prep_task()],
+            knowledge_sources=[self.resume_knowledge],
             verbose=False,
         )

@@ -1,12 +1,13 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from job_hunter.agents.search_agent import JobSearchCrew
-from job_hunter.agents.prepare_agent import JobPrepareCrew
+from job_hunter.search_crew.src.search_crew.crew import JobSearchCrew
+from job_hunter.prepare_crew.src.prepare_crew.crew import JobPrepareCrew
 from rest_framework.parsers import MultiPartParser, FormParser
 from rest_framework.decorators import api_view, parser_classes
 import json
 import os
 from django.conf import settings
+import time
 
 
 @api_view(["POST"])
@@ -29,6 +30,7 @@ def job_hunter_view(request):
         return Response(status=400, data={"error": "No resume file provided"})
 
     try:
+        time.sleep(2)
         jobs_searched = JobSearchCrew(saved_resume_path).job_search_crew().kickoff(inputs={
             'position': position,
             'location': location,

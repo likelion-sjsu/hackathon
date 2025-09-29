@@ -1,0 +1,64 @@
+job_extraction_task:
+  description: >
+    Use web_search_tool to retrieve the list of job information for {position} jobs in {location}.
+    The tool will return a list of job information with the job posting url and markdown.
+    The list of infos are like this:
+    [{
+        "markdown": "## Software Engineer, Full Stack  ZipRecruiter   Palo Alto, CA • Remote ...",
+        "job_posting_url": "https://www.ziprecruiter.com/jobs-search?search=full+stack+developer&location=San+Jose%2C+CA&lk=TdkW7Lu3dBNP2o7Y-Zou7w"
+    },
+    ...]
+
+    CRITICAL REQUIREMENTS:
+    1. DO NOT make up any information.
+    2. Must use tool: web_search_tool
+    3. Must extract data after the tool returns.
+    4. The data must be extracted from the job information.
+    5. pydantic model must be used to extract the data.
+    6. DO NOT use knowledge retrieval - this task should only extract job data from web search results.
+
+    Steps include:
+    1. Must call web_search_tool({position}, {location}) to retrieve the list of job information.
+    2. Extract the job listings based on the job information.
+  expected_output: >
+    A JSON object matching the `JobList` schema.
+  agent: job_search_agent
+
+job_matching_task:
+  description: >
+    You are an expert in career matching.
+
+    Given a list of extracted jobs (JobList) and the user's resume, evaluate how well each job aligns with the user's:
+    - Tech stack
+    - Role level
+    - Industry and company size preferences
+    - Remote/work flexibility
+    - Contract type
+    - Salary expectations
+    - Keywords and disqualifiers in the resume
+
+    For each job, assign a `match_score` from 1 (poor fit) to 100 (perfect fit), and explain your reasoning.
+
+    Append the `match_score` and a `reason` field to each job in the list.
+
+    Keep all original job fields intact. Do not alter or filter out any jobs.
+  expected_output: >
+    A JSON object matching the original `Job` schema, with two additional fields:
+    - match_score: integer from 1 to 100
+    - reason: a short explanation for the score
+  agent: job_matching_agent
+
+job_selection_task:
+  description: >
+    You are an expert in job selection.
+
+    Given a list of jobs that each contain a `match_score` and a `reason` field (RankedJobList), your task is to:
+    1. Analyze the `match_score` and reasons to determine the **best-fit job** for the user.
+    2. Select the single best job that aligns most closely with the user's preferences, skills, and goals.
+    3. Justify your choice in a concise `reason` field based on resume-job alignment.
+    4. Set the `selected` field to `true` for the top job and `false` for all others.
+
+    Do not change the content of any original job fields (e.g., job_title, company_name, etc.).
+  expected_output: >
+    A JSON object matching the `ChosenJob` schema of the selected job.
+  agent: job_matching_agent
