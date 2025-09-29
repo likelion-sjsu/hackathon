@@ -50,6 +50,5 @@ class JobSearchCrew():
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
-            # knowledge_sources=[self.knowledge],
-            verbose=True,
+            verbose=False,
         )

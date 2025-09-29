@@ -6,7 +6,7 @@ from firecrawl import Firecrawl
 
 firecrawl = Firecrawl(api_key=os.getenv("FIRECRAWL_API_KEY"))
 
-NUM_JOBS = 5
+NUM_JOBS = 8
 
 
 @tool
