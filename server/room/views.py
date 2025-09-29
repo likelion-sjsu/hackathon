@@ -1,16 +1,14 @@
 import json
 import os
+from langchain_core.caches import BaseCache
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Category, Room
 from rest_framework.views import APIView
 from .serializers import CategorySerializer, RoomSerializer
-from openai import OpenAI
-from decouple import config
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
 from langchain.prompts import ChatPromptTemplate
-from langchain.schema.runnable import RunnablePassthrough
 
 load_dotenv()
 
